@@ -1,4 +1,4 @@
-package com.example.planner
+package com.sandrakrupa.planner
 
 import io.flutter.embedding.android.FlutterActivity
 
