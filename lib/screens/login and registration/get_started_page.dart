@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/palette.dart';
 import 'package:planner/widget/background_image_widget.dart';
+import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({
@@ -33,21 +34,10 @@ class GetStartedPage extends StatelessWidget {
                   height: 550,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+                    children: const [
                       SizedBox(
                         width: 300,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(220, 25, 35, 115),
-                              elevation: 13,
-                              shadowColor: Colors.black),
-                          onPressed: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            child: Text('Get Started', style: textMDboldwhite),
-                          ),
-                        ),
+                        child: NavyBlueElevatedButton1(),
                       ),
                     ],
                   ),
@@ -60,3 +50,4 @@ class GetStartedPage extends StatelessWidget {
     );
   }
 }
+
