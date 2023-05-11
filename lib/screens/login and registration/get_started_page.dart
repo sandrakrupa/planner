@@ -45,7 +45,7 @@ class GetStartedPage extends StatelessWidget {
                           onPressed: () {},
                           child: const Padding(
                             padding: EdgeInsets.symmetric(vertical: 16.0),
-                            child: Text('Get Started', style: textMDbold),
+                            child: Text('Get Started', style: textMDboldwhite),
                           ),
                         ),
                       ),
