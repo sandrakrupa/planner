@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/palette.dart';
 import 'package:planner/widget/background_image_widget.dart';
-import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:planner/screens/login%20and%20registration/widgets/navy_blue_elevated_button_1_widget.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({
@@ -50,4 +50,3 @@ class GetStartedPage extends StatelessWidget {
     );
   }
 }
-
