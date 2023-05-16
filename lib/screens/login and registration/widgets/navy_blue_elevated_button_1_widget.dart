@@ -1,20 +1,19 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:planner/core/palette.dart';
 
 class NavyBlueElevatedButton1 extends StatelessWidget {
   final String buttonText;
   final Gradient buttonGradientColor;
   final double buttonwidth;
   final EdgeInsetsGeometry buttonpadding;
+  final TextStyle buttonTextStyle;
 
   const NavyBlueElevatedButton1(
       {Key? key,
       required this.buttonText,
       required this.buttonGradientColor,
       required this.buttonwidth,
-      required this.buttonpadding})
+      required this.buttonpadding,
+      required this.buttonTextStyle})
       : super(key: key);
 
   @override
@@ -46,7 +45,7 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
             onPressed: () {},
             child: Padding(
               padding: buttonpadding,
-              child: Text(buttonText, style: textMDboldwhite),
+              child: Text(buttonText, style: buttonTextStyle),
             ),
           ),
         ),

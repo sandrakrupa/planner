@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planner/core/palette.dart';
+import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/widget/background_image_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -16,9 +16,9 @@ class LoginPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           body: SafeArea(
               child: Column(
-            children: const [
+            children: [
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: SizedBox(
                   height: 200,
                   child: Center(
