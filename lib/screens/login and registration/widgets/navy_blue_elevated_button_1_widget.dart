@@ -3,11 +3,11 @@ import 'package:planner/core/palette.dart';
 
 class NavyBlueElevatedButton1 extends StatelessWidget {
   final String buttonText;
+  final Gradient buttonGradientColor;
 
-  const NavyBlueElevatedButton1({
-    required this.buttonText,
-    Key? key,
-  }) : super(key: key);
+  const NavyBlueElevatedButton1(
+      {Key? key, required this.buttonText, required this.buttonGradientColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,7 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8),
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [
-              Color.fromARGB(255, 17, 28, 108),
-              Color.fromARGB(187, 113, 129, 254)
-            ], begin: Alignment.center, end: Alignment.topCenter),
+            gradient: buttonGradientColor,
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(
@@ -39,14 +36,14 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
               shadowColor: Colors.transparent,
             ),
             onPressed: () {},
-            child: const Padding(
-              padding: EdgeInsets.only(
+            child: Padding(
+              padding: const EdgeInsets.only(
                 left: 90,
                 right: 90,
                 top: 16,
                 bottom: 16,
               ),
-              child: Text('Get Started', style: textMDboldwhite),
+              child: Text(buttonText, style: textMDboldwhite),
             ),
           ),
         ),
