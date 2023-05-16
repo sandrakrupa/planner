@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
+import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/core/padding_palette.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/screens/login%20and%20registration/widgets/navy_blue_elevated_button_1_widget.dart';
@@ -42,13 +43,7 @@ class GetStartedPage extends StatelessWidget {
                           width: double.infinity,
                           child: NavyBlueElevatedButton1(
                               buttonText: 'Get Started',
-                              buttonGradientColor: const LinearGradient(
-                                  colors: [
-                                    Color.fromARGB(255, 17, 28, 108),
-                                    Color.fromARGB(187, 113, 129, 254)
-                                  ],
-                                  begin: Alignment.center,
-                                  end: Alignment.topCenter),
+                              buttonGradientColor: navyBlueGradient,
                               buttonwidth: double.infinity,
                               buttonpadding: buttonpadding1,
                               buttonTextStyle: textMDboldwhite),
