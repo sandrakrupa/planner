@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:planner/core/palette.dart';
 
 class NavyBlueElevatedButton1 extends StatelessWidget {
+  final String buttonText;
+
   const NavyBlueElevatedButton1({
-    super.key,
-  });
+    required this.buttonText,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

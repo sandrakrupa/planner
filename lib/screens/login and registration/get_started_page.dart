@@ -37,7 +37,9 @@ class GetStartedPage extends StatelessWidget {
                     children: const [
                       SizedBox(
                         width: 300,
-                        child: NavyBlueElevatedButton1(),
+                        child: NavyBlueElevatedButton1(
+                          buttonText: 'Get Started',
+                        ),
                       ),
                     ],
                   ),
