@@ -1,12 +1,20 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:planner/core/palette.dart';
 
 class NavyBlueElevatedButton1 extends StatelessWidget {
   final String buttonText;
   final Gradient buttonGradientColor;
+  final double buttonwidth;
+  final EdgeInsetsGeometry buttonpadding;
 
   const NavyBlueElevatedButton1(
-      {Key? key, required this.buttonText, required this.buttonGradientColor})
+      {Key? key,
+      required this.buttonText,
+      required this.buttonGradientColor,
+      required this.buttonwidth,
+      required this.buttonpadding})
       : super(key: key);
 
   @override
@@ -15,8 +23,8 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          width: buttonwidth,
           decoration: BoxDecoration(
             gradient: buttonGradientColor,
             borderRadius: BorderRadius.circular(5),
@@ -37,12 +45,7 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
             ),
             onPressed: () {},
             child: Padding(
-              padding: const EdgeInsets.only(
-                left: 90,
-                right: 90,
-                top: 16,
-                bottom: 16,
-              ),
+              padding: buttonpadding,
               child: Text(buttonText, style: textMDboldwhite),
             ),
           ),
