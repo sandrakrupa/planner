@@ -23,7 +23,7 @@ class GetStartedPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: 130,
+                    height: 150,
                     child: Center(
                       child: Text(
                         'Each day has 1440 minutes. It\'s up to you how you use them.',
