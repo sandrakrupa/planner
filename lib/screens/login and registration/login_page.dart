@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/widget/background_image_widget.dart';
+import 'package:planner/widget/input_widget.dart';
+import 'package:planner/widget/text_over_input_widget.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({
@@ -32,33 +34,8 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Enter your email',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 12.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                const TextOverInputWidget(),
+                const InputWidget(),
               ],
             ),
           ),
