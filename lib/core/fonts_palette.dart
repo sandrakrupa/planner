@@ -56,3 +56,11 @@ TextStyle textMDregulargrey700 = GoogleFonts.robotoCondensed(
     color: Color.fromARGB(255, 40, 40, 45),
   ),
 );
+
+TextStyle textSMboldgrey500 = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 70, 76, 90),
+  ),
+);
