@@ -9,8 +9,8 @@ class InputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        left: 16,
-        right: 16,
+        left: 20,
+        right: 20,
       ),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
