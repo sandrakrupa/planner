@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/firebase_options.dart';
-import 'package:planner/screens/login%20and%20registration/get_started_page.dart';
 import 'package:planner/screens/login%20and%20registration/login_page.dart';
 
 void main() async {
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: const GetStartedPage(),
+      home: const LoginPage(),
     );
   }
 }
