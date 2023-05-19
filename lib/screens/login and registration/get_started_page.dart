@@ -32,26 +32,19 @@ class GetStartedPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 600,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: NavyBlueElevatedButton1(
-                              buttonText: 'Get Started',
-                              buttonGradientColor: navyBlueGradient,
-                              buttonwidth: double.infinity,
-                              buttonpadding: buttonpadding1,
-                              buttonTextStyle: textMDboldwhite),
-                        ),
-                      ),
-                    ],
-                  ),
+                const SizedBox(
+                  height: 450,
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: NavyBlueElevatedButton1(
+                    buttonText: 'Get Started',
+                    buttonGradientColor: navyBlueGradient,
+                    buttonwidth: double.infinity,
+                    buttonpadding: buttonpadding1,
+                    buttonTextStyle: textMDboldwhite,
+                  ),
+                )
               ],
             ),
           ),

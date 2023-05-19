@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:planner/core/fonts_palette.dart';
 
 class TextOverInputWidget extends StatelessWidget {
-  const TextOverInputWidget({
-    super.key,
-  });
+  final String inputString;
+  const TextOverInputWidget({Key? key, required this.inputString})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,9 @@ class TextOverInputWidget extends StatelessWidget {
         right: 20,
       ),
       alignment: Alignment.centerLeft,
-      child: const Text(
-        'Email Address',
+      child: Text(
+        inputString,
+        style: textSMboldgrey500,
       ),
     );
   }

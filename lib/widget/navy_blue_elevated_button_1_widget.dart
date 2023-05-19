@@ -29,7 +29,7 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: const Color.fromARGB(255, 101, 101, 101).withOpacity(0.3),
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: const Offset(0, 3),

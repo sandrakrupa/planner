@@ -24,10 +24,10 @@ class InputWidget extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(15.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: const Color.fromARGB(255, 101, 101, 101).withOpacity(0.2),
             spreadRadius: 5,
             blurRadius: 7,
             offset: const Offset(0, 3),
