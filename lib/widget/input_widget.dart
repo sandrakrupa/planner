@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:planner/core/fonts_palette.dart';
 
 class InputWidget extends StatelessWidget {
+  final String inputText;
+  final IconData inputIcon;
+  final IconData inputSuffixIcon;
+  final bool showInputSuffixIcon;
+
   const InputWidget({
-    super.key,
-  });
+    Key? key,
+    required this.inputText,
+    required this.inputIcon,
+    required this.inputSuffixIcon,
+    this.showInputSuffixIcon = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +24,7 @@ class InputWidget extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(30.0),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -24,16 +34,19 @@ class InputWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
         child: TextField(
           decoration: InputDecoration(
-            hintText: 'Enter your email',
+            hintText: inputText,
+            hintStyle: textMDregulargrey500,
             border: InputBorder.none,
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               horizontal: 16.0,
               vertical: 12.0,
             ),
+            prefixIcon: Icon(inputIcon),
+            suffixIcon: showInputSuffixIcon ? Icon(inputSuffixIcon) : null,
           ),
         ),
       ),

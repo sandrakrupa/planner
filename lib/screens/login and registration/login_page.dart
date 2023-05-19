@@ -31,11 +31,13 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
                 const TextOverInputWidget(),
-                const InputWidget(),
+                const InputWidget(
+                  inputText: 'Enter your email',
+                  inputIcon: Icons.email_rounded,
+                  inputSuffixIcon: Icons.clear,
+                  showInputSuffixIcon: false,
+                ),
               ],
             ),
           ),
