@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 class NavyBlueElevatedButton1 extends StatelessWidget {
   final String buttonText;
   final Gradient buttonGradientColor;
-  final double buttonwidth;
-  final EdgeInsetsGeometry buttonpadding;
   final TextStyle buttonTextStyle;
 
   const NavyBlueElevatedButton1(
       {Key? key,
       required this.buttonText,
       required this.buttonGradientColor,
-      required this.buttonwidth,
-      required this.buttonpadding,
       required this.buttonTextStyle})
       : super(key: key);
 
@@ -22,14 +18,15 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          width: buttonwidth,
+          padding: const EdgeInsets.all(4.0),
+          margin: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             gradient: buttonGradientColor,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
-                color: const Color.fromARGB(255, 101, 101, 101).withOpacity(0.3),
+                color:
+                    const Color.fromARGB(255, 101, 101, 101).withOpacity(0.3),
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: const Offset(0, 3),
@@ -44,7 +41,10 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
             ),
             onPressed: () {},
             child: Padding(
-              padding: buttonpadding,
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 70.0,
+              ),
               child: Text(buttonText, style: buttonTextStyle),
             ),
           ),

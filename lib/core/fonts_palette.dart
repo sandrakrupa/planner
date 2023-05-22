@@ -69,7 +69,7 @@ TextStyle textSMboldblue = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 17, 28, 108),
+    color: Color.fromARGB(255, 18, 27, 112),
   ),
 );
 

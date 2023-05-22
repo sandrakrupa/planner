@@ -9,7 +9,7 @@ class BackgroundImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShaderMask(
       shaderCallback: (bounds) => const LinearGradient(colors: [
-        Color.fromRGBO(13, 24, 88, 0.882),
+        Color.fromRGBO(36, 52, 139, 0.872),
         Color.fromARGB(119, 188, 221, 249)
       ], begin: Alignment.bottomCenter, end: Alignment.topCenter)
           .createShader(bounds),

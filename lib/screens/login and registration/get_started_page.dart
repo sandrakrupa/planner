@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/core/padding_palette.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 
@@ -20,30 +19,25 @@ class GetStartedPage extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
+                const SizedBox(
+                  height: 50,
+                ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 150,
-                    child: Center(
-                      child: Text(
-                        'Each day has 1440 minutes. It\'s up to you how you use them.',
-                        style: displayXSbold,
-                      ),
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Text(
+                      'Each day has 1440 minutes. It\'s up to you how you use them.',
+                      style: displayXSbold,
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 450,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: NavyBlueElevatedButton1(
-                    buttonText: 'Get Started',
-                    buttonGradientColor: navyBlueGradient,
-                    buttonwidth: double.infinity,
-                    buttonpadding: buttonpadding1,
-                    buttonTextStyle: textMDboldwhite,
-                  ),
+                NavyBlueElevatedButton1(
+                  buttonText: 'Get Started',
+                  buttonGradientColor: navyBlueGradient,
+                  buttonTextStyle: textMDboldwhite,
                 )
               ],
             ),

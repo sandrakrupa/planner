@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/core/padding_palette.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/input_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
@@ -24,17 +23,17 @@ class LoginPage extends StatelessWidget {
             child: SafeArea(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: SizedBox(
-                      height: 200,
-                      child: Center(
-                        child: Text(
-                          'Log into your account',
-                          style: displayXSbold,
-                        ),
-                      ),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Center(
+                    child: Text(
+                      'Log into your account',
+                      style: displayXSbold,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 60,
                   ),
                   const TextOverInputWidget(
                     inputString: 'Email Address',
@@ -45,7 +44,9 @@ class LoginPage extends StatelessWidget {
                     inputSuffixIcon: Icons.clear,
                     showInputSuffixIcon: false,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   const TextOverInputWidget(
                     inputString: 'Password',
                   ),
@@ -69,18 +70,13 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: NavyBlueElevatedButton1(
-                      buttonText: 'Sign in',
-                      buttonGradientColor: navyBlueGradient,
-                      buttonwidth: double.infinity,
-                      buttonpadding: buttonpadding1,
-                      buttonTextStyle: textMDboldwhite,
-                    ),
+                  NavyBlueElevatedButton1(
+                    buttonText: 'Sign in',
+                    buttonGradientColor: navyBlueGradient,
+                    buttonTextStyle: textMDboldwhite,
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 100,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
