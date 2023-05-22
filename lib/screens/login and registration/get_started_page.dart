@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
+import 'package:planner/screens/login%20and%20registration/login_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 
@@ -35,6 +36,14 @@ class GetStartedPage extends StatelessWidget {
                   height: 450,
                 ),
                 NavyBlueElevatedButton1(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
+                  },
                   buttonText: 'Get Started',
                   buttonGradientColor: navyBlueGradient,
                   buttonTextStyle: textMDboldwhite,

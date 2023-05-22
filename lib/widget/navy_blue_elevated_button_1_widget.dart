@@ -4,13 +4,15 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
   final String buttonText;
   final Gradient buttonGradientColor;
   final TextStyle buttonTextStyle;
+  final VoidCallback onPressed;
 
-  const NavyBlueElevatedButton1(
-      {Key? key,
-      required this.buttonText,
-      required this.buttonGradientColor,
-      required this.buttonTextStyle})
-      : super(key: key);
+  const NavyBlueElevatedButton1({
+    Key? key,
+    required this.buttonText,
+    required this.buttonGradientColor,
+    required this.buttonTextStyle,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
               disabledForegroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
             ),
-            onPressed: () {},
+            onPressed: onPressed,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 8.0,

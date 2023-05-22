@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
+import 'package:planner/screens/login%20and%20registration/login_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/input_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
@@ -71,12 +72,13 @@ class RegistrationPage extends StatelessWidget {
                     height: 50,
                   ),
                   NavyBlueElevatedButton1(
+                    onPressed: () {},
                     buttonText: 'Sign in',
                     buttonGradientColor: navyBlueGradient,
                     buttonTextStyle: textMDboldwhite,
                   ),
                   const SizedBox(
-                    height: 100,
+                    height: 80,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,6 +88,14 @@ class RegistrationPage extends StatelessWidget {
                         style: textSMregularwhite,
                       ),
                       TextButtonWidget(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
+                        },
                         textButtonWidget: 'Log in',
                         buttonTextStyleWidget: textSMboldblue,
                       ),
