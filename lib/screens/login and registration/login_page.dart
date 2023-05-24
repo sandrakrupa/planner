@@ -59,8 +59,7 @@ class LoginPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     margin: const EdgeInsets.only(
-                      left: 20,
-                      right: 20,
+                      right: 16,
                     ),
                     alignment: Alignment.centerRight,
                     child: TextButtonWidget(

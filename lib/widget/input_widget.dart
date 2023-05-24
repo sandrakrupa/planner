@@ -19,15 +19,15 @@ class InputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: 16,
+        right: 16,
       ),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(15.0),
         boxShadow: [
           BoxShadow(
-            color: const Color.fromARGB(255, 101, 101, 101).withOpacity(0.2),
+            color: const Color.fromARGB(255, 101, 101, 101).withOpacity(0.3),
             spreadRadius: 5,
             blurRadius: 7,
             offset: const Offset(0, 3),
@@ -41,10 +41,6 @@ class InputWidget extends StatelessWidget {
             hintText: inputText,
             hintStyle: textMDregulargrey500,
             border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 12.0,
-            ),
             prefixIcon: Icon(inputIcon),
             suffixIcon: showInputSuffixIcon ? Icon(inputSuffixIcon) : null,
           ),

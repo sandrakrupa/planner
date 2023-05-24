@@ -11,8 +11,8 @@ class TextOverInputWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       margin: const EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: 16,
+        right: 16,
       ),
       alignment: Alignment.centerLeft,
       child: Text(
