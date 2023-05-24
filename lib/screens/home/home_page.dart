@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/widget/avatar_and_text_widget.dart';
 import 'package:planner/widget/background_image_widget.dart';
+import 'package:planner/widget/main_text_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -24,12 +26,37 @@ class HomePage extends StatelessWidget {
                 const AvatarAndText(
                   welcomeText: 'WELCOME, JUNGKOOK',
                   imageURL: 'images/jungkookie.jpg',
-                  radius: 50,
+                  radius: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text('Schedule', style: displayXSbold),
-                )
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const MainText(
+                          mainText: 'Schedule',
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                          ),
+                          child: Text(
+                            DateFormat.yMMMMd().format(
+                              DateTime.now(),
+                            ),
+                            style: textMDregulargrey500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
