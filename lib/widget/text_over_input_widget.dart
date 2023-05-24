@@ -3,6 +3,7 @@ import 'package:planner/core/fonts_palette.dart';
 
 class TextOverInputWidget extends StatelessWidget {
   final String inputString;
+
   const TextOverInputWidget({Key? key, required this.inputString})
       : super(key: key);
 
