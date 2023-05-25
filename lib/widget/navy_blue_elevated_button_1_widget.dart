@@ -5,6 +5,8 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
   final Gradient buttonGradientColor;
   final TextStyle buttonTextStyle;
   final VoidCallback onPressed;
+  final double buttonWidth;
+  final double buttonHeight;
 
   const NavyBlueElevatedButton1({
     Key? key,
@@ -12,6 +14,8 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
     required this.buttonGradientColor,
     required this.buttonTextStyle,
     required this.onPressed,
+    required this.buttonWidth,
+    required this.buttonHeight,
   }) : super(key: key);
 
   @override
@@ -19,9 +23,9 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
     return Column(
       children: [
         Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(4.0),
-          margin: const EdgeInsets.all(16),
+          width: buttonWidth,
+          height: buttonHeight,
+          margin: const EdgeInsets.only(left: 16, right: 16),
           decoration: BoxDecoration(
             gradient: buttonGradientColor,
             borderRadius: BorderRadius.circular(15),
@@ -42,13 +46,7 @@ class NavyBlueElevatedButton1 extends StatelessWidget {
               shadowColor: Colors.transparent,
             ),
             onPressed: onPressed,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 70.0,
-              ),
-              child: Text(buttonText, style: buttonTextStyle),
-            ),
+            child: Text(buttonText, style: buttonTextStyle),
           ),
         ),
       ],

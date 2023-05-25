@@ -33,7 +33,7 @@ class GetStartedPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 450,
+                  height: 500,
                 ),
                 NavyBlueElevatedButton1(
                   onPressed: () {
@@ -47,6 +47,8 @@ class GetStartedPage extends StatelessWidget {
                   buttonText: 'Get Started',
                   buttonGradientColor: navyBlueGradient,
                   buttonTextStyle: textMDboldwhite,
+                  buttonHeight: 60,
+                  buttonWidth: double.infinity,
                 )
               ],
             ),

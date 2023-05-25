@@ -80,3 +80,11 @@ TextStyle textSMregularwhite = GoogleFonts.robotoCondensed(
     color: Color.fromARGB(255, 252, 252, 253),
   ),
 );
+
+TextStyle textXSboldwhite = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 252, 252, 253),
+  ),
+);

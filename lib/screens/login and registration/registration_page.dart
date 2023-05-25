@@ -69,16 +69,18 @@ class RegistrationPage extends StatelessWidget {
                     inputSuffixIcon: Icons.visibility,
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 70,
                   ),
                   NavyBlueElevatedButton1(
                     onPressed: () {},
-                    buttonText: 'Sign in',
+                    buttonText: 'Sign up',
                     buttonGradientColor: navyBlueGradient,
                     buttonTextStyle: textMDboldwhite,
+                    buttonHeight: 60,
+                    buttonWidth: double.infinity,
                   ),
                   const SizedBox(
-                    height: 80,
+                    height: 90,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

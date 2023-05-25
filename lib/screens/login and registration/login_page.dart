@@ -69,16 +69,18 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 70,
                   ),
                   NavyBlueElevatedButton1(
                     onPressed: () {},
                     buttonText: 'Sign in',
                     buttonGradientColor: navyBlueGradient,
                     buttonTextStyle: textMDboldwhite,
+                    buttonHeight: 60,
+                    buttonWidth: double.infinity,
                   ),
                   const SizedBox(
-                    height: 100,
+                    height: 120,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

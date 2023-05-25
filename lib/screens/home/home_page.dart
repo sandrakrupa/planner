@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:planner/core/fonts_palette.dart';
+import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/widget/avatar_and_text_widget.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/main_text_widget.dart';
+import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -32,6 +34,8 @@ class HomePage extends StatelessWidget {
                   height: 16,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,6 +59,13 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    NavyBlueElevatedButton1(
+                        buttonText: 'Add Task',
+                        buttonGradientColor: navyBlueGradient,
+                        buttonTextStyle: textXSboldwhite,
+                        onPressed: () {},
+                        buttonWidth: 150,
+                        buttonHeight: 30),
                   ],
                 ),
               ],
