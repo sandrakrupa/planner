@@ -1,3 +1,4 @@
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:planner/core/fonts_palette.dart';
@@ -6,6 +7,8 @@ import 'package:planner/widget/avatar_and_text_widget.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/main_text_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
+
+
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -68,6 +71,21 @@ class HomePage extends StatelessWidget {
                         buttonHeight: 30),
                   ],
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(right: 16, left: 16),
+                  child: DatePicker(
+                    DateTime.now(),
+                    initialSelectedDate: DateTime.now(),
+                    selectionColor: const Color.fromARGB(255, 17, 28, 108),
+                    dayTextStyle: textXSnormaldate,
+                    dateTextStyle: textXLbolddate,
+                    monthTextStyle: textXSnormaldate,
+                  ),
+                ),
+                
               ],
             ),
           ),

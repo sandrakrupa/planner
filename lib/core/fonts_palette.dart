@@ -88,3 +88,24 @@ TextStyle textXSboldwhite = GoogleFonts.robotoCondensed(
     color: Color.fromARGB(255, 252, 252, 253),
   ),
 );
+
+TextStyle textXSnormaldate = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+  ),
+);
+
+TextStyle textXSbolddate = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+TextStyle textXLbolddate = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  ),
+);
