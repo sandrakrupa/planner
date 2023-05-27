@@ -20,88 +20,85 @@ class LoginPage extends StatelessWidget {
         const BackgroundImageWidget(),
         Scaffold(
           backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            child: SafeArea(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 100,
+          body: SafeArea(
+            child: ListView(
+              children: [
+                const SizedBox(
+                  height: 100,
+                ),
+                Center(
+                  child: Text(
+                    'Log into your account',
+                    style: displayXSbold,
                   ),
-                  Center(
-                    child: Text(
-                      'Log into your account',
-                      style: displayXSbold,
-                    ),
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                const TextOverInputWidget(
+                  inputString: 'Email Address',
+                ),
+                const InputWidget(
+                  inputText: 'Enter your email',
+                  inputIcon: Icons.email_rounded,
+                  inputSuffixIcon: Icons.clear,
+                  showInputSuffixIcon: false,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const TextOverInputWidget(
+                  inputString: 'Password',
+                ),
+                const InputWidget(
+                  inputText: '*******',
+                  inputIcon: Icons.lock,
+                  inputSuffixIcon: Icons.visibility,
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  margin: const EdgeInsets.only(
+                    right: 16,
                   ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  const TextOverInputWidget(
-                    inputString: 'Email Address',
-                  ),
-                  const InputWidget(
-                    inputText: 'Enter your email',
-                    inputIcon: Icons.email_rounded,
-                    inputSuffixIcon: Icons.clear,
-                    showInputSuffixIcon: false,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const TextOverInputWidget(
-                    inputString: 'Password',
-                  ),
-                  const InputWidget(
-                    inputText: '*******',
-                    inputIcon: Icons.lock,
-                    inputSuffixIcon: Icons.visibility,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    margin: const EdgeInsets.only(
-                      right: 16,
-                    ),
-                    alignment: Alignment.centerRight,
-                    child: TextButtonWidget(
-                      onPressed: () {},
-                      buttonTextStyleWidget: textSMboldblue,
-                      textButtonWidget: 'Forgot Password?',
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 70,
-                  ),
-                  NavyBlueElevatedButton1(
+                  alignment: Alignment.centerRight,
+                  child: TextButtonWidget(
                     onPressed: () {},
-                    buttonText: 'Sign in',
-                    buttonGradientColor: navyBlueGradient,
-                    buttonTextStyle: textMDboldwhite,
-                    buttonHeight: 60,
-                    buttonWidth: double.infinity,
+                    buttonTextStyleWidget: textSMboldblue,
+                    textButtonWidget: 'Forgot Password?',
                   ),
-                  const SizedBox(
-                    height: 120,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Don\'t have an account?',
-                          style: textSMregularwhite),
-                      TextButtonWidget(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const RegistrationPage(),
-                              ),
-                            );
-                          },
-                          textButtonWidget: 'Sign up',
-                          buttonTextStyleWidget: textSMboldblue)
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 70,
+                ),
+                NavyBlueElevatedButton1(
+                  onPressed: () {},
+                  buttonText: 'Sign in',
+                  buttonGradientColor: navyBlueGradient,
+                  buttonTextStyle: textMDboldwhite,
+                  buttonHeight: 60,
+                  buttonWidth: double.infinity,
+                ),
+                const SizedBox(
+                  height: 120,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Don\'t have an account?', style: textSMregularwhite),
+                    TextButtonWidget(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistrationPage(),
+                            ),
+                          );
+                        },
+                        textButtonWidget: 'Sign up',
+                        buttonTextStyleWidget: textSMboldblue)
+                  ],
+                ),
+              ],
             ),
           ),
         ),

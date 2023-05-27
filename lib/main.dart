@@ -20,9 +20,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: MaterialColor(
+          const Color.fromARGB(255, 17, 28, 108).value,
+          const <int, Color>{
+            50: Color.fromARGB(255, 17, 28, 108),
+            100: Color.fromARGB(255, 17, 28, 108),
+            200: Color.fromARGB(255, 17, 28, 108),
+            300: Color.fromARGB(255, 17, 28, 108),
+            400: Color.fromARGB(255, 17, 28, 108),
+            500: Color.fromARGB(255, 17, 28, 108),
+            600: Color.fromARGB(255, 17, 28, 108),
+            700: Color.fromARGB(255, 17, 28, 108),
+            800: Color.fromARGB(255, 17, 28, 108),
+            900: Color.fromARGB(255, 17, 28, 108),
+          },
+        ),
       ),
-      home: const GetStartedPage(),
+      home: const HomePage(),
     );
   }
 }

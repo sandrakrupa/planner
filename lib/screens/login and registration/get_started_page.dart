@@ -18,7 +18,7 @@ class GetStartedPage extends StatelessWidget {
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(
-            child: Column(
+            child: ListView(
               children: [
                 const SizedBox(
                   height: 50,

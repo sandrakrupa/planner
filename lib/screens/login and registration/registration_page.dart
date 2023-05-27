@@ -20,91 +20,89 @@ class RegistrationPage extends StatelessWidget {
         const BackgroundImageWidget(),
         Scaffold(
           backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            child: SafeArea(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 100,
+          body: SafeArea(
+            child: ListView(
+              children: [
+                const SizedBox(
+                  height: 100,
+                ),
+                Center(
+                  child: Text(
+                    'Create an account',
+                    style: displayXSbold,
                   ),
-                  Center(
-                    child: Text(
-                      'Create an account',
-                      style: displayXSbold,
+                ),
+                const SizedBox(
+                  height: 60,
+                ),
+                const TextOverInputWidget(
+                  inputString: 'Name',
+                ),
+                const InputWidget(
+                  inputText: 'Enter your name',
+                  inputIcon: Icons.person,
+                  inputSuffixIcon: Icons.clear,
+                  showInputSuffixIcon: false,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const TextOverInputWidget(
+                  inputString: 'Email Address',
+                ),
+                const InputWidget(
+                  inputText: 'Enter your email',
+                  inputIcon: Icons.email_rounded,
+                  inputSuffixIcon: Icons.clear,
+                  showInputSuffixIcon: false,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const TextOverInputWidget(
+                  inputString: 'Password',
+                ),
+                const InputWidget(
+                  inputText: '*******',
+                  inputIcon: Icons.lock,
+                  inputSuffixIcon: Icons.visibility,
+                ),
+                const SizedBox(
+                  height: 70,
+                ),
+                NavyBlueElevatedButton1(
+                  onPressed: () {},
+                  buttonText: 'Sign up',
+                  buttonGradientColor: navyBlueGradient,
+                  buttonTextStyle: textMDboldwhite,
+                  buttonHeight: 60,
+                  buttonWidth: double.infinity,
+                ),
+                const SizedBox(
+                  height: 90,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Have an account?',
+                      style: textSMregularwhite,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  const TextOverInputWidget(
-                    inputString: 'Name',
-                  ),
-                  const InputWidget(
-                    inputText: 'Enter your name',
-                    inputIcon: Icons.person,
-                    inputSuffixIcon: Icons.clear,
-                    showInputSuffixIcon: false,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const TextOverInputWidget(
-                    inputString: 'Email Address',
-                  ),
-                  const InputWidget(
-                    inputText: 'Enter your email',
-                    inputIcon: Icons.email_rounded,
-                    inputSuffixIcon: Icons.clear,
-                    showInputSuffixIcon: false,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const TextOverInputWidget(
-                    inputString: 'Password',
-                  ),
-                  const InputWidget(
-                    inputText: '*******',
-                    inputIcon: Icons.lock,
-                    inputSuffixIcon: Icons.visibility,
-                  ),
-                  const SizedBox(
-                    height: 70,
-                  ),
-                  NavyBlueElevatedButton1(
-                    onPressed: () {},
-                    buttonText: 'Sign up',
-                    buttonGradientColor: navyBlueGradient,
-                    buttonTextStyle: textMDboldwhite,
-                    buttonHeight: 60,
-                    buttonWidth: double.infinity,
-                  ),
-                  const SizedBox(
-                    height: 90,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Have an account?',
-                        style: textSMregularwhite,
-                      ),
-                      TextButtonWidget(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                          );
-                        },
-                        textButtonWidget: 'Log in',
-                        buttonTextStyleWidget: textSMboldblue,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    TextButtonWidget(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      },
+                      textButtonWidget: 'Log in',
+                      buttonTextStyleWidget: textSMboldblue,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
