@@ -73,11 +73,27 @@ TextStyle textSMboldblue = GoogleFonts.robotoCondensed(
   ),
 );
 
+TextStyle textSMregular = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: Color.fromARGB(255, 5, 4, 19),
+  ),
+);
+
 TextStyle textSMregularwhite = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
     color: Color.fromARGB(255, 252, 252, 253),
+  ),
+);
+
+TextStyle textSMregulargrey300 = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(189, 99, 104, 115),
   ),
 );
 

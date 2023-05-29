@@ -7,8 +7,7 @@ import 'package:planner/widget/avatar_and_text_widget.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/main_text_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
-
-
+import 'package:planner/widget/task_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -85,7 +84,10 @@ class HomePage extends StatelessWidget {
                     monthTextStyle: textXSnormaldate,
                   ),
                 ),
-                
+                const SizedBox(
+                  height: 20,
+                ),
+                const TaskWidget(),
               ],
             ),
           ),
@@ -94,3 +96,4 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
