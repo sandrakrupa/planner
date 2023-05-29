@@ -57,6 +57,14 @@ TextStyle textMDregulargrey700 = GoogleFonts.robotoCondensed(
   ),
 );
 
+TextStyle textSMboldwhite = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 252, 252, 253),
+  ),
+);
+
 TextStyle textSMboldgrey500 = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
@@ -89,11 +97,11 @@ TextStyle textSMregularwhite = GoogleFonts.robotoCondensed(
   ),
 );
 
-TextStyle textSMregulargrey300 = GoogleFonts.robotoCondensed(
+TextStyle textSMboldgrey600 = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(189, 99, 104, 115),
+    color: Color.fromARGB(255, 78, 78, 99),
   ),
 );
 
