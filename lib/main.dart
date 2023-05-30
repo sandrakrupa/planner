@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/firebase_options.dart';
 import 'package:planner/screens/home/add%20task/add_task_page_content.dart';
+import 'package:planner/screens/home/home%20page/home_page.dart';
+import 'package:planner/screens/home/user/user%20page/user_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
           },
         ),
       ),
-      home: const AddTaskPageContent(),
+      home: const UserPage(),
     );
   }
 }

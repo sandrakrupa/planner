@@ -39,6 +39,9 @@ class AddTaskPageContent extends StatelessWidget {
                   imageURL: 'images/jungkookie.jpg',
                   radius: 30,
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
                 const MainText(
                   mainText: 'Add Task',
                 ),
