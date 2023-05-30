@@ -97,11 +97,11 @@ TextStyle textSMregularwhite = GoogleFonts.robotoCondensed(
   ),
 );
 
-TextStyle textSMboldgrey600 = GoogleFonts.robotoCondensed(
+TextStyle textSMboldgrey400 = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
-    color: Color.fromARGB(255, 78, 78, 99),
+    color: Color.fromARGB(255, 132, 132, 142),
   ),
 );
 

@@ -25,7 +25,7 @@ class TaskWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(194, 223, 218, 218).withOpacity(0.2),
+              color: const Color.fromARGB(194, 223, 218, 218).withOpacity(0.2),
               spreadRadius: 2,
               blurRadius: 3,
               offset: const Offset(0, 3),
@@ -50,14 +50,14 @@ class TaskWidget extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.access_time,
-                        color: Color.fromARGB(255, 78, 78, 99),
+                        color: Color.fromARGB(255, 132, 132, 142),
                       ),
-                      Text('9.00 AM - 11.00 AM', style: textSMboldgrey600),
+                      Text('9.00 AM - 11.00 AM', style: textSMboldgrey400),
                     ],
                   ),
                   const Icon(
                     Icons.check_box_outline_blank_rounded,
-                    color: Color.fromARGB(255, 78, 78, 99),
+                    color: Color.fromARGB(255, 132, 132, 142),
                   ),
                 ],
               ),
