@@ -41,11 +41,19 @@ TextStyle textMDregular = GoogleFonts.robotoCondensed(
   ),
 );
 
+TextStyle textMDregulargrey300 = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: Color.fromARGB(255, 130, 136, 152),
+  ),
+);
+
 TextStyle textMDregulargrey500 = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    color: Color.fromARGB(255, 70, 76, 90),
+    color: Color.fromARGB(255, 60, 64, 75),
   ),
 );
 

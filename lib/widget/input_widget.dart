@@ -39,7 +39,7 @@ class InputWidget extends StatelessWidget {
         child: TextField(
           decoration: InputDecoration(
             hintText: inputText,
-            hintStyle: textMDregulargrey500,
+            hintStyle: textMDregulargrey300,
             border: InputBorder.none,
             prefixIcon: Icon(inputIcon),
             suffixIcon: showInputSuffixIcon ? Icon(inputSuffixIcon) : null,
