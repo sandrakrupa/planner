@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
+import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/widget/avatar_and_text_widget.dart';
 import 'package:planner/widget/background_gradient.dart';
 import 'package:planner/widget/main_text_widget.dart';
+import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -35,8 +37,21 @@ class _CalendarPageState extends State<CalendarPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                const MainText(
-                  mainText: 'Calendar',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const MainText(
+                      mainText: 'Calendar',
+                    ),
+                    NavyBlueElevatedButton1(
+                        buttonText: 'Add Task',
+                        buttonGradientColor: navyBlueGradient,
+                        buttonTextStyle: textXSboldwhite,
+                        onPressed: () {},
+                        buttonWidth: 150,
+                        buttonHeight: 30),
+                  ],
                 ),
                 const SizedBox(
                   height: 15,
@@ -51,6 +66,7 @@ class _CalendarPageState extends State<CalendarPage> {
                         shape: BoxShape.circle,
                       ),
                       defaultTextStyle: textSMregulardate),
+                  headerStyle: const HeaderStyle(formatButtonVisible: false),
                 ),
               ],
             ),
