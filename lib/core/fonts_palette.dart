@@ -97,6 +97,13 @@ TextStyle textSMregular = GoogleFonts.robotoCondensed(
   ),
 );
 
+TextStyle textSMregulardate = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+  ),
+);
+
 TextStyle textSMregularwhite = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
