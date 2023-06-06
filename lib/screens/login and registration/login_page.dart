@@ -4,15 +4,22 @@ import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/screens/login%20and%20registration/registration_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
-import 'package:planner/widget/input_widget.dart';
+
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:planner/widget/text_button_widget.dart';
 import 'package:planner/widget/text_over_input_widget.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({
     super.key,
   });
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +69,22 @@ class LoginPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: TextField(
-                      obscureText: true,
+                      obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
                         hintText: '*******',
                         hintStyle: textMDregulargrey300,
                         border: InputBorder.none,
                         prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: const Icon(Icons.visibility),
+                        suffixIcon: IconButton(
+                          icon: Icon(_isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off_rounded),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ),
