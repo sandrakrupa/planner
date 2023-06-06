@@ -1,18 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/screens/login%20and%20registration/registration_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
-
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:planner/widget/text_button_widget.dart';
 import 'package:planner/widget/text_over_input_widget.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({
+  LoginPage({
     super.key,
   });
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -50,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: TextField(
+                      controller: widget.emailController,
                       decoration: InputDecoration(
                         hintText: 'Enter your email',
                         hintStyle: textMDregulargrey300,
@@ -69,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: TextField(
+                      controller: widget.passwordController,
                       obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
                         hintText: '*******',
