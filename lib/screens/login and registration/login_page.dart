@@ -3,6 +3,7 @@ import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/screens/login%20and%20registration/registration_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
+import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/input_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:planner/widget/text_button_widget.dart';
@@ -38,11 +39,18 @@ class LoginPage extends StatelessWidget {
                 const TextOverInputWidget(
                   inputString: 'Email Address',
                 ),
-                const InputWidget(
-                  inputText: 'Enter your email',
-                  inputIcon: Icons.email_rounded,
-                  inputSuffixIcon: Icons.clear,
-                  showInputSuffixIcon: false,
+                ContainerInputDecorationWidget(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter your email',
+                        hintStyle: textMDregulargrey300,
+                        border: InputBorder.none,
+                        prefixIcon: const Icon(Icons.email_rounded),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -50,10 +58,20 @@ class LoginPage extends StatelessWidget {
                 const TextOverInputWidget(
                   inputString: 'Password',
                 ),
-                const InputWidget(
-                  inputText: '*******',
-                  inputIcon: Icons.lock,
-                  inputSuffixIcon: Icons.visibility,
+                ContainerInputDecorationWidget(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: '*******',
+                        hintStyle: textMDregulargrey300,
+                        border: InputBorder.none,
+                        prefixIcon: const Icon(Icons.lock),
+                        suffixIcon: const Icon(Icons.visibility),
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 8),

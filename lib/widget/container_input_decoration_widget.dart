@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class InputDecorationWidget extends StatelessWidget {
+class ContainerInputDecorationWidget extends StatelessWidget {
   final Widget child;
-  const InputDecorationWidget({
+  const ContainerInputDecorationWidget({
     required this.child,
     super.key,
   });
