@@ -1,4 +1,5 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:planner/core/fonts_palette.dart';
@@ -12,8 +13,11 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
+    required this.user,
     super.key,
   });
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +32,8 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const AvatarAndText(
-                  welcomeText: 'WELCOME, JUNGKOOK',
+                  AvatarAndText(
+                  welcomeText: 'WELCOME, ${user.displayName}',
                   imageURL: 'images/jungkookie.jpg',
                   radius: 30,
                 ),
