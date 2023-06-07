@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
@@ -24,6 +23,21 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
+  String errorMessage = '';
+  String getErrorMessage(FirebaseAuthException exception) {
+    switch (exception.code) {
+      case 'invalid-email':
+        return 'Invalid email adress.';
+      case 'user-disabled':
+        return 'Your account has been disabled.';
+      case 'user-not-found':
+        return 'User not found.';
+      case 'wrong-password':
+        return 'Invalid password.';
+      default:
+        return 'An error occurred. Please try again.';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +109,14 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                    child: Text(
+                  errorMessage,
+                  style: textSMboldred,
+                )),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   margin: const EdgeInsets.only(
@@ -111,7 +133,22 @@ class _LoginPageState extends State<LoginPage> {
                   height: 70,
                 ),
                 NavyBlueElevatedButton1(
-                  onPressed: () {},
+                  onPressed: () async {
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: widget.emailController.text.trim(),
+                        password: widget.passwordController.text.trim(),
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      setState(() {
+                        errorMessage = getErrorMessage(e);
+                      });
+                    } catch (e) {
+                      setState(() {
+                        errorMessage = 'An error occurred. Please try again.';
+                      });
+                    }
+                  },
                   buttonText: 'Sign in',
                   buttonGradientColor: navyBlueGradient,
                   buttonTextStyle: textMDboldwhite,

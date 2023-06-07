@@ -89,6 +89,14 @@ TextStyle textSMboldblue = GoogleFonts.robotoCondensed(
   ),
 );
 
+TextStyle textSMboldred = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 148, 54, 54),
+  ),
+);
+
 TextStyle textSMregular = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
