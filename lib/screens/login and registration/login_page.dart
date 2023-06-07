@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/screens/login%20and%20registration/registration_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
@@ -23,8 +22,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
+  bool _isRegistration = false;
+
   String errorMessage = '';
-  String getErrorMessage(FirebaseAuthException exception) {
+  String getErrorMessage(
+    FirebaseAuthException exception,
+    String email,
+    String password,
+  ) {
     switch (exception.code) {
       case 'invalid-email':
         return 'Invalid email adress.';
@@ -34,8 +39,14 @@ class _LoginPageState extends State<LoginPage> {
         return 'User not found.';
       case 'wrong-password':
         return 'Invalid password.';
+      case 'weak-password':
+        return 'Password should be at least 7 characters long.';
       default:
-        return 'An error occurred. Please try again.';
+        if (email.isEmpty || password.isEmpty) {
+          return 'Email and password cannot be empty.';
+        } else {
+          return 'An error occurred. Please try again.';
+        }
     }
   }
 
@@ -54,13 +65,35 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Center(
                   child: Text(
-                    'Log into your account',
+                    _isRegistration
+                        ? 'Create an account'
+                        : 'Log into your account',
                     style: displayXSbold,
                   ),
                 ),
                 const SizedBox(
                   height: 60,
                 ),
+                if (_isRegistration)
+                  const TextOverInputWidget(inputString: 'Name'),
+                if (_isRegistration)
+                  ContainerInputDecorationWidget(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Enter your name',
+                          hintStyle: textMDregulargrey300,
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(Icons.person),
+                        ),
+                      ),
+                    ),
+                  ),
+                if (_isRegistration)
+                  const SizedBox(
+                    height: 8,
+                  ),
                 const TextOverInputWidget(
                   inputString: 'Email Address',
                 ),
@@ -117,36 +150,60 @@ class _LoginPageState extends State<LoginPage> {
                   errorMessage,
                   style: textSMboldred,
                 )),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  margin: const EdgeInsets.only(
-                    right: 16,
-                  ),
-                  alignment: Alignment.centerRight,
-                  child: TextButtonWidget(
-                    onPressed: () {},
-                    buttonTextStyleWidget: textSMboldblue,
-                    textButtonWidget: 'Forgot Password?',
-                  ),
-                ),
-                const SizedBox(
-                  height: 70,
+                SizedBox(
+                  height: _isRegistration ? 70 : 70,
                 ),
                 NavyBlueElevatedButton1(
                   onPressed: () async {
-                    try {
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: widget.emailController.text.trim(),
-                        password: widget.passwordController.text.trim(),
-                      );
-                    } on FirebaseAuthException catch (e) {
-                      setState(() {
-                        errorMessage = getErrorMessage(e);
-                      });
-                    } catch (e) {
-                      setState(() {
-                        errorMessage = 'An error occurred. Please try again.';
-                      });
+                    if (_isRegistration) {
+                      //registration
+                      if (widget.passwordController.text.trim().length < 7) {
+                        setState(() {
+                          errorMessage =
+                              'Password should be at least 7 characters long.';
+                        });
+                      } else {
+                        try {
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: widget.emailController.text.trim(),
+                            password: widget.passwordController.text.trim(),
+                          );
+                        } on FirebaseAuthException catch (e) {
+                          setState(() {
+                            errorMessage = getErrorMessage(
+                              e,
+                              widget.emailController.text.trim(),
+                              widget.passwordController.text.trim(),
+                            );
+                          });
+                        } catch (e) {
+                          setState(() {
+                            errorMessage =
+                                'An error occurred. Please try again.';
+                          });
+                        }
+                      }
+                    } else {
+                      //logging
+                      try {
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: widget.emailController.text.trim(),
+                          password: widget.passwordController.text.trim(),
+                        );
+                      } on FirebaseAuthException catch (e) {
+                        setState(() {
+                          errorMessage = getErrorMessage(
+                            e,
+                            widget.emailController.text.trim(),
+                            widget.passwordController.text.trim(),
+                          );
+                        });
+                      } catch (e) {
+                        setState(() {
+                          errorMessage = 'An error occurred. Please try again.';
+                        });
+                      }
                     }
                   },
                   buttonText: 'Sign in',
@@ -155,8 +212,8 @@ class _LoginPageState extends State<LoginPage> {
                   buttonHeight: 60,
                   buttonWidth: double.infinity,
                 ),
-                const SizedBox(
-                  height: 120,
+                SizedBox(
+                  height: _isRegistration ? 80 : 180,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -164,14 +221,12 @@ class _LoginPageState extends State<LoginPage> {
                     Text('Don\'t have an account?', style: textSMregularwhite),
                     TextButtonWidget(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegistrationPage(),
-                            ),
-                          );
+                          setState(() {
+                            _isRegistration = !_isRegistration;
+                          });
                         },
-                        textButtonWidget: 'Sign up',
+                        textButtonWidget:
+                            _isRegistration ? 'Log in' : 'Sign up',
                         buttonTextStyleWidget: textSMboldblue)
                   ],
                 ),
