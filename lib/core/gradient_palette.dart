@@ -17,3 +17,10 @@ Gradient redGradient = const LinearGradient(
   begin: Alignment.center,
   end: Alignment.topCenter,
 );
+
+BoxShadow greyShadow = BoxShadow(
+  color: const Color.fromARGB(255, 101, 101, 101).withOpacity(0.3),
+  spreadRadius: 5,
+  blurRadius: 7,
+  offset: const Offset(0, 3),
+);
