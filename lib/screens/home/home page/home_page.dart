@@ -2,7 +2,10 @@ import "package:flutter/material.dart";
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/screens/calendar/calendar_page.dart';
+import 'package:planner/screens/home/home%20page/calendar%20content/calendar_page.dart';
+import 'package:planner/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
+import 'package:planner/screens/home/home%20page/settings%20content/settings_page_content.dart';
+import 'package:planner/screens/home/tasks%20content/tasks_page_content.dart';
 import 'package:planner/widget/background_gradient.dart';
 
 class HomePage extends StatelessWidget {
@@ -51,7 +54,7 @@ List<PersistentBottomNavBarItem> _navBarItems() {
   return [
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.task_alt_rounded),
-      title: "Check",
+      title: "Tasks",
       activeColorPrimary: const Color.fromARGB(255, 252, 252, 253),
       textStyle: textSMboldwhite,
       inactiveColorPrimary: const Color.fromARGB(255, 252, 252, 253),
@@ -84,19 +87,12 @@ List<Widget> _buildScreens() {
   // Define your screens here
   return [
     // Screen 1
-    Stack(
-      children: [
-        const BackgroundGradientWidget(),
-        ListView(
-          children: const [],
-        ),
-      ],
-    ),
+    const TasksPageContent(),
     // Screen 2
-    const CalendarPage(),
+    const CalendarPageContent(),
     // Screen 3
-    Container(color: Colors.green),
+    const GratitudePageContent(),
     // Screen 4
-    Container(color: Colors.yellow),
+    const SettingsPageContent(),
   ];
 }
