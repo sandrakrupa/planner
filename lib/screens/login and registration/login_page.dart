@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
+import 'package:planner/screens/home/home%20page/home_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
-import 'package:planner/widget/text_button_widget.dart';
 import 'package:planner/widget/text_over_input_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -50,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -77,18 +79,24 @@ class _LoginPageState extends State<LoginPage> {
                 if (_isRegistration)
                   const TextOverInputWidget(inputString: 'Name'),
                 if (_isRegistration)
-                  ContainerInputDecorationWidget(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Enter your name',
-                          hintStyle: textMDregulargrey300,
-                          border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.person),
+                  ValueListenableBuilder(
+                    valueListenable: widget.usernameController,
+                    builder: (context, value, _) {
+                      return ContainerInputDecorationWidget(
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: TextField(
+                            controller: widget.usernameController,
+                            decoration: InputDecoration(
+                              hintText: 'Enter your name',
+                              hintStyle: textMDregulargrey300,
+                              border: InputBorder.none,
+                              prefixIcon: const Icon(Icons.person),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 if (_isRegistration)
                   const SizedBox(
@@ -169,6 +177,15 @@ class _LoginPageState extends State<LoginPage> {
                             email: widget.emailController.text.trim(),
                             password: widget.passwordController.text.trim(),
                           );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(
+                                user: FirebaseAuth.instance.currentUser!,
+                                userName: widget.usernameController.text.trim(),
+                              ),
+                            ),
+                          );
                         } on FirebaseAuthException catch (e) {
                           setState(() {
                             errorMessage = getErrorMessage(
@@ -192,13 +209,15 @@ class _LoginPageState extends State<LoginPage> {
                           password: widget.passwordController.text.trim(),
                         );
                       } on FirebaseAuthException catch (e) {
-                        setState(() {
-                          errorMessage = getErrorMessage(
-                            e,
-                            widget.emailController.text.trim(),
-                            widget.passwordController.text.trim(),
-                          );
-                        });
+                        setState(
+                          () {
+                            errorMessage = getErrorMessage(
+                              e,
+                              widget.emailController.text.trim(),
+                              widget.passwordController.text.trim(),
+                            );
+                          },
+                        );
                       } catch (e) {
                         setState(() {
                           errorMessage = 'An error occurred. Please try again.';
@@ -219,15 +238,17 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Don\'t have an account?', style: textSMregularwhite),
-                    TextButtonWidget(
-                        onPressed: () {
-                          setState(() {
-                            _isRegistration = !_isRegistration;
-                          });
-                        },
-                        textButtonWidget:
-                            _isRegistration ? 'Log in' : 'Sign up',
-                        buttonTextStyleWidget: textSMboldblue)
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _isRegistration = !_isRegistration;
+                        });
+                      },
+                      child: Text(
+                        _isRegistration ? 'Log in' : 'Sign up',
+                        style: textSMboldblue,
+                      ),
+                    ),
                   ],
                 ),
               ],

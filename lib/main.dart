@@ -56,7 +56,7 @@ class RootPage extends StatelessWidget {
         if (user == null) {
           return LoginPage();
         }
-        return HomePage();
+        return HomePage(user: FirebaseAuth.instance.currentUser!, userName: '',);
       },
     );
   }

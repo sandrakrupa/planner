@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:planner/core/fonts_palette.dart';
+import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/widget/background_gradient.dart';
+import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 
 class SettingsPageContent extends StatelessWidget {
   const SettingsPageContent({
@@ -12,7 +16,21 @@ class SettingsPageContent extends StatelessWidget {
       children: [
         const BackgroundGradientWidget(),
         ListView(
-          children: const [],
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            NavyBlueElevatedButton1(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              buttonText: 'Log out',
+              buttonGradientColor: navyBlueGradient,
+              buttonTextStyle: textMDboldwhite,
+              buttonHeight: 60,
+              buttonWidth: double.infinity,
+            ),
+          ],
         ),
       ],
     );

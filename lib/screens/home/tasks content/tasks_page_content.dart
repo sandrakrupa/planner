@@ -1,10 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:planner/widget/avatar_and_text_widget.dart';
 import 'package:planner/widget/background_gradient.dart';
 
 class TasksPageContent extends StatelessWidget {
   const TasksPageContent({
+    required this.user,
+    required this.userName,
     super.key,
   });
+
+  final User user;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +19,14 @@ class TasksPageContent extends StatelessWidget {
       children: [
         const BackgroundGradientWidget(),
         ListView(
-          children: const [
-             SizedBox(
+          children: [
+            const SizedBox(
               height: 20,
+            ),
+            AvatarAndText(
+              welcomeText: 'WELCOME, $userName',
+              imageURL: 'images/jungkookie.jpg',
+              radius: 30,
             ),
           ],
         ),
