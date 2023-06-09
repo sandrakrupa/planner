@@ -53,10 +53,11 @@ class RootPage extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         final user = snapshot.data;
+        final String userName;
         if (user == null) {
           return LoginPage();
         }
-        return HomePage(user: FirebaseAuth.instance.currentUser!, userName: '',);
+        return HomePage(userName: '');
       },
     );
   }

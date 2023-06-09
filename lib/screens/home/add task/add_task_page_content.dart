@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/widget/avatar_and_text_widget.dart';
 import 'package:planner/widget/background_gradient.dart';
 import 'package:planner/widget/input_widget.dart';
 import 'package:planner/widget/main_text_widget.dart';
@@ -34,11 +33,6 @@ class AddTaskPageContent extends StatelessWidget {
           body: SafeArea(
             child: ListView(
               children: [
-                const AvatarAndText(
-                  welcomeText: 'WELCOME, JUNGKOOK',
-                  imageURL: 'images/jungkookie.jpg',
-                  radius: 30,
-                ),
                 const SizedBox(
                   height: 16,
                 ),

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/screens/home/home%20page/home_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
@@ -24,7 +23,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
   bool _isRegistration = false;
-
+  String userName = '';
   String errorMessage = '';
   String getErrorMessage(
     FirebaseAuthException exception,
@@ -50,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
         }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,24 +77,19 @@ class _LoginPageState extends State<LoginPage> {
                 if (_isRegistration)
                   const TextOverInputWidget(inputString: 'Name'),
                 if (_isRegistration)
-                  ValueListenableBuilder(
-                    valueListenable: widget.usernameController,
-                    builder: (context, value, _) {
-                      return ContainerInputDecorationWidget(
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: TextField(
-                            controller: widget.usernameController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter your name',
-                              hintStyle: textMDregulargrey300,
-                              border: InputBorder.none,
-                              prefixIcon: const Icon(Icons.person),
-                            ),
-                          ),
+                  ContainerInputDecorationWidget(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: TextField(
+                        controller: widget.usernameController,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your name',
+                          hintStyle: textMDregulargrey300,
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(Icons.person),
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   ),
                 if (_isRegistration)
                   const SizedBox(
@@ -177,15 +170,20 @@ class _LoginPageState extends State<LoginPage> {
                             email: widget.emailController.text.trim(),
                             password: widget.passwordController.text.trim(),
                           );
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(
-                                user: FirebaseAuth.instance.currentUser!,
-                                userName: widget.usernameController.text.trim(),
-                              ),
-                            ),
-                          );
+                          User? user = FirebaseAuth.instance.currentUser;
+                          if (user != null) {
+                            await user.updateDisplayName(
+                              widget.usernameController.text.trim(),
+                            );
+                          }
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => HomePage(
+                          //       userName: widget.usernameController.text.trim(),
+                          //     ),
+                          //   ),
+                          // );
                         } on FirebaseAuthException catch (e) {
                           setState(() {
                             errorMessage = getErrorMessage(
