@@ -71,10 +71,10 @@ class CalendarPageContent extends StatelessWidget {
           height: 16,
         ),
         const MainText(
-          mainText: 'Calendar',
+          mainText: 'Your Tasks',
         ),
         const SizedBox(
-          height: 8,
+          height: 16,
         ),
         const CalendarWidget()
       ],

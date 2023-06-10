@@ -229,10 +229,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 items: [
                   FlashyTabBarItem(
                     icon: const Icon(
-                      Icons.calendar_month_rounded,
+                      Icons.task_alt_rounded,
                       color: Color.fromARGB(255, 252, 252, 253),
                     ),
-                    title: Text('Calendar', style: textSMboldwhite),
+                    title: Text('Task', style: textSMboldwhite),
                     activeColor: const Color.fromARGB(255, 17, 28, 108),
                   ),
                   FlashyTabBarItem(
