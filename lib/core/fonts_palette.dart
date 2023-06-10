@@ -104,6 +104,21 @@ TextStyle textSMregular = GoogleFonts.robotoCondensed(
     color: Color.fromARGB(255, 5, 4, 19),
   ),
 );
+TextStyle textSMregulargrey400 = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: Color.fromARGB(255, 132, 132, 142),
+  ),
+);
+
+TextStyle textSMregulargrey500 = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: Color.fromARGB(255, 60, 64, 75),
+  ),
+);
 
 TextStyle textSMregulardate = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(

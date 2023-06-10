@@ -72,6 +72,9 @@ class HomePageContent extends StatelessWidget {
         const MainText(
           mainText: 'Schedule',
         ),
+        const SizedBox(
+          height: 8,
+        ),
       ],
     );
   }

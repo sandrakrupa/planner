@@ -25,7 +25,9 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   File? imageFile;
+
   ValueNotifier<File?> imageNotifier = ValueNotifier<File?>(null);
+
   Future<void> pickImage(ImageSource source) async {
     final pickedImage = await ImagePicker().pickImage(source: source);
     if (pickedImage != null) {
@@ -48,6 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -192,6 +195,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     const MainText(
                       mainText: 'Settings',
+                    ),
+                    const SizedBox(
+                      height: 8,
                     ),
                     const SizedBox(
                       height: 50,

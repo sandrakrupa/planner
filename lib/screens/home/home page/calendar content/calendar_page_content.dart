@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
+import 'package:planner/widget/calendar_widget.dart';
 import 'package:planner/widget/main_text_widget.dart';
 
 class CalendarPageContent extends StatelessWidget {
@@ -72,6 +73,10 @@ class CalendarPageContent extends StatelessWidget {
         const MainText(
           mainText: 'Calendar',
         ),
+        const SizedBox(
+          height: 8,
+        ),
+        const CalendarWidget()
       ],
     );
   }

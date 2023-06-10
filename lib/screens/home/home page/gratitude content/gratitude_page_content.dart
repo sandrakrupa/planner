@@ -72,6 +72,9 @@ class GratitudePageContent extends StatelessWidget {
         const MainText(
           mainText: 'Gratitude',
         ),
+        const SizedBox(
+          height: 8,
+        ),
       ],
     );
   }
