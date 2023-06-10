@@ -6,7 +6,6 @@ import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/screens/home/home%20page/calendar%20content/calendar_page_content.dart';
 import 'package:planner/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
-import 'package:planner/screens/home/home%20page/home%20content/home_page_content.dart';
 import 'package:planner/widget/background_gradient.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planner/widget/main_text_widget.dart';
@@ -51,7 +50,6 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -63,12 +61,9 @@ class _SettingsPageState extends State<SettingsPage> {
             body: Builder(
               builder: (context) {
                 if (_selectedIndex == 0) {
-                  return HomePageContent(imageNotifier: imageNotifier);
-                }
-                if (_selectedIndex == 1) {
                   return CalendarPageContent(imageNotifier: imageNotifier);
                 }
-                if (_selectedIndex == 2) {
+                if (_selectedIndex == 1) {
                   return GratitudePageContent(imageNotifier: imageNotifier);
                 }
                 return ListView(
@@ -232,14 +227,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 ),
                 items: [
-                  FlashyTabBarItem(
-                    icon: const Icon(
-                      Icons.task_alt_rounded,
-                      color: Color.fromARGB(255, 252, 252, 253),
-                    ),
-                    title: Text('Tasks', style: textSMboldwhite),
-                    activeColor: const Color.fromARGB(255, 17, 28, 108),
-                  ),
                   FlashyTabBarItem(
                     icon: const Icon(
                       Icons.calendar_month_rounded,
