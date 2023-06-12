@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/widget/calendar_widget.dart';
+import 'package:planner/core/models.dart';
 import 'package:planner/widget/main_text_widget.dart';
+import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-class CalendarPageContent extends StatelessWidget {
+class CalendarPageContent extends StatefulWidget {
   final ValueNotifier<File?> imageNotifier;
   const CalendarPageContent({
     required this.imageNotifier,
@@ -13,8 +16,26 @@ class CalendarPageContent extends StatelessWidget {
   });
 
   @override
+  State<CalendarPageContent> createState() => _CalendarPageContentState();
+}
+
+class _CalendarPageContentState extends State<CalendarPageContent> {
+  CalendarFormat calendarFormat = CalendarFormat.week;
+  DateTime _focusedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.now();
+  List<Task> tasks = [];
+
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final dateController = TextEditingController();
+
+  String title = '';
+  String description = '';
+  DateTime selectedDate = DateTime.now();
+
+  @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         const SizedBox(
           height: 20,
@@ -33,7 +54,7 @@ class CalendarPageContent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ValueListenableBuilder<File?>(
-                valueListenable: imageNotifier,
+                valueListenable: widget.imageNotifier,
                 builder: (context, selectedImage, _) {
                   return Container(
                     decoration: BoxDecoration(
@@ -70,95 +91,184 @@ class CalendarPageContent extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        const MainText(
-          mainText: 'Your Tasks',
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(
+              height: 70,
+              child: MainText(
+                mainText: 'Your Tasks',
+              ),
+            ),
+            NavyBlueElevatedButton1(
+              buttonText: 'Add Task',
+              buttonGradientColor: navyBlueGradient,
+              buttonTextStyle: textMDboldwhite,
+              buttonWidth: 100,
+              buttonHeight: 30,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        'Add Task',
+                        style: displayXSbold,
+                      ),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            onChanged: (value) => setState(() => title = value),
+                            controller: titleController,
+                            decoration: InputDecoration(
+                              labelText: 'Title',
+                              labelStyle: textMDregulargrey300,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          TextField(
+                            onChanged: (value) =>
+                                setState(() => description = value),
+                            controller: descriptionController,
+                            decoration: InputDecoration(
+                              labelText: 'Description',
+                              labelStyle: textMDregulargrey300,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 3,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          ListTile(
+                            title: Text(
+                              'Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDay)}',
+                              style: textMDregulargrey300,
+                            ),
+                            trailing: const Icon(Icons.calendar_today),
+                            onTap: () async {
+                              final newDate = await showDatePicker(
+                                context: context,
+                                initialDate: _selectedDay,
+                                firstDate: DateTime(1992),
+                                lastDate: DateTime(2113),
+                              );
+                              if (newDate != null) {
+                                setState(() {
+                                  _selectedDay = newDate;
+                                  dateController.text =
+                                      DateFormat('yyyy-MM-dd').format(newDate);
+                                });
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        NavyBlueElevatedButton1(
+                          buttonText: 'Save',
+                          buttonGradientColor: navyBlueGradient,
+                          buttonTextStyle: textMDboldwhite,
+                          buttonWidth: 100,
+                          buttonHeight: 30,
+                          onPressed: () {
+                            if (titleController.text.isNotEmpty) {
+                              setState(() {
+                                tasks.add(Task(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  date: DateTime.parse(dateController.text),
+                                ));
+                              });
+
+                              titleController.clear();
+                              descriptionController.clear();
+                              dateController.clear();
+
+                              Navigator.pop(context);
+                            }
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
         ),
-        const SizedBox(
-          height: 16,
+        TableCalendar(
+          eventLoader: (day) {
+            return tasks.where((task) => task.date == day).toList();
+          },
+          focusedDay: _focusedDay,
+          firstDay: DateTime.utc(1992, 12, 4),
+          lastDay: DateTime.utc(2113, 6, 13),
+          calendarFormat: calendarFormat,
+          startingDayOfWeek: StartingDayOfWeek.monday,
+          daysOfWeekStyle: DaysOfWeekStyle(
+              weekendStyle: textSMregulargrey500,
+              weekdayStyle: textSMregulargrey500),
+          calendarStyle: CalendarStyle(
+            todayDecoration: const BoxDecoration(
+              color: Color.fromARGB(121, 0, 15, 128),
+              shape: BoxShape.circle,
+            ),
+            selectedDecoration: BoxDecoration(
+              gradient: navyBlueGradient,
+              shape: BoxShape.circle,
+            ),
+            defaultTextStyle: textSMregulardate,
+            selectedTextStyle: textMDboldwhite,
+            todayTextStyle: textSMregularwhite,
+            outsideTextStyle: textSMregulargrey400,
+          ),
+          headerStyle: HeaderStyle(
+            titleTextStyle: textMDbold,
+            formatButtonTextStyle: textSMboldblue,
+            formatButtonVisible: false,
+          ),
+          selectedDayPredicate: (day) {
+            return isSameDay(_selectedDay, day);
+          },
+          onDaySelected: (selectedDay, focusedDay) {
+            setState(() {
+              _selectedDay = selectedDay;
+              _focusedDay = focusedDay;
+            });
+          },
+          onPageChanged: (focusedDay) {
+            _focusedDay = focusedDay;
+          },
+          onFormatChanged: (format) {
+            setState(() {
+              calendarFormat = format;
+            });
+          },
         ),
-        const CalendarWidget()
+        const SizedBox(height: 8.0),
+        Expanded(
+          child: ListView.builder(
+            itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(tasks[index].title),
+                subtitle: Text(tasks[index].description),
+                trailing:
+                    Text(DateFormat('yyyy-MM-dd').format(tasks[index].date)),
+              );
+            },
+          ),
+        ),
       ],
     );
   }
 }
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:planner/core/fonts_palette.dart';
-// import 'package:planner/core/gradient_palette.dart';
-// import 'package:planner/widget/avatar_and_text_widget.dart';
-// import 'package:planner/widget/background_gradient.dart';
-// import 'package:planner/widget/main_text_widget.dart';
-// import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
-// import 'package:table_calendar/table_calendar.dart';
-
-// class CalendarPage extends StatefulWidget {
-//   const CalendarPage({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   State<CalendarPage> createState() => _CalendarPageState();
-// }
-
-// class _CalendarPageState extends State<CalendarPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: [
-//         const BackgroundGradientWidget(),
-//         Scaffold(
-//           backgroundColor: Colors.transparent,
-//           body: SafeArea(
-//             child: ListView(
-//               children: [
-//                 const SizedBox(
-//                   height: 20,
-//                 ),
-//                 const AvatarAndText(
-//                     welcomeText: 'WELCOME, JUNGKOOK',
-//                     imageURL: 'images/jungkookie.jpg',
-//                     radius: 30),
-//                 const SizedBox(
-//                   height: 16,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   crossAxisAlignment: CrossAxisAlignment.end,
-//                   children: [
-//                     const MainText(
-//                       mainText: 'Calendar',
-//                     ),
-//                     NavyBlueElevatedButton1(
-//                         buttonText: 'Add Task',
-//                         buttonGradientColor: navyBlueGradient,
-//                         buttonTextStyle: textXSboldwhite,
-//                         onPressed: () {},
-//                         buttonWidth: 150,
-//                         buttonHeight: 30),
-//                   ],
-//                 ),
-//                 const SizedBox(
-//                   height: 15,
-//                 ),
-//                 TableCalendar(
-//                   focusedDay: DateTime.now(),
-//                   firstDay: DateTime.utc(1990, 12, 4),
-//                   lastDay: DateTime.utc(2113, 12, 31),
-//                   calendarStyle: CalendarStyle(
-//                       todayDecoration: const BoxDecoration(
-//                         color: Color.fromARGB(255, 17, 28, 108),
-//                         shape: BoxShape.circle,
-//                       ),
-//                       defaultTextStyle: textSMregulardate),
-//                   headerStyle: const HeaderStyle(formatButtonVisible: false),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
