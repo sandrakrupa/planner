@@ -50,14 +50,13 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: FirebaseAuth.instance.userChanges(),
       builder: (context, snapshot) {
         final user = snapshot.data;
-        final String userName;
         if (user == null) {
           return LoginPage();
         }
-        return const SettingsPage(userName: '');
+        return SettingsPage(userName: user.displayName ?? 'Gość');
       },
     );
   }

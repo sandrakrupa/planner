@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
+import 'package:planner/screens/home/home%20page/settings_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     _isRegistration
                         ? 'Create an account'
-                        : 'Log into your account',
+                        : 'Log in to your account',
                     style: displayXSbold,
                   ),
                 ),
@@ -165,25 +166,28 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       } else {
                         try {
-                          await FirebaseAuth.instance
+                          final userCredential = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                             email: widget.emailController.text.trim(),
                             password: widget.passwordController.text.trim(),
                           );
-                          User? user = FirebaseAuth.instance.currentUser;
+                          final user = userCredential.user;
+                          // User? user = FirebaseAuth.instance.currentUser;
                           if (user != null) {
+                            final userName =
+                                widget.usernameController.text.trim();
                             await user.updateDisplayName(
-                              widget.usernameController.text.trim(),
+                              userName,
                             );
                           }
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => HomePage(
-                          //       userName: widget.usernameController.text.trim(),
-                          //     ),
-                          //   ),
-                          // );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SettingsPage(
+                                userName: widget.usernameController.text.trim(),
+                              ),
+                            ),
+                          );
                         } on FirebaseAuthException catch (e) {
                           setState(() {
                             errorMessage = getErrorMessage(

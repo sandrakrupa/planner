@@ -7,11 +7,16 @@ import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 
 class AddTaskDialog extends StatefulWidget {
   const AddTaskDialog({super.key});
+
   @override
   State<AddTaskDialog> createState() => _AddTaskDialogState();
 }
 
 class _AddTaskDialogState extends State<AddTaskDialog> {
+  final titleController = TextEditingController();
+  final descpController = TextEditingController();
+  final dateController = TextEditingController();
+
   String title = '';
   String description = '';
   DateTime selectedDate = DateTime.now();
@@ -19,16 +24,14 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
   void saveTask() {
     if (title.isNotEmpty) {
-      // Create a new task and add it to the task manager
       Task newTask = Task(
         id: UniqueKey().toString(),
         title: title,
         description: description,
-        date: selectedDate, // You can set the date according to your needs
+        date: selectedDate,
       );
       taskManager.addTask(newTask);
 
-      // Close the dialog
       Navigator.pop(context);
     }
   }
@@ -45,6 +48,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
         children: [
           TextField(
             onChanged: (value) => setState(() => title = value),
+            controller: titleController,
             decoration: InputDecoration(
               labelText: 'Title',
               labelStyle: textMDregulargrey300,
@@ -58,6 +62,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
           ),
           TextField(
             onChanged: (value) => setState(() => description = value),
+            controller: descpController,
             decoration: InputDecoration(
               labelText: 'Description',
               labelStyle: textMDregulargrey300,
@@ -79,12 +84,14 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               final newDate = await showDatePicker(
                 context: context,
                 initialDate: selectedDate,
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100),
+                firstDate: DateTime(1992),
+                lastDate: DateTime(2113),
               );
               if (newDate != null) {
                 setState(() {
                   selectedDate = newDate;
+                  dateController.text =
+                      DateFormat('yyyy-MM-dd').format(newDate);
                 });
               }
             },

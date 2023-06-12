@@ -15,7 +15,7 @@ class CalendarWidget extends StatefulWidget {
 }
 
 class _CalendarWidgetState extends State<CalendarWidget> {
-  CalendarFormat calendarFormat = CalendarFormat.month;
+  CalendarFormat calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
   TaskManager taskManager = TaskManager();
@@ -64,6 +64,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           firstDay: DateTime.utc(1992, 12, 4),
           lastDay: DateTime.utc(2113, 6, 13),
           calendarFormat: calendarFormat,
+          startingDayOfWeek: StartingDayOfWeek.monday,
           daysOfWeekStyle: DaysOfWeekStyle(
               weekendStyle: textSMregulargrey500,
               weekdayStyle: textSMregulargrey500),
@@ -104,6 +105,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             });
           },
         ),
+        const SizedBox(height: 8.0),
+        
       ],
     );
   }
