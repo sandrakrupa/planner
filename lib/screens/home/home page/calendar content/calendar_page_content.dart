@@ -10,6 +10,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPageContent extends StatefulWidget {
   final ValueNotifier<File?> imageNotifier;
+
   const CalendarPageContent({
     required this.imageNotifier,
     super.key,
@@ -31,7 +32,12 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
 
   String title = '';
   String description = '';
-  DateTime selectedDate = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = _focusedDay;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +126,6 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           TextField(
-                            onChanged: (value) => setState(() => title = value),
                             controller: titleController,
                             decoration: InputDecoration(
                               labelText: 'Title',
@@ -134,8 +139,6 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
                             height: 15,
                           ),
                           TextField(
-                            onChanged: (value) =>
-                                setState(() => description = value),
                             controller: descriptionController,
                             decoration: InputDecoration(
                               labelText: 'Description',
@@ -180,7 +183,8 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
                           buttonWidth: 100,
                           buttonHeight: 30,
                           onPressed: () {
-                            if (titleController.text.isNotEmpty) {
+                            if (titleController.text.isNotEmpty &&
+                                dateController.text.isNotEmpty) {
                               setState(() {
                                 tasks.add(Task(
                                   title: titleController.text,
@@ -206,9 +210,6 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
           ],
         ),
         TableCalendar(
-          eventLoader: (day) {
-            return tasks.where((task) => task.date == day).toList();
-          },
           focusedDay: _focusedDay,
           firstDay: DateTime.utc(1992, 12, 4),
           lastDay: DateTime.utc(2113, 6, 13),
@@ -236,6 +237,9 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
             formatButtonTextStyle: textSMboldblue,
             formatButtonVisible: false,
           ),
+          eventLoader: (day) {
+            return tasks.where((task) => task.date == day).toList();
+          },
           selectedDayPredicate: (day) {
             return isSameDay(_selectedDay, day);
           },
@@ -260,10 +264,37 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
             itemCount: tasks.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(tasks[index].title),
-                subtitle: Text(tasks[index].description),
-                trailing:
-                    Text(DateFormat('yyyy-MM-dd').format(tasks[index].date)),
+                title: Text(
+                  tasks[index].title,
+                  style: textMDboldgrey700,
+                ),
+                subtitle: Text(
+                  tasks[index].description,
+                  style: textSMregulargrey400,
+                ),
+                trailing: Checkbox(
+                  value: tasks[index].isSelected,
+                  onChanged: (value) {
+                    setState(() {
+                      tasks[index].isSelected = value!;
+                      if (value) {
+                        tasks[index].isCrossedOut = true;
+                        List<Task> newTasks = tasks
+                            .where((task) => task != tasks[index])
+                            .toList();
+                        newTasks.add(tasks[index]);
+                        tasks = newTasks;
+                      } else {
+                        tasks[index].isCrossedOut = false;
+                      }
+                    });
+                  },
+                ),
+                // onLongPress: () {
+                //   setState(() {
+                //     tasks[index].isSelected = false;
+                //   });
+                // },
               );
             },
           ),

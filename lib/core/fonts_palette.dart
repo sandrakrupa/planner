@@ -112,6 +112,14 @@ TextStyle textSMregulargrey400 = GoogleFonts.robotoCondensed(
   ),
 );
 
+TextStyle textSMregulargrey200 = GoogleFonts.robotoCondensed(
+  textStyle: const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: Color.fromARGB(255, 189, 189, 217),
+  ),
+);
+
 TextStyle textSMregulargrey500 = GoogleFonts.robotoCondensed(
   textStyle: const TextStyle(
     fontSize: 14,
