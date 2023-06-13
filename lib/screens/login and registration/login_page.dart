@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/screens/home/home%20page/settings_page.dart';
+import 'package:planner/screens/home/home%20page/user_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
