@@ -189,7 +189,7 @@ class _UserPageState extends State<UserPage> {
                       height: 16,
                     ),
                     const MainText(
-                      mainText: 'Settings',
+                      mainText: 'Your Profile',
                     ),
                     const SizedBox(
                       height: 8,

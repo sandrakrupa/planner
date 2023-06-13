@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/screens/home/home%20page/user_page.dart';
 import 'package:planner/widget/background_image_widget.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
@@ -51,6 +50,19 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  void sendPasswordResetEmail() {
+    String email = 'user@example.com';
+
+    _auth.sendPasswordResetEmail(email: email).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password reset email sent.'),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -75,10 +87,6 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 60,
                 ),
-                if (_isRegistration)
-                  const SizedBox(
-                    height: 8,
-                  ),
                 const TextOverInputWidget(
                   inputString: 'Email Address',
                 ),
@@ -131,10 +139,46 @@ class _LoginPageState extends State<LoginPage> {
                   height: 10,
                 ),
                 Center(
-                    child: Text(
-                  errorMessage,
-                  style: textSMboldred,
-                )),
+                  child: Text(
+                    errorMessage,
+                    style: textSMboldred,
+                  ),
+                ),
+                SizedBox(
+                  height: _isRegistration ? 57 : 10,
+                ),
+                if (!_isRegistration)
+                  Container(
+                    margin: const EdgeInsets.only(right: 16),
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Send password reset email'),
+                              actions: [
+                                NavyBlueElevatedButton1(
+                                    buttonText: 'Send',
+                                    buttonGradientColor: navyBlueGradient,
+                                    buttonTextStyle: textMDboldwhite,
+                                    buttonWidth: 100,
+                                    buttonHeight: 30,
+                                    onPressed: () {
+                                      sendPasswordResetEmail();
+                                    })
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Text(
+                        'Forgot password?',
+                        style: textSMboldblue,
+                      ),
+                    ),
+                  ),
                 const SizedBox(
                   height: 70,
                 ),
@@ -199,9 +243,7 @@ class _LoginPageState extends State<LoginPage> {
                   buttonHeight: 60,
                   buttonWidth: double.infinity,
                 ),
-                SizedBox(
-                  height: _isRegistration ? 170 : 180,
-                ),
+                const SizedBox(height: 130),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
