@@ -290,11 +290,6 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
                     });
                   },
                 ),
-                // onLongPress: () {
-                //   setState(() {
-                //     tasks[index].isSelected = false;
-                //   });
-                // },
               );
             },
           ),

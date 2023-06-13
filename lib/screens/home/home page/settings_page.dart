@@ -11,18 +11,18 @@ import 'package:image_picker/image_picker.dart';
 import 'package:planner/widget/main_text_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
 
-class SettingsPage extends StatefulWidget {
+class UserPage extends StatefulWidget {
   final String userName;
-  const SettingsPage({
+  const UserPage({
     required this.userName,
     super.key,
   });
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<UserPage> createState() => _UserPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _UserPageState extends State<UserPage> {
   File? imageFile;
 
   ValueNotifier<File?> imageNotifier = ValueNotifier<File?>(null);
@@ -245,10 +245,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   FlashyTabBarItem(
                     icon: const Icon(
-                      Icons.settings,
+                      Icons.person,
                       color: Color.fromARGB(255, 252, 252, 253),
                     ),
-                    title: Text('Settings', style: textSMboldwhite),
+                    title: Text('Your Profile', style: textSMboldwhite),
                     activeColor: const Color.fromARGB(255, 17, 28, 108),
                   ),
                 ],

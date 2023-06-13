@@ -76,23 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                   height: 60,
                 ),
                 if (_isRegistration)
-                  const TextOverInputWidget(inputString: 'Name'),
-                if (_isRegistration)
-                  ContainerInputDecorationWidget(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: TextField(
-                        controller: widget.usernameController,
-                        decoration: InputDecoration(
-                          hintText: 'Enter your name',
-                          hintStyle: textMDregulargrey300,
-                          border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.person),
-                        ),
-                      ),
-                    ),
-                  ),
-                if (_isRegistration)
                   const SizedBox(
                     height: 8,
                   ),
@@ -152,8 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                   errorMessage,
                   style: textSMboldred,
                 )),
-                SizedBox(
-                  height: _isRegistration ? 70 : 70,
+                const SizedBox(
+                  height: 70,
                 ),
                 NavyBlueElevatedButton1(
                   onPressed: () async {
@@ -166,27 +149,10 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       } else {
                         try {
-                          final userCredential = await FirebaseAuth.instance
+                          await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                             email: widget.emailController.text.trim(),
                             password: widget.passwordController.text.trim(),
-                          );
-                          final user = userCredential.user;
-                          // User? user = FirebaseAuth.instance.currentUser;
-                          if (user != null) {
-                            final userName =
-                                widget.usernameController.text.trim();
-                            await user.updateDisplayName(
-                              userName,
-                            );
-                          }
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SettingsPage(
-                                userName: widget.usernameController.text.trim(),
-                              ),
-                            ),
                           );
                         } on FirebaseAuthException catch (e) {
                           setState(() {
@@ -234,7 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                   buttonWidth: double.infinity,
                 ),
                 SizedBox(
-                  height: _isRegistration ? 80 : 180,
+                  height: _isRegistration ? 170 : 180,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

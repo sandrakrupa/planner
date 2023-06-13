@@ -56,7 +56,7 @@ class RootPage extends StatelessWidget {
         if (user == null) {
           return LoginPage();
         }
-        return SettingsPage(userName: user.displayName ?? 'Gość');
+        return UserPage(userName: user.displayName ?? 'Gość');
       },
     );
   }
