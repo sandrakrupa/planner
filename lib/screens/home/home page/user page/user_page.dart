@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import "package:flutter/material.dart";
+import 'package:image_picker/image_picker.dart';
 import 'package:planner/core/fonts_palette.dart';
 import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/screens/home/home%20page/calendar%20content/calendar_page_content.dart';
 import 'package:planner/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
 import 'package:planner/widget/background_gradient.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/main_text_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
@@ -51,6 +51,11 @@ class _UserPageState extends State<UserPage> {
   void initState() {
     super.initState();
   }
+
+  User? user = FirebaseAuth.instance.currentUser;
+  bool isTextFieldEnabled = false;
+  TextEditingController oldPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -216,42 +221,33 @@ class _UserPageState extends State<UserPage> {
                       height: 8,
                     ),
                     const TextOverInputWidget(
-                      inputString: 'Name',
+                      inputString: 'Email',
                     ),
-                    ContainerInputDecorationWidget(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              hintText: 'Email',
-                              hintStyle: textMDregulargrey300,
-                              border: InputBorder.none,
-                              prefixIcon: const Icon(Icons.email),
-                              suffixIcon: const Icon(Icons.lock)),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const TextOverInputWidget(
-                      inputString: 'Password',
-                    ),
-                    ContainerInputDecorationWidget(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              hintText: '*******',
-                              hintStyle: textMDregulargrey300,
-                              border: InputBorder.none,
-                              prefixIcon: const Icon(Icons.person),
-                              suffixIcon: const Icon(Icons.arrow_circle_right)),
-                        ),
-                      ),
+                    StreamBuilder<User?>(
+                      stream: FirebaseAuth.instance.authStateChanges(),
+                      builder: (context, snapshot) {
+                        final user = snapshot.data;
+                        if (user == null) {
+                          return const Text('');
+                        }
+                        return ContainerInputDecorationWidget(
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: TextField(
+                              enabled: false,
+                              decoration: InputDecoration(
+                                  hintText: '${user.email}',
+                                  hintStyle: textMDregulargrey300,
+                                  border: InputBorder.none,
+                                  prefixIcon: const Icon(Icons.email),
+                                  suffixIcon: const Icon(Icons.lock)),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 170,
                     ),
                     NavyBlueElevatedButton1(
                       onPressed: () {
@@ -259,17 +255,6 @@ class _UserPageState extends State<UserPage> {
                       },
                       buttonText: 'Log out',
                       buttonGradientColor: navyBlueGradient,
-                      buttonTextStyle: textMDboldwhite,
-                      buttonHeight: 60,
-                      buttonWidth: double.infinity,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    NavyBlueElevatedButton1(
-                      onPressed: () {},
-                      buttonText: 'Delete account ',
-                      buttonGradientColor: redGradient,
                       buttonTextStyle: textMDboldwhite,
                       buttonHeight: 60,
                       buttonWidth: double.infinity,
@@ -327,108 +312,3 @@ class _UserPageState extends State<UserPage> {
     );
   }
 }
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:planner/core/fonts_palette.dart';
-// import 'package:planner/core/gradient_palette.dart';
-// import 'package:planner/widget/avatar_and_text_widget.dart';
-// import 'package:planner/widget/background_gradient.dart';
-// import 'package:planner/widget/input_widget.dart';
-// import 'package:planner/widget/main_text_widget.dart';
-// import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
-// import 'package:planner/widget/text_over_input_widget.dart';
-
-// class UserPage extends StatelessWidget {
-//   const UserPage({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: [
-//         const BackgroundGradientWidget(),
-//         Scaffold(
-//           backgroundColor: Colors.transparent,
-//           body: SafeArea(
-//             child: ListView(
-//               children: [
-//                 const SizedBox(
-//                   height: 20,
-//                 ),
-//                 const AvatarAndText(
-//                   welcomeText: 'WELCOME, JUNGKOOK',
-//                   imageURL: 'images/jungkookie.jpg',
-//                   radius: 30,
-//                 ),
-//                 const SizedBox(
-//                   height: 16,
-//                 ),
-//                 const MainText(
-//                   mainText: 'Your Account',
-//                 ),
-//                 const SizedBox(
-//                   height: 15,
-//                 ),
-//                 const TextOverInputWidget(
-//                   inputString: 'Name',
-//                 ),
-//                 const InputWidget(
-//                   inputText: 'Jungkook',
-//                   inputIcon: Icons.person,
-//                   inputSuffixIcon: Icons.arrow_right_rounded,
-//                 ),
-//                 const SizedBox(
-//                   height: 8,
-//                 ),
-//                 const TextOverInputWidget(
-//                   inputString: 'Password',
-//                 ),
-//                 const InputWidget(
-//                   inputText: '*******',
-//                   inputIcon: Icons.lock,
-//                   inputSuffixIcon: Icons.arrow_right_rounded,
-//                 ),
-//                 const SizedBox(
-//                   height: 8,
-//                 ),
-//                 const TextOverInputWidget(inputString: 'Email'),
-//                 const InputWidget(
-//                   inputText: 'jungkook@gmail.com',
-//                   inputIcon: Icons.email,
-//                   inputSuffixIcon: Icons.arrow_right_rounded,
-//                 ),
-//                 const SizedBox(
-//                   height: 120,
-//                 ),
-//                 NavyBlueElevatedButton1(
-//                   onPressed: () {},
-//                   buttonText: 'Log out',
-//                   buttonGradientColor: navyBlueGradient,
-//                   buttonTextStyle: textMDboldwhite,
-//                   buttonHeight: 60,
-//                   buttonWidth: double.infinity,
-//                 ),
-//                 const SizedBox(
-//                   height: 15,
-//                 ),
-//                 NavyBlueElevatedButton1(
-//                   onPressed: () {},
-//                   buttonText: 'Delete account ',
-//                   buttonGradientColor: redGradient,
-//                   buttonTextStyle: textMDboldwhite,
-//                   buttonHeight: 60,
-//                   buttonWidth: double.infinity,
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
