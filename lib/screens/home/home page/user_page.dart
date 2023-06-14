@@ -8,8 +8,10 @@ import 'package:planner/screens/home/home%20page/calendar%20content/calendar_pag
 import 'package:planner/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
 import 'package:planner/widget/background_gradient.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:planner/widget/container_input_decoration_widget.dart';
 import 'package:planner/widget/main_text_widget.dart';
 import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:planner/widget/text_over_input_widget.dart';
 
 class UserPage extends StatefulWidget {
   final String userName;
@@ -192,7 +194,61 @@ class _UserPageState extends State<UserPage> {
                       mainText: 'Your Profile',
                     ),
                     const SizedBox(
+                      height: 40,
+                    ),
+                    const TextOverInputWidget(
+                      inputString: 'Name',
+                    ),
+                    ContainerInputDecorationWidget(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Enter your name',
+                            hintStyle: textMDregulargrey300,
+                            border: InputBorder.none,
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
                       height: 8,
+                    ),
+                    const TextOverInputWidget(
+                      inputString: 'Name',
+                    ),
+                    ContainerInputDecorationWidget(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: 'Email',
+                              hintStyle: textMDregulargrey300,
+                              border: InputBorder.none,
+                              prefixIcon: const Icon(Icons.email),
+                              suffixIcon: const Icon(Icons.lock)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const TextOverInputWidget(
+                      inputString: 'Password',
+                    ),
+                    ContainerInputDecorationWidget(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: '*******',
+                              hintStyle: textMDregulargrey300,
+                              border: InputBorder.none,
+                              prefixIcon: const Icon(Icons.person),
+                              suffixIcon: const Icon(Icons.arrow_circle_right)),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 50,
@@ -203,6 +259,17 @@ class _UserPageState extends State<UserPage> {
                       },
                       buttonText: 'Log out',
                       buttonGradientColor: navyBlueGradient,
+                      buttonTextStyle: textMDboldwhite,
+                      buttonHeight: 60,
+                      buttonWidth: double.infinity,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    NavyBlueElevatedButton1(
+                      onPressed: () {},
+                      buttonText: 'Delete account ',
+                      buttonGradientColor: redGradient,
                       buttonTextStyle: textMDboldwhite,
                       buttonHeight: 60,
                       buttonWidth: double.infinity,

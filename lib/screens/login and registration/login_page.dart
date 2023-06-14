@@ -52,14 +52,23 @@ class _LoginPageState extends State<LoginPage> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   void sendPasswordResetEmail() {
-    String email = 'user@example.com';
-
-    _auth.sendPasswordResetEmail(email: email).then((_) {
+    _auth
+        .sendPasswordResetEmail(email: widget.emailController.text.trim())
+        .then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Password reset email sent.'),
+        SnackBar(
+          content: Text(
+            'Password reset email sent.',
+            style: textSMboldgrey500,
+          ),
+          backgroundColor: const Color.fromARGB(255, 157, 247, 160),
         ),
       );
+    }).catchError((error) {
+      setState(() {
+        errorMessage =
+            'Failed to send password reset email. Enter your email address.';
+      });
     });
   }
 
@@ -167,6 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                                     buttonHeight: 30,
                                     onPressed: () {
                                       sendPasswordResetEmail();
+                                      Navigator.of(context).pop();
                                     })
                               ],
                             );
