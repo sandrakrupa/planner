@@ -25,6 +25,9 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  String userName = '';
+  TextEditingController nameController = TextEditingController();
+
   File? imageFile;
 
   ValueNotifier<File?> imageNotifier = ValueNotifier<File?>(null);
@@ -52,11 +55,6 @@ class _UserPageState extends State<UserPage> {
     super.initState();
   }
 
-  User? user = FirebaseAuth.instance.currentUser;
-  bool isTextFieldEnabled = false;
-  TextEditingController oldPasswordController = TextEditingController();
-  TextEditingController newPasswordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,10 +66,16 @@ class _UserPageState extends State<UserPage> {
             body: Builder(
               builder: (context) {
                 if (_selectedIndex == 0) {
-                  return CalendarPageContent(imageNotifier: imageNotifier);
+                  return CalendarPageContent(
+                    imageNotifier: imageNotifier,
+                    
+                  );
                 }
                 if (_selectedIndex == 1) {
-                  return GratitudePageContent(imageNotifier: imageNotifier);
+                  return GratitudePageContent(
+                    imageNotifier: imageNotifier,
+                    userName: userName,
+                  );
                 }
                 return ListView(
                   children: [
@@ -85,7 +89,7 @@ class _UserPageState extends State<UserPage> {
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            'WELCOME, ${widget.userName}',
+                            'WELCOME, $userName',
                             style: textMDregulargrey700,
                           ),
                         ),
@@ -214,6 +218,11 @@ class _UserPageState extends State<UserPage> {
                             border: InputBorder.none,
                             prefixIcon: const Icon(Icons.person),
                           ),
+                          onSubmitted: (value) {
+                            setState(() {
+                              userName = value;
+                            });
+                          },
                         ),
                       ),
                     ),

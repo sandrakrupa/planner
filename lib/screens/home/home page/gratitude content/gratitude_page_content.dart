@@ -5,8 +5,10 @@ import 'package:planner/core/gradient_palette.dart';
 import 'package:planner/widget/main_text_widget.dart';
 
 class GratitudePageContent extends StatelessWidget {
+  final String userName;
   final ValueNotifier<File?> imageNotifier;
   const GratitudePageContent({
+    required this.userName,
     required this.imageNotifier,
     super.key,
   });
@@ -25,7 +27,7 @@ class GratitudePageContent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'WELCOME, ',
+                'WELCOME, $userName',
                 style: textMDregulargrey700,
               ),
             ),
