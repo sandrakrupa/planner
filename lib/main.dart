@@ -1,11 +1,11 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:planner/app/features/screens/login%20and%20registration/login_page.dart';
 import 'package:planner/firebase_options.dart';
-import 'package:planner/screens/home/home%20page/user%20page/user_page.dart';
-import 'package:planner/screens/login%20and%20registration/login_page.dart';
+
+
+import 'app/features/screens/home/home page/user page/user_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,9 +58,7 @@ class RootPage extends StatelessWidget {
         if (user == null) {
           return LoginPage();
         }
-        return UserPage(
-          userName: user.displayName ?? 'Gość',
-        );
+        return UserPage(user: user);
       },
     );
   }

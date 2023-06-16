@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planner/core/fonts_palette.dart';
+import 'package:planner/app/features/core/fonts_palette.dart';
 
 class MainText extends StatelessWidget {
   final String mainText;

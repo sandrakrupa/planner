@@ -3,23 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import "package:flutter/material.dart";
 import 'package:image_picker/image_picker.dart';
-import 'package:planner/core/fonts_palette.dart';
-import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/screens/home/home%20page/calendar%20content/calendar_page_content.dart';
-import 'package:planner/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
-import 'package:planner/widget/background_gradient.dart';
-import 'package:planner/widget/container_input_decoration_widget.dart';
-import 'package:planner/widget/main_text_widget.dart';
-import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
-import 'package:planner/widget/text_over_input_widget.dart';
+import 'package:planner/app/features/core/fonts_palette.dart';
+import 'package:planner/app/features/core/gradient_palette.dart';
+import 'package:planner/app/features/screens/home/home%20page/calendar%20content/calendar_page_content.dart';
+import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
+import 'package:planner/app/features/widget/background_gradient.dart';
+import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
+import 'package:planner/app/features/widget/main_text_widget.dart';
+import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:planner/app/features/widget/text_over_input_widget.dart';
 
 class UserPage extends StatefulWidget {
-  final String userName;
   const UserPage({
-    required this.userName,
-    super.key,
+    super.key, required this.user,
   });
-
+  final User user;
   @override
   State<UserPage> createState() => _UserPageState();
 }
@@ -68,7 +66,6 @@ class _UserPageState extends State<UserPage> {
                 if (_selectedIndex == 0) {
                   return CalendarPageContent(
                     imageNotifier: imageNotifier,
-                    
                   );
                 }
                 if (_selectedIndex == 1) {
@@ -232,28 +229,19 @@ class _UserPageState extends State<UserPage> {
                     const TextOverInputWidget(
                       inputString: 'Email',
                     ),
-                    StreamBuilder<User?>(
-                      stream: FirebaseAuth.instance.authStateChanges(),
-                      builder: (context, snapshot) {
-                        final user = snapshot.data;
-                        if (user == null) {
-                          return const Text('');
-                        }
-                        return ContainerInputDecorationWidget(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextField(
-                              enabled: false,
-                              decoration: InputDecoration(
-                                  hintText: '${user.email}',
-                                  hintStyle: textMDregulargrey300,
-                                  border: InputBorder.none,
-                                  prefixIcon: const Icon(Icons.email),
-                                  suffixIcon: const Icon(Icons.lock)),
-                            ),
-                          ),
-                        );
-                      },
+                    ContainerInputDecorationWidget(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: TextField(
+                          enabled: false,
+                          decoration: InputDecoration(
+                              hintText: '${widget.user.email}',
+                              hintStyle: textMDregulargrey300,
+                              border: InputBorder.none,
+                              prefixIcon: const Icon(Icons.email),
+                              suffixIcon: const Icon(Icons.lock)),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 170,

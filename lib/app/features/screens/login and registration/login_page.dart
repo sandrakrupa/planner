@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:planner/core/fonts_palette.dart';
-import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/screens/login%20and%20registration/cubit/cubit/login_cubit.dart';
-import 'package:planner/widget/background_image_widget.dart';
-import 'package:planner/widget/container_input_decoration_widget.dart';
-import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
-import 'package:planner/widget/text_over_input_widget.dart';
+import 'package:planner/app/features/core/fonts_palette.dart';
+import 'package:planner/app/features/core/gradient_palette.dart';
+import 'package:planner/app/features/screens/login%20and%20registration/cubit/cubit/login_cubit.dart';
+import 'package:planner/app/features/widget/background_image_widget.dart';
+import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
+import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:planner/app/features/widget/text_over_input_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {

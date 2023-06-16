@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:planner/core/fonts_palette.dart';
-import 'package:planner/core/gradient_palette.dart';
-import 'package:planner/core/models.dart';
-import 'package:planner/widget/main_text_widget.dart';
-import 'package:planner/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:planner/app/features/core/fonts_palette.dart';
+import 'package:planner/app/features/core/gradient_palette.dart';
+import 'package:planner/app/features/core/models.dart';
+import 'package:planner/app/features/widget/main_text_widget.dart';
+import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPageContent extends StatefulWidget {

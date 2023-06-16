@@ -5,9 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+  LoginCubit()
+      : super(
+          LoginInitial(),
+        );
 
-  void login(String email, String password, bool isRegistration) async {
+  Future<void> login(String email, String password, bool isRegistration) async {
     try {
       if (isRegistration) {
         // registration
@@ -17,8 +20,10 @@ class LoginCubit extends Cubit<LoginState> {
           );
           return;
         }
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
       } else {
         // {
         //   try {
@@ -38,8 +43,10 @@ class LoginCubit extends Cubit<LoginState> {
         // }
 
         // logging
-        await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
       }
       emit(
         LoginSuccess(),
@@ -47,7 +54,11 @@ class LoginCubit extends Cubit<LoginState> {
     } on FirebaseAuthException catch (e) {
       emit(
         LoginError(
-          getErrorMessage(e, email, password),
+          getErrorMessage(
+            e,
+            email,
+            password,
+          ),
         ),
       );
     } catch (e) {
