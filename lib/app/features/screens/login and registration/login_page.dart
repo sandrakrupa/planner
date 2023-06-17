@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         const BackgroundImageWidget(),
         BlocProvider(
-          create: (_) => LoginCubit(),
+          create: (context) => LoginCubit(),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: SafeArea(

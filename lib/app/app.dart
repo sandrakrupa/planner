@@ -1,5 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planner/app/cubit/root_cubit.dart';
 
 import 'features/screens/home/home page/user page/user_page.dart';
 import 'features/screens/login and registration/login_page.dart';
@@ -40,15 +41,23 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.userChanges(),
-      builder: (context, snapshot) {
-        final user = snapshot.data;
-        if (user == null) {
-          return LoginPage();
-        }
-        return UserPage(user: user);
-      },
+    return BlocProvider(
+      create: (context) => RootCubit(),
+      child: BlocBuilder<RootCubit, RootState>(
+        builder: (context, state) {
+          if (state is RootError) {
+            return Scaffold(
+              body: Center(child: Text('Error: ${state.errorMessage}')),
+            );
+          } else if (state is RootUnauthenticated) {
+            return LoginPage();
+          } else if (state is RootAuthenticated) {
+            return UserPage(user: state.user);
+          } else {
+            return LoginPage();
+          }
+        },
+      ),
     );
   }
 }
