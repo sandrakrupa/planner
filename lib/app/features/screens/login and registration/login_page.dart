@@ -8,23 +8,13 @@ import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.d
 import 'package:planner/app/features/widget/text_over_input_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   LoginPage({
     Key? key,
   }) : super(key: key);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  bool _isPasswordVisible = false;
-  bool _isRegistration = false;
-
-  String errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +29,20 @@ class _LoginPageState extends State<LoginPage> {
               child: BlocConsumer<LoginCubit, LoginState>(
                 listener: (context, state) {
                   if (state is LoginError) {
-                    setState(() {
-                      errorMessage = state.errorMessage;
-                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          state.errorMessage,
+                          style: textMDboldwhite,
+                        ),
+                        backgroundColor: const Color.fromARGB(255, 148, 54, 54),
+                      ),
+                    );
                   }
                 },
                 builder: (context, state) {
+                  final cubit = context.watch<LoginCubit>();
+
                   return ListView(
                     children: [
                       const SizedBox(
@@ -52,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Center(
                         child: Text(
-                          _isRegistration
+                          cubit.isRegistration
                               ? 'Create an account'
                               : 'Log in to your account',
                           style: displayXSbold,
@@ -68,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: TextField(
-                            controller: widget.emailController,
+                            controller: emailController,
                             decoration: InputDecoration(
                               hintText: 'Enter your email',
                               hintStyle: textMDregulargrey300,
@@ -88,22 +86,18 @@ class _LoginPageState extends State<LoginPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: TextField(
-                            controller: widget.passwordController,
-                            obscureText: !_isPasswordVisible,
+                            controller: passwordController,
+                            obscureText: !cubit.isPasswordVisible,
                             decoration: InputDecoration(
                               hintText: '*******',
                               hintStyle: textMDregulargrey300,
                               border: InputBorder.none,
                               prefixIcon: const Icon(Icons.lock),
                               suffixIcon: IconButton(
-                                icon: Icon(_isPasswordVisible
+                                icon: Icon(cubit.isPasswordVisible
                                     ? Icons.visibility
                                     : Icons.visibility_off_rounded),
-                                onPressed: () {
-                                  setState(() {
-                                    _isPasswordVisible = !_isPasswordVisible;
-                                  });
-                                },
+                                onPressed: cubit.togglePasswordVisibility,
                               ),
                             ),
                           ),
@@ -114,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Center(
                         child: Text(
-                          errorMessage,
+                          state is LoginError ? state.errorMessage : '',
                           style: textSMboldred,
                         ),
                       ),
@@ -125,9 +119,9 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           final cubit = context.read<LoginCubit>();
                           cubit.login(
-                            widget.emailController.text.trim(),
-                            widget.passwordController.text.trim(),
-                            _isRegistration,
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
+                            cubit.isRegistration,
                           );
                         },
                         buttonText: 'Sign in',
@@ -143,13 +137,9 @@ class _LoginPageState extends State<LoginPage> {
                           Text('Don\'t have an account?',
                               style: textSMregularwhite),
                           TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _isRegistration = !_isRegistration;
-                              });
-                            },
+                            onPressed: cubit.toggleRegistrationMode,
                             child: Text(
-                              _isRegistration ? 'Log in' : 'Sign up',
+                              cubit.isRegistration ? 'Log in' : 'Sign up',
                               style: textSMboldblue,
                             ),
                           ),

@@ -10,6 +10,9 @@ class LoginCubit extends Cubit<LoginState> {
           LoginInitial(),
         );
 
+  bool isPasswordVisible = false;
+  bool isRegistration = false;
+
   Future<void> login(String email, String password, bool isRegistration) async {
     try {
       if (isRegistration) {
@@ -66,6 +69,20 @@ class LoginCubit extends Cubit<LoginState> {
         LoginError('An error occurred. Please try again.'),
       );
     }
+  }
+
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    emit(
+      LoginPasswordVisibilityChanged(isPasswordVisible: isPasswordVisible),
+    );
+  }
+
+  void toggleRegistrationMode() {
+    isRegistration = !isRegistration;
+    emit(
+      LoginRegistrationModeChanged(isRegistration: isRegistration),
+    );
   }
 
   String getErrorMessage(

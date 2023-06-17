@@ -13,3 +13,15 @@ class LoginError extends LoginState {
 
   LoginError(this.errorMessage);
 }
+
+class LoginPasswordVisibilityChanged extends LoginState {
+  final bool isPasswordVisible;
+
+  LoginPasswordVisibilityChanged({required this.isPasswordVisible});
+}
+
+class LoginRegistrationModeChanged extends LoginState {
+  final bool isRegistration;
+
+  LoginRegistrationModeChanged({required this.isRegistration});
+}
