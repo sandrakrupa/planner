@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
-part 'root_state.dart';
+part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   StreamSubscription? _streamSubscription;

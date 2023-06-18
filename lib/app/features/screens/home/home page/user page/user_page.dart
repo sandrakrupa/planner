@@ -4,7 +4,7 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:planner/app/cubit/root_cubit.dart';
+import 'package:planner/app/cubit/auth_cubit.dart';
 import 'package:planner/app/features/core/fonts_palette.dart';
 import 'package:planner/app/features/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/calendar%20content/calendar_page_content.dart';
