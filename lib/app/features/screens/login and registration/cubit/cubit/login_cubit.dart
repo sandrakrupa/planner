@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 part 'login_state.dart';
@@ -28,23 +27,6 @@ class LoginCubit extends Cubit<LoginState> {
           password: password,
         );
       } else {
-        // {
-        //   try {
-        //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        //         email: email, password: password);
-        //   } on FirebaseAuthException catch (e) {
-        //     emit(
-        //       LoginError(
-        //         getErrorMessage(e, email, password),
-        //       ),
-        //     );
-        //   } catch (e) {
-        //     emit(
-        //       LoginError('An error occurred. Please try again.'),
-        //     );
-        //   }
-        // }
-
         // logging
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,

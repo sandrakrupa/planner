@@ -1,20 +1,20 @@
 part of 'root_cubit.dart';
 
 @immutable
-abstract class RootState {}
+abstract class AuthState {}
 
-class RootInitial extends RootState {}
+class AuthInitial extends AuthState {}
 
-class RootAuthenticated extends RootState {
+class AuthAuthenticated extends AuthState {
   final User user;
 
-  RootAuthenticated({required this.user});
+  AuthAuthenticated({required this.user});
 }
 
-class RootUnauthenticated extends RootState {}
+class AuthUnauthenticated extends AuthState {}
 
-class RootError extends RootState {
+class AuthError extends AuthState {
   final String errorMessage;
 
-  RootError(this.errorMessage);
+  AuthError(this.errorMessage);
 }

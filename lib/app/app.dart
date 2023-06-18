@@ -42,16 +42,16 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RootCubit(),
-      child: BlocBuilder<RootCubit, RootState>(
+      create: (context) => AuthCubit(),
+      child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          if (state is RootError) {
+          if (state is AuthError) {
             return Scaffold(
               body: Center(child: Text('Error: ${state.errorMessage}')),
             );
-          } else if (state is RootUnauthenticated) {
+          } else if (state is AuthUnauthenticated) {
             return LoginPage();
-          } else if (state is RootAuthenticated) {
+          } else if (state is AuthAuthenticated) {
             return UserPage(user: state.user);
           } else {
             return LoginPage();

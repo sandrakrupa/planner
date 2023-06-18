@@ -251,7 +251,7 @@ class _UserPageState extends State<UserPage> {
                     ),
                     NavyBlueElevatedButton1(
                       onPressed: () {
-                        context.read<RootCubit>().logout();
+                        context.read<AuthCubit>().logout();
                       },
                       buttonText: 'Log out',
                       buttonGradientColor: navyBlueGradient,

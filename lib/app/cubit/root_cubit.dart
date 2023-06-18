@@ -7,19 +7,19 @@ import 'package:meta/meta.dart';
 
 part 'root_state.dart';
 
-class RootCubit extends Cubit<RootState> {
+class AuthCubit extends Cubit<AuthState> {
   StreamSubscription? _streamSubscription;
 
-  RootCubit() : super(RootInitial()) {
+  AuthCubit() : super(AuthInitial()) {
     _streamSubscription = FirebaseAuth.instance.userChanges().listen((user) {
       if (user == null) {
-        emit(RootUnauthenticated());
+        emit(AuthUnauthenticated());
       } else {
-        emit(RootAuthenticated(user: user));
+        emit(AuthAuthenticated(user: user));
       }
     }, onError: (error, stackTrace) {
       emit(
-        RootError(
+        AuthError(
           error.toString(),
         ),
       );
@@ -29,9 +29,9 @@ class RootCubit extends Cubit<RootState> {
   void logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-      emit(RootUnauthenticated());
+      emit(AuthUnauthenticated());
     } catch (error) {
-      emit(RootError(error.toString()));
+      emit(AuthError(error.toString()));
     }
   }
 
