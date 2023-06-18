@@ -25,6 +25,16 @@ class RootCubit extends Cubit<RootState> {
       );
     });
   }
+
+  void logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      emit(RootUnauthenticated());
+    } catch (error) {
+      emit(RootError(error.toString()));
+    }
+  }
+
   @override
   Future<void> close() {
     _streamSubscription?.cancel();
