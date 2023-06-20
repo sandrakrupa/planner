@@ -1,12 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:planner/app/core/enums.dart';
+import 'package:planner/app/repositories/auth_repository.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit()
+  final AuthRepository _authRepository;
+
+  LoginCubit(this._authRepository)
       : super(
-          LoginInitial(),
+          LoginState(status: Status.initial),
         );
 
   bool isPasswordVisible = false;
@@ -18,37 +22,34 @@ class LoginCubit extends Cubit<LoginState> {
         // registration
         if (password.length < 7) {
           emit(
-            LoginError('Password should be at least 7 characters long.'),
+            LoginState(
+              status: Status.error,
+              errorMessage: 'Password should be at least 7 characters long.',
+            ),
           );
           return;
         }
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+        await _authRepository.registerUser(email, password);
       } else {
         // logging
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+        await _authRepository.loginUser(email, password);
       }
       emit(
-        LoginSuccess(),
-      );
-    } on FirebaseAuthException catch (e) {
-      emit(
-        LoginError(
-          getErrorMessage(
-            e,
-            email,
-            password,
-          ),
+        LoginState(
+          status: Status.success,
         ),
       );
-    } catch (e) {
+    }
+    // on String catch (errorMessage) {
+    //   emit(LoginState(status: Status.error, errorMessage: errorMessage));
+    // }
+
+    on FirebaseAuthException catch (e) {
       emit(
-        LoginError('An error occurred. Please try again.'),
+        LoginState(
+          status: Status.error,
+          errorMessage: getErrorMessage(e, email, password),
+        ),
       );
     }
   }
@@ -56,14 +57,20 @@ class LoginCubit extends Cubit<LoginState> {
   void togglePasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
     emit(
-      LoginPasswordVisibilityChanged(isPasswordVisible: isPasswordVisible),
+      LoginState(
+        status: Status.initial,
+        isPasswordVisible: isPasswordVisible,
+      ),
     );
   }
 
   void toggleRegistrationMode() {
     isRegistration = !isRegistration;
     emit(
-      LoginRegistrationModeChanged(isRegistration: isRegistration),
+      LoginState(
+        status: Status.initial,
+        isRegistration: isRegistration,
+      ),
     );
   }
 

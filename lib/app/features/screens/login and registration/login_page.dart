@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planner/app/core/enums.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/login%20and%20registration/cubit/cubit/login_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:planner/app/features/widget/container_input_decoration_widget.da
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:planner/app/features/widget/text_over_input_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planner/app/repositories/auth_repository.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({
@@ -22,17 +24,17 @@ class LoginPage extends StatelessWidget {
       children: [
         const BackgroundImageWidget(),
         BlocProvider(
-          create: (context) => LoginCubit(),
+          create: (context) => LoginCubit(AuthRepository()),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: SafeArea(
               child: BlocConsumer<LoginCubit, LoginState>(
                 listener: (context, state) {
-                  if (state is LoginError) {
+                  if (state.status == Status.error) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          state.errorMessage,
+                          state.errorMessage!,
                           style: textMDboldwhite,
                         ),
                         backgroundColor: const Color.fromARGB(255, 148, 54, 54),
@@ -108,7 +110,9 @@ class LoginPage extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          state is LoginError ? state.errorMessage : '',
+                          state.status == Status.error
+                              ? state.errorMessage!
+                              : '',
                           style: textSMboldred,
                         ),
                       ),

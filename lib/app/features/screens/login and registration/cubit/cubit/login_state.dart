@@ -1,27 +1,15 @@
 part of 'login_cubit.dart';
 
-abstract class LoginState {}
-
-class LoginInitial extends LoginState {}
-
-class LoginLoading extends LoginState {}
-
-class LoginSuccess extends LoginState {}
-
-class LoginError extends LoginState {
-  final String errorMessage;
-
-  LoginError(this.errorMessage);
-}
-
-class LoginPasswordVisibilityChanged extends LoginState {
+class LoginState {
+  final Status status;
+  final String? errorMessage;
   final bool isPasswordVisible;
-
-  LoginPasswordVisibilityChanged({required this.isPasswordVisible});
-}
-
-class LoginRegistrationModeChanged extends LoginState {
   final bool isRegistration;
 
-  LoginRegistrationModeChanged({required this.isRegistration});
+  LoginState({
+    required this.status,
+    this.errorMessage,
+    this.isPasswordVisible = false,
+    this.isRegistration = false,
+  });
 }
