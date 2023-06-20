@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:planner/app/features/core/fonts_palette.dart';
-import 'package:planner/app/features/core/gradient_palette.dart';
+import 'package:planner/app/core/fonts_palette.dart';
+import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/login%20and%20registration/login_page.dart';
 
 import 'package:planner/app/features/widget/background_image_widget.dart';

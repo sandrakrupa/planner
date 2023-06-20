@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:planner/app/features/core/fonts_palette.dart';
-import 'package:planner/app/features/core/gradient_palette.dart';
-import 'package:planner/app/features/core/models.dart';
+import 'package:planner/app/core/fonts_palette.dart';
+import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -297,4 +296,20 @@ class _CalendarPageContentState extends State<CalendarPageContent> {
       ],
     );
   }
+}
+
+class Task {
+  String title;
+  String description;
+  DateTime date;
+  bool isSelected;
+  bool isCrossedOut;
+
+  Task({
+    required this.title,
+    required this.description,
+    required this.date,
+    this.isCrossedOut = true,
+    this.isSelected = false,
+  });
 }

@@ -38,7 +38,6 @@ class AuthCubit extends Cubit<AuthState> {
   @override
   Future<void> close() {
     _streamSubscription?.cancel();
-    // _streamSubscription = null;
     return super.close();
   }
 }
