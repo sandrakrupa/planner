@@ -67,9 +67,7 @@ class _UserPageState extends State<UserPage> {
             body: Builder(
               builder: (context) {
                 if (_selectedIndex == 0) {
-                  return TaskPageContent(
-                    imageNotifier: imageNotifier,
-                  );
+                  return const TaskPageContent();
                 }
                 if (_selectedIndex == 1) {
                   return GratitudePageContent(

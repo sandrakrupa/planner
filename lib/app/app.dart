@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:planner/app/core/enums.dart';
 import 'package:planner/app/cubit/auth_cubit.dart';
 import 'package:planner/app/features/screens/login%20and%20registration/get_started_page.dart';
 import 'package:planner/app/repositories/auth_repository.dart';
@@ -47,14 +48,16 @@ class RootPage extends StatelessWidget {
       create: (context) => AuthCubit(AuthRepository()),
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          if (state is AuthError) {
+          if (state.status == Status.error) {
             return Scaffold(
-              body: Center(child: Text('Error: ${state.errorMessage}')),
+              body: Center(
+                child: Text('Error: ${state.errorMessage}'),
+              ),
             );
-          } else if (state is AuthUnauthenticated) {
+          } else if (state.status == Status.initial) {
             return LoginPage();
-          } else if (state is AuthAuthenticated) {
-            return UserPage(user: state.user);
+          } else if (state.status == Status.success && state.user != null) {
+            return UserPage(user: state.user!);
           } else {
             return const GetStartedPage();
           }

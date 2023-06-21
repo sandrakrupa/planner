@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:planner/app/core/fonts_palette.dart';
@@ -8,10 +7,7 @@ import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.d
 import 'package:table_calendar/table_calendar.dart';
 
 class TaskPageContent extends StatefulWidget {
-  final ValueNotifier<File?> imageNotifier;
-
   const TaskPageContent({
-    required this.imageNotifier,
     super.key,
   });
 
@@ -28,6 +24,7 @@ class _TaskPageContentState extends State<TaskPageContent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final dateController = TextEditingController();
+  final timeController = TextEditingController();
 
   String title = '';
   String description = '';
@@ -57,40 +54,25 @@ class _TaskPageContentState extends State<TaskPageContent> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ValueListenableBuilder<File?>(
-                valueListenable: widget.imageNotifier,
-                builder: (context, selectedImage, _) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      gradient: navyBlueGradient,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        greyShadow,
-                      ],
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: navyBlueGradient,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      greyShadow,
+                    ],
+                  ),
+                  child: const CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 30,
+                    child: Icon(
+                      Icons.add,
+                      size: 30,
+                      color: Colors.white,
                     ),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: 30,
-                      child: selectedImage != null
-                          ? ClipOval(
-                              child: Image.file(
-                                selectedImage,
-                                fit: BoxFit.cover,
-                                width: 60,
-                                height: 60,
-                              ),
-                            )
-                          : const Icon(
-                              Icons.add,
-                              size: 30,
-                              color: Colors.white,
-                            ),
-                    ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                )),
           ],
         ),
         const SizedBox(
@@ -150,6 +132,29 @@ class _TaskPageContentState extends State<TaskPageContent> {
                           const SizedBox(
                             height: 15,
                           ),
+                          GestureDetector(
+                            onTap: () async {
+                              final TimeOfDay? pickedTime =
+                                  await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now(),
+                              );
+                              if (pickedTime != null) {
+                                final formattedTime =
+                                    pickedTime.format(context);
+                                setState(() {
+                                  timeController.text = formattedTime;
+                                });
+                              }
+                            },
+                            child: ListTile(
+                              title: Text(
+                                'Selected Time: ${timeController.text}',
+                                style: textMDregulargrey300,
+                              ),
+                              trailing: const Icon(Icons.access_time),
+                            ),
+                          ),
                           ListTile(
                             title: Text(
                               'Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDay)}',
@@ -164,11 +169,14 @@ class _TaskPageContentState extends State<TaskPageContent> {
                                 lastDate: DateTime(2113),
                               );
                               if (newDate != null) {
-                                setState(() {
-                                  _selectedDay = newDate;
-                                  dateController.text =
-                                      DateFormat('yyyy-MM-dd').format(newDate);
-                                });
+                                setState(
+                                  () {
+                                    _selectedDay = newDate;
+                                    dateController.text =
+                                        DateFormat('yyyy-MM-dd')
+                                            .format(newDate);
+                                  },
+                                );
                               }
                             },
                           ),
@@ -313,3 +321,38 @@ class Task {
     this.isSelected = false,
   });
 }
+
+
+
+//  ValueListenableBuilder<File?>(
+//                 valueListenable: widget.imageNotifier,
+//                 builder: (context, selectedImage, _) {
+//                   return Container(
+//                     decoration: BoxDecoration(
+//                       gradient: navyBlueGradient,
+//                       shape: BoxShape.circle,
+//                       boxShadow: [
+//                         greyShadow,
+//                       ],
+//                     ),
+//                     child: CircleAvatar(
+//                       backgroundColor: Colors.transparent,
+//                       radius: 30,
+//                       child: selectedImage != null
+//                           ? ClipOval(
+//                               child: Image.file(
+//                                 selectedImage,
+//                                 fit: BoxFit.cover,
+//                                 width: 60,
+//                                 height: 60,
+//                               ),
+//                             )
+//                           : const Icon(
+//                               Icons.add,
+//                               size: 30,
+//                               color: Colors.white,
+//                             ),
+//                     ),
+//                   );
+//                 },
+//               ),
