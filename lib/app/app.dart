@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/core/enums.dart';
 import 'package:planner/app/cubit/auth_cubit.dart';
-import 'package:planner/app/features/screens/login%20and%20registration/get_started_page.dart';
 import 'package:planner/app/repositories/auth_repository.dart';
 
 import 'features/screens/home/home page/user page/user_page.dart';
@@ -54,12 +53,10 @@ class RootPage extends StatelessWidget {
                 child: Text('Error: ${state.errorMessage}'),
               ),
             );
-          } else if (state.status == Status.initial) {
-            return LoginPage();
           } else if (state.status == Status.success && state.user != null) {
             return UserPage(user: state.user!);
           } else {
-            return const GetStartedPage();
+            return LoginPage();
           }
         },
       ),

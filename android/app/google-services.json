@@ -29,6 +29,13 @@
             {
               "client_id": "371294319961-qfc3bu8d0cb1c5behkdl4e99s25hmpd1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "371294319961-9e4tu7mu67t2moutj5ona0k2vir8dfnq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sandrakrupa.planner"
+              }
             }
           ]
         }

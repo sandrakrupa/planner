@@ -1,39 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
+import 'package:planner/app/features/screens/home/home%20page/task%20content/add/add_page.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TaskPageContent extends StatefulWidget {
   const TaskPageContent({
+    // required this.onTitleChanged,
+    // required this.onDescriptionChanged,
+    // required this.onDateChanged,
+    // this.selectedDateFormatted,
     super.key,
   });
+
+  // final Function(String) onTitleChanged;
+  // final Function(String) onDescriptionChanged;
+  // final Function(DateTime?) onDateChanged;
+  // final String? selectedDateFormatted;
 
   @override
   State<TaskPageContent> createState() => _TaskPageContentState();
 }
 
 class _TaskPageContentState extends State<TaskPageContent> {
+  // String? _title;
+  // String? _description;
+  // DateTime? _date;
+
   CalendarFormat calendarFormat = CalendarFormat.week;
-  DateTime _focusedDay = DateTime.now();
-  DateTime _selectedDay = DateTime.now();
-  List<Task> tasks = [];
+  // DateTime _focusedDay = DateTime.now();
+  // DateTime _selectedDay = DateTime.now();
+  // List<Task> tasks = [];
 
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final dateController = TextEditingController();
-  final timeController = TextEditingController();
+  // final titleController = TextEditingController();
+  // final descriptionController = TextEditingController();
+  // final dateController = TextEditingController();
+  // final timeController = TextEditingController();
 
-  String title = '';
-  String description = '';
+  // String title = '';
+  // String description = '';
 
-  @override
-  void initState() {
-    super.initState();
-    _selectedDay = _focusedDay;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // _selectedDay = _focusedDay;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,232 +108,262 @@ class _TaskPageContentState extends State<TaskPageContent> {
               buttonWidth: 100,
               buttonHeight: 30,
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(
-                        'Add Task',
-                        style: displayXSbold,
-                      ),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextField(
-                            controller: titleController,
-                            decoration: InputDecoration(
-                              labelText: 'Title',
-                              labelStyle: textMDregulargrey300,
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 3,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          TextField(
-                            controller: descriptionController,
-                            decoration: InputDecoration(
-                              labelText: 'Description',
-                              labelStyle: textMDregulargrey300,
-                              contentPadding: const EdgeInsets.symmetric(
-                                vertical: 3,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              final TimeOfDay? pickedTime =
-                                  await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now(),
-                              );
-                              if (pickedTime != null) {
-                                final formattedTime =
-                                    pickedTime.format(context);
-                                setState(() {
-                                  timeController.text = formattedTime;
-                                });
-                              }
-                            },
-                            child: ListTile(
-                              title: Text(
-                                'Selected Time: ${timeController.text}',
-                                style: textMDregulargrey300,
-                              ),
-                              trailing: const Icon(Icons.access_time),
-                            ),
-                          ),
-                          ListTile(
-                            title: Text(
-                              'Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDay)}',
-                              style: textMDregulargrey300,
-                            ),
-                            trailing: const Icon(Icons.calendar_today),
-                            onTap: () async {
-                              final newDate = await showDatePicker(
-                                context: context,
-                                initialDate: _selectedDay,
-                                firstDate: DateTime(1992),
-                                lastDate: DateTime(2113),
-                              );
-                              if (newDate != null) {
-                                setState(
-                                  () {
-                                    _selectedDay = newDate;
-                                    dateController.text =
-                                        DateFormat('yyyy-MM-dd')
-                                            .format(newDate);
-                                  },
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        NavyBlueElevatedButton1(
-                          buttonText: 'Save',
-                          buttonGradientColor: navyBlueGradient,
-                          buttonTextStyle: textMDboldwhite,
-                          buttonWidth: 100,
-                          buttonHeight: 30,
-                          onPressed: () {
-                            if (titleController.text.isNotEmpty &&
-                                dateController.text.isNotEmpty) {
-                              setState(() {
-                                tasks.add(Task(
-                                  title: titleController.text,
-                                  description: descriptionController.text,
-                                  date: DateTime.parse(dateController.text),
-                                ));
-                              });
-
-                              titleController.clear();
-                              descriptionController.clear();
-                              dateController.clear();
-
-                              Navigator.pop(context);
-                            }
-                          },
-                        ),
-                      ],
-                    );
-                  },
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const AddPage(),
+                  ),
                 );
               },
+              // onPressed: () {
+              //   showDialog(
+              //     context: context,
+              //     builder: (context) {
+              //       return AlertDialog(
+              //         title: Text(
+              //           'Add Task',
+              //           style: displayXSbold,
+              //         ),
+              //         content: Column(
+              //           mainAxisSize: MainAxisSize.min,
+              //           children: [
+              //             TextField(
+              //               onChanged: (newValue) {
+              //                 setState(() {
+              //                   _title = newValue;
+              //                 });
+              //               },
+              //               decoration: InputDecoration(
+              //                 labelText: 'Title',
+              //                 labelStyle: textMDregulargrey300,
+              //                 contentPadding: const EdgeInsets.symmetric(
+              //                   vertical: 3,
+              //                 ),
+              //               ),
+              //             ),
+              //             const SizedBox(
+              //               height: 15,
+              //             ),
+              //             TextField(
+              //               onChanged: (newValue) {
+              //                 setState(() {
+              //                   _description = newValue;
+              //                 });
+              //               },
+              //               decoration: InputDecoration(
+              //                 labelText: 'Description',
+              //                 labelStyle: textMDregulargrey300,
+              //                 contentPadding: const EdgeInsets.symmetric(
+              //                   vertical: 3,
+              //                 ),
+              //               ),
+              //             ),
+              //             const SizedBox(
+              //               height: 15,
+              //             ),
+              //             ElevatedButton(
+              //               onPressed: () async {
+              //                 final selectedDate = await showDatePicker(
+              //                   context: context,
+              //                   initialDate: DateTime.now(),
+              //                   firstDate: DateTime.now(),
+              //                   lastDate: DateTime.now().add(
+              //                     const Duration(days: 365 * 10),
+              //                   ),
+              //                 );
+              //                 setState(() {
+              //                   _date = selectedDate;
+              //                 });
+              //               },
+              //               child: const Text('Choose release date'),
+              //             ),
+              //             // GestureDetector(
+              //             //   onTap: () async {
+              //             //     final TimeOfDay? pickedTime =
+              //             //         await showTimePicker(
+              //             //       context: context,
+              //             //       initialTime: TimeOfDay.now(),
+              //             //     );
+              //             //     if (pickedTime != null) {
+              //             //       final formattedTime =
+              //             //           pickedTime.format(context);
+              //             //       setState(() {
+              //             //         timeController.text = formattedTime;
+              //             //       });
+              //             //     }
+              //             //   },
+              //             //   child: ListTile(
+              //             //     title: Text(
+              //             //       'Selected Time: ${timeController.text}',
+              //             //       style: textMDregulargrey300,
+              //             //     ),
+              //             //     trailing: const Icon(Icons.access_time),
+              //             //   ),
+              //             // ),
+              //             // ListTile(
+              //             //   title: Text(
+              //             //     'Selected Date: ${DateFormat('yyyy-MM-dd').format(_selectedDay)}',
+              //             //     style: textMDregulargrey300,
+              //             //   ),
+              //             //   trailing: const Icon(Icons.calendar_today),
+              //             //   onTap: () async {
+              //             //     final newDate = await showDatePicker(
+              //             //       context: context,
+              //             //       initialDate: _selectedDay,
+              //             //       firstDate: DateTime(1992),
+              //             //       lastDate: DateTime(2113),
+              //             //     );
+              //             //     if (newDate != null) {
+              //             //       setState(
+              //             //         () {
+              //             //           _date = newDate;
+              //             //           // dateController.text =
+              //             //           //     DateFormat('yyyy-MM-dd')
+              //             //           //         .format(newDate);
+              //             //         },
+              //             //       );
+              //             //     }
+              //             //   },
+              //             // ),
+              //           ],
+              //         ),
+              //         actions: [
+              //           NavyBlueElevatedButton1(
+              //             buttonText: 'Save',
+              //             buttonGradientColor: navyBlueGradient,
+              //             buttonTextStyle: textMDboldwhite,
+              //             buttonWidth: 100,
+              //             buttonHeight: 30,
+              //             onPressed: () {
+              //               _title == null || _description == null
+              //                   ? null
+              //                   : () {
+              //                       context.read<AddTaskCubit>().add(
+              //                             _title!,
+              //                             _description!,
+              //                             _date!,
+              //                           );
+
+              //                       // titleController.clear();
+              //                       // descriptionController.clear();
+              //                       // dateController.clear();
+
+              //                       // Navigator.pop(context);
+              //                     };
+              //             },
+              //           ),
+              //         ],
+              //       );
+              //     },
+              //   );
+              // },
             ),
           ],
         ),
-        TableCalendar(
-          focusedDay: _focusedDay,
-          firstDay: DateTime.utc(1992, 12, 4),
-          lastDay: DateTime.utc(2113, 6, 13),
-          calendarFormat: calendarFormat,
-          startingDayOfWeek: StartingDayOfWeek.monday,
-          daysOfWeekStyle: DaysOfWeekStyle(
-              weekendStyle: textSMregulargrey500,
-              weekdayStyle: textSMregulargrey500),
-          calendarStyle: CalendarStyle(
-            todayDecoration: const BoxDecoration(
-              color: Color.fromARGB(121, 0, 15, 128),
-              shape: BoxShape.circle,
-            ),
-            selectedDecoration: BoxDecoration(
-              gradient: navyBlueGradient,
-              shape: BoxShape.circle,
-            ),
-            defaultTextStyle: textSMregulardate,
-            selectedTextStyle: textMDboldwhite,
-            todayTextStyle: textSMregularwhite,
-            outsideTextStyle: textSMregulargrey400,
-          ),
-          headerStyle: HeaderStyle(
-            titleTextStyle: textMDbold,
-            formatButtonTextStyle: textSMboldblue,
-            formatButtonVisible: false,
-          ),
-          eventLoader: (day) {
-            return tasks.where((task) => task.date == day).toList();
-          },
-          selectedDayPredicate: (day) {
-            return isSameDay(_selectedDay, day);
-          },
-          onDaySelected: (selectedDay, focusedDay) {
-            setState(() {
-              _selectedDay = selectedDay;
-              _focusedDay = focusedDay;
-            });
-          },
-          onPageChanged: (focusedDay) {
-            _focusedDay = focusedDay;
-          },
-          onFormatChanged: (format) {
-            setState(() {
-              calendarFormat = format;
-            });
-          },
-        ),
+        // TableCalendar(
+        //   focusedDay: _focusedDay,
+        //   firstDay: DateTime.utc(1992, 12, 4),
+        //   lastDay: DateTime.utc(2113, 6, 13),
+        //   calendarFormat: calendarFormat,
+        //   startingDayOfWeek: StartingDayOfWeek.monday,
+        //   daysOfWeekStyle: DaysOfWeekStyle(
+        //       weekendStyle: textSMregulargrey500,
+        //       weekdayStyle: textSMregulargrey500),
+        //   calendarStyle: CalendarStyle(
+        //     todayDecoration: const BoxDecoration(
+        //       color: Color.fromARGB(121, 0, 15, 128),
+        //       shape: BoxShape.circle,
+        //     ),
+        //     selectedDecoration: BoxDecoration(
+        //       gradient: navyBlueGradient,
+        //       shape: BoxShape.circle,
+        //     ),
+        //     defaultTextStyle: textSMregulardate,
+        //     selectedTextStyle: textMDboldwhite,
+        //     todayTextStyle: textSMregularwhite,
+        //     outsideTextStyle: textSMregulargrey400,
+        //   ),
+        //   headerStyle: HeaderStyle(
+        //     titleTextStyle: textMDbold,
+        //     formatButtonTextStyle: textSMboldblue,
+        //     formatButtonVisible: false,
+        //   ),
+        //   // eventLoader: (day) {
+        //   //   return tasks.where((task) => task.date == day).toList();
+        //   // },
+        //   selectedDayPredicate: (day) {
+        //     return isSameDay(_selectedDay, day);
+        //   },
+        //   onDaySelected: (selectedDay, focusedDay) {
+        //     setState(() {
+        //       _selectedDay = selectedDay;
+        //       _focusedDay = focusedDay;
+        //     });
+        //   },
+        //   onPageChanged: (focusedDay) {
+        //     _focusedDay = focusedDay;
+        //   },
+        //   onFormatChanged: (format) {
+        //     setState(() {
+        //       calendarFormat = format;
+        //     });
+        //   },
+        // ),
         const SizedBox(height: 8.0),
-        Expanded(
-          child: ListView.builder(
-            itemCount: tasks.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(
-                  tasks[index].title,
-                  style: textMDboldgrey700,
-                ),
-                subtitle: Text(
-                  tasks[index].description,
-                  style: textSMregulargrey400,
-                ),
-                trailing: Checkbox(
-                  value: tasks[index].isSelected,
-                  onChanged: (value) {
-                    setState(() {
-                      tasks[index].isSelected = value!;
-                      if (value) {
-                        tasks[index].isCrossedOut = true;
-                        List<Task> newTasks = tasks
-                            .where((task) => task != tasks[index])
-                            .toList();
-                        newTasks.add(tasks[index]);
-                        tasks = newTasks;
-                      } else {
-                        tasks[index].isCrossedOut = false;
-                      }
-                    });
-                  },
-                ),
-              );
-            },
-          ),
-        ),
+        // Expanded(
+        //   child: ListView.builder(
+        //     itemCount: tasks.length,
+        //     itemBuilder: (context, index) {
+        //       return ListTile(
+        //         title: Text(
+        //           tasks[index].title,
+        //           style: textMDboldgrey700,
+        //         ),
+        //         subtitle: Text(
+        //           tasks[index].description,
+        //           style: textSMregulargrey400,
+        //         ),
+        //         trailing: Checkbox(
+        //           value: tasks[index].isSelected,
+        //           onChanged: (value) {
+        //             setState(() {
+        //               tasks[index].isSelected = value!;
+        //               if (value) {
+        //                 tasks[index].isCrossedOut = true;
+        //                 List<Task> newTasks = tasks
+        //                     .where((task) => task != tasks[index])
+        //                     .toList();
+        //                 newTasks.add(tasks[index]);
+        //                 tasks = newTasks;
+        //               } else {
+        //                 tasks[index].isCrossedOut = false;
+        //               }
+        //             });
+        //           },
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }
 }
 
-class Task {
-  String title;
-  String description;
-  DateTime date;
-  bool isSelected;
-  bool isCrossedOut;
+// class Task {
+//   String title;
+//   String description;
+//   DateTime date;
+//   bool isSelected;
+//   bool isCrossedOut;
 
-  Task({
-    required this.title,
-    required this.description,
-    required this.date,
-    this.isCrossedOut = true,
-    this.isSelected = false,
-  });
-}
+//   Task({
+//     required this.title,
+//     required this.description,
+//     required this.date,
+//     this.isCrossedOut = true,
+//     this.isSelected = false,
+//   });
+// }
 
 
 

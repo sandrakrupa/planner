@@ -35,16 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void logout() async {
-    try {
-      await _authRepository.signOut();
-    } catch (error) {
-      emit(
-        AuthState(
-          status: Status.error,
-          errorMessage: error.toString(),
-        ),
-      );
-    }
+    await _authRepository.signOut();
   }
 
   @override
