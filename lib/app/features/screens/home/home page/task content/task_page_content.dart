@@ -7,19 +7,19 @@ import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarPageContent extends StatefulWidget {
+class TaskPageContent extends StatefulWidget {
   final ValueNotifier<File?> imageNotifier;
 
-  const CalendarPageContent({
+  const TaskPageContent({
     required this.imageNotifier,
     super.key,
   });
 
   @override
-  State<CalendarPageContent> createState() => _CalendarPageContentState();
+  State<TaskPageContent> createState() => _TaskPageContentState();
 }
 
-class _CalendarPageContentState extends State<CalendarPageContent> {
+class _TaskPageContentState extends State<TaskPageContent> {
   CalendarFormat calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();

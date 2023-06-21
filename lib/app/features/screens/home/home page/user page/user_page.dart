@@ -7,8 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:planner/app/cubit/auth_cubit.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
-import 'package:planner/app/features/screens/home/home%20page/calendar%20content/calendar_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
+import 'package:planner/app/features/screens/home/home%20page/task%20content/task_page_content.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
@@ -67,7 +67,7 @@ class _UserPageState extends State<UserPage> {
             body: Builder(
               builder: (context) {
                 if (_selectedIndex == 0) {
-                  return CalendarPageContent(
+                  return TaskPageContent(
                     imageNotifier: imageNotifier,
                   );
                 }
