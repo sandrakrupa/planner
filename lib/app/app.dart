@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/cubit/auth_cubit.dart';
 import 'package:planner/app/features/screens/login%20and%20registration/get_started_page.dart';
+import 'package:planner/app/repositories/auth_repository.dart';
 
 import 'features/screens/home/home page/user page/user_page.dart';
 import 'features/screens/login and registration/login_page.dart';
@@ -43,7 +44,7 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(),
+      create: (context) => AuthCubit(AuthRepository()),
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           if (state is AuthError) {
