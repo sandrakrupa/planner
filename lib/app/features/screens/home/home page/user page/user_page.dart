@@ -261,48 +261,43 @@ class _UserPageState extends State<UserPage> {
                 );
               },
             ),
-            bottomNavigationBar: Container(
-              decoration: BoxDecoration(
-                gradient: navyBlueGradient,
-                boxShadow: [greyShadow],
+            bottomNavigationBar: FlashyTabBar(
+              showElevation: true,
+              animationCurve: Curves.bounceIn,
+              selectedIndex: _selectedIndex,
+              backgroundColor: const Color.fromARGB(255, 238, 246, 253),
+              iconSize: 30,
+              onItemSelected: (index) => setState(
+                () {
+                  _selectedIndex = index;
+                },
               ),
-              child: FlashyTabBar(
-                showElevation: true,
-                animationCurve: Curves.easeInOut,
-                selectedIndex: _selectedIndex,
-                backgroundColor: Colors.transparent,
-                onItemSelected: (index) => setState(
-                  () {
-                    _selectedIndex = index;
-                  },
+              items: [
+                FlashyTabBarItem(
+                  icon: const Icon(
+                    Icons.task_alt_rounded,
+                    color: Color.fromARGB(255, 17, 28, 108),
+                  ),
+                  title: Text('Task', style: textSMboldblue),
+                  activeColor: const Color.fromARGB(255, 17, 28, 108),
                 ),
-                items: [
-                  FlashyTabBarItem(
-                    icon: const Icon(
-                      Icons.task_alt_rounded,
-                      color: Color.fromARGB(255, 252, 252, 253),
-                    ),
-                    title: Text('Task', style: textSMboldwhite),
-                    activeColor: const Color.fromARGB(255, 17, 28, 108),
+                FlashyTabBarItem(
+                  icon: const Icon(
+                    Icons.mood_rounded,
+                    color: Color.fromARGB(255, 17, 28, 108),
                   ),
-                  FlashyTabBarItem(
-                    icon: const Icon(
-                      Icons.mood_rounded,
-                      color: Color.fromARGB(255, 252, 252, 253),
-                    ),
-                    title: Text('Gratitude', style: textSMboldwhite),
-                    activeColor: const Color.fromARGB(255, 17, 28, 108),
+                  title: Text('Gratitude', style: textSMboldblue),
+                  activeColor: const Color.fromARGB(255, 17, 28, 108),
+                ),
+                FlashyTabBarItem(
+                  icon: const Icon(
+                    Icons.person,
+                    color: Color.fromARGB(255, 17, 28, 108),
                   ),
-                  FlashyTabBarItem(
-                    icon: const Icon(
-                      Icons.person,
-                      color: Color.fromARGB(255, 252, 252, 253),
-                    ),
-                    title: Text('Your Profile', style: textSMboldwhite),
-                    activeColor: const Color.fromARGB(255, 17, 28, 108),
-                  ),
-                ],
-              ),
+                  title: Text('Your Profile', style: textSMboldblue),
+                  activeColor: const Color.fromARGB(255, 17, 28, 108),
+                ),
+              ],
             ),
           ),
         ],
