@@ -9,6 +9,7 @@ import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/task%20content/task_page_content.dart';
+
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
