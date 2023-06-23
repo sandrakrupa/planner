@@ -19,7 +19,10 @@ class GratitudeDetailsCubit extends Cubit<GratitudeDetailsState> {
       emit(GratitudeDetailsState(itemModel: itemModel));
     } catch (error) {
       emit(
-        GratitudeDetailsState(itemModel: itemModel, loadingErrorOccured: true),
+        GratitudeDetailsState(
+          itemModel: itemModel,
+          loadingErrorOccured: true,
+        ),
       );
     }
   }

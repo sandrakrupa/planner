@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
-import 'package:planner/app/models/item_model.dart';
-import 'package:planner/app/repositories/items_repository.dart';
+import 'package:planner/app/models/task_model.dart';
+import 'package:planner/app/repositories/tasks_repository.dart';
 
-import 'cubit/details_gratitude_cubit.dart';
+import 'cubit/details_task_cubit.dart';
 
-class DetailsGratitudePage extends StatelessWidget {
-  const DetailsGratitudePage({super.key, required this.id});
+class DetailsTaskPage extends StatelessWidget {
+  const DetailsTaskPage({super.key, required this.id});
 
   final String id;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      const BackgroundGradientWidget(),
-      Scaffold(
+    return Stack(
+      children: [
+        const BackgroundGradientWidget(),
+        Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 206, 232, 254),
@@ -26,30 +27,29 @@ class DetailsGratitudePage extends StatelessWidget {
           ),
           body: BlocProvider(
             create: (context) =>
-                GratitudeDetailsCubit(ItemsRepository())..getItemWithID(id),
-            child: BlocBuilder<GratitudeDetailsCubit, GratitudeDetailsState>(
+                DetailsTaskCubit(TasksRepository())..getTaskWithID(id),
+            child: BlocBuilder<DetailsTaskCubit, DetailsTaskState>(
               builder: (context, state) {
-                final itemModel = state.itemModel;
-                if (itemModel == null) {
+                final taskModel = state.taskModel;
+                if (taskModel == null) {
                   return const Center(child: CircularProgressIndicator());
                 }
                 return _ListViewItem(
-                  itemModel: itemModel,
+                  taskModel: taskModel,
                 );
               },
             ),
-          )),
-    ]);
+          ),
+        )
+      ],
+    );
   }
 }
 
 class _ListViewItem extends StatelessWidget {
-  const _ListViewItem({
-    Key? key,
-    required this.itemModel,
-  }) : super(key: key);
+  const _ListViewItem({Key? key, required this.taskModel}) : super(key: key);
 
-  final ItemModel itemModel;
+  final TaskModel taskModel;
 
   @override
   Widget build(BuildContext context) {
@@ -63,21 +63,21 @@ class _ListViewItem extends StatelessWidget {
           height: 30,
         ),
         Text(
-          itemModel.title,
+          taskModel.title,
           style: displayXSbold,
         ),
         const SizedBox(
           height: 10,
         ),
         Text(
-          itemModel.date.toString(),
+          taskModel.date.toString(),
           style: textSMboldgrey400,
         ),
         const SizedBox(
           height: 30,
         ),
         Text(
-          itemModel.description,
+          taskModel.description,
           style: textMDregular,
         ),
       ],

@@ -23,7 +23,18 @@ class TasksRepository {
     await FirebaseFirestore.instance.collection('tasks').doc(id).delete();
   }
 
-   Future<void> add(
+  Future<TaskModel> get({required String id}) async {
+    final doc =
+        await FirebaseFirestore.instance.collection('tasks').doc(id).get();
+    return TaskModel(
+      id: doc.id,
+      title: doc['title'],
+      description: doc['description'],
+      date: (doc['date'] as Timestamp).toDate(),
+    );
+  }
+
+  Future<void> add(
     String title,
     String description,
     DateTime date,

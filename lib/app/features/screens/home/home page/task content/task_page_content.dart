@@ -4,6 +4,8 @@ import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/task%20content/add/add_page.dart';
 import 'package:planner/app/features/screens/home/home%20page/task%20content/cubit/task_cubit.dart';
+import 'package:planner/app/features/screens/home/home%20page/task%20content/details/details_task_page.dart';
+import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
@@ -153,78 +155,72 @@ class _ColumnItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 10,
-        bottom: 10,
-      ),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(15.0),
-              boxShadow: [
-                BoxShadow(
-                  color:
-                      const Color.fromARGB(255, 101, 101, 101).withOpacity(0.3),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 110,
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                taskModel.title,
-                                style: textSMboldblue,
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                taskModel.date.toString(),
-                                style: textSMregulargrey400,
-                              ),
-                              const SizedBox(
-                                height: 7,
-                              ),
-                              Flexible(
-                                child: SingleChildScrollView(
-                                  child: Text(
-                                    taskModel.description,
-                                    style: textSMregular,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                  ),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DetailsTaskPage(id: taskModel.id),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+        ),
+        child: Column(
+          children: [
+            ContainerInputDecorationWidget(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 110,
+                    width: double.infinity,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  taskModel.title,
+                                  style: textSMboldblue,
                                 ),
-                              )
-                            ],
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  taskModel.date.toString(),
+                                  style: textSMregulargrey400,
+                                ),
+                                const SizedBox(
+                                  height: 7,
+                                ),
+                                Flexible(
+                                  child: SingleChildScrollView(
+                                    child: Text(
+                                      taskModel.description,
+                                      style: textSMregular,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
