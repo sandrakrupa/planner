@@ -67,11 +67,8 @@ class _TaskPageContentState extends State<TaskPageContent> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const SizedBox(
-              height: 70,
-              child: MainText(
-                mainText: 'Your Tasks',
-              ),
+            const MainText(
+              mainText: 'Your Tasks',
             ),
             NavyBlueElevatedButton1(
               buttonText: 'Add Task',

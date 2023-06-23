@@ -1,21 +1,29 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
+import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/cubit/gratitude_cubit.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
+import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
-class GratitudePageContent extends StatelessWidget {
-  final String userName;
+class GratitudePageContent extends StatefulWidget {
   final ValueNotifier<File?> imageNotifier;
   const GratitudePageContent({
-    required this.userName,
     required this.imageNotifier,
     super.key,
   });
 
   @override
+  State<GratitudePageContent> createState() => _GratitudePageContentState();
+}
+
+class _GratitudePageContentState extends State<GratitudePageContent> {
+  @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         const SizedBox(
           height: 20,
@@ -27,43 +35,29 @@ class GratitudePageContent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'WELCOME, $userName',
+                'WELCOME',
                 style: textMDregulargrey700,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: ValueListenableBuilder<File?>(
-                valueListenable: imageNotifier,
-                builder: (context, selectedImage, _) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      gradient: navyBlueGradient,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        greyShadow,
-                      ],
-                    ),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: 30,
-                      child: selectedImage != null
-                          ? ClipOval(
-                              child: Image.file(
-                                selectedImage,
-                                fit: BoxFit.cover,
-                                width: 60,
-                                height: 60,
-                              ),
-                            )
-                          : const Icon(
-                              Icons.add,
-                              size: 30,
-                              color: Colors.white,
-                            ),
-                    ),
-                  );
-                },
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: navyBlueGradient,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    greyShadow,
+                  ],
+                ),
+                child: const CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 30,
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ],
@@ -71,13 +65,159 @@ class GratitudePageContent extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        const MainText(
-          mainText: 'Gratitude',
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const MainText(
+              mainText: 'Gratitude',
+            ),
+            NavyBlueElevatedButton1(
+              buttonText: 'Add',
+              buttonGradientColor: navyBlueGradient,
+              buttonTextStyle: textMDboldwhite,
+              buttonWidth: 100,
+              buttonHeight: 30,
+              onPressed: () { 
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (_) => const AddGratitude(),
+                //   ),
+                // );
+                },
+            )
+          ],
         ),
-        const SizedBox(
-          height: 8,
-        ),
+        const SizedBox(height: 30.0),
+        Expanded(
+          child: SingleChildScrollView(
+            child: BlocProvider(
+              create: (context) => GratitudeCubit()..start(),
+              child: BlocBuilder<GratitudeCubit, GratitudeState>(
+                builder: (context, state) {
+                  final docs = state.items?.docs;
+                  if (docs == null) {
+                    return const SizedBox.shrink();
+                  }
+                  return Column(
+                    children: [
+                      for (final doc in docs)
+                        Dismissible(
+                            key: ValueKey(doc.id),
+                            background: const DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 148, 54, 54),
+                              ),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 32.0),
+                                  child: Icon(
+                                    Icons.delete,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            confirmDismiss: (direction) async {
+                              return direction == DismissDirection.endToStart;
+                            },
+                            onDismissed: (direction) {
+                              context
+                                  .read<GratitudeCubit>()
+                                  .remove(documentID: doc.id);
+                            },
+                            child: GratitudeItem(
+                              document: doc,
+                            ))
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        )
       ],
+    );
+  }
+}
+
+class GratitudeItem extends StatelessWidget {
+  const GratitudeItem({
+    Key? key,
+    required this.document,
+  }) : super(key: key);
+
+  final QueryDocumentSnapshot<Map<String, dynamic>> document;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+      ),
+      child: Column(
+        children: [
+          TimelineTile(
+            alignment: TimelineAlign.manual,
+            lineXY: 0.3,
+            beforeLineStyle: const LineStyle(
+              color: Color.fromARGB(255, 222, 224, 255),
+            ),
+            indicatorStyle: IndicatorStyle(
+              width: 30,
+              indicator: Container(
+                decoration: BoxDecoration(
+                  gradient: navyBlueGradient,
+                  boxShadow: [greyShadow],
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ),
+            endChild: Container(
+              constraints: const BoxConstraints(
+                minHeight: double.infinity,
+              ),
+              color: Colors.transparent,
+              child: Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        document['title'],
+                        style: textSMboldblue,
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Flexible(
+                        child: SingleChildScrollView(
+                          child: Text(
+                            document['description'],
+                            style: textSMregular,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            startChild: Container(
+              color: Colors.transparent,
+              child: Text(
+                (document['date'] as Timestamp).toDate().toString(),
+                style: textSMregulargrey400,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -86,47 +226,39 @@ class GratitudePageContent extends StatelessWidget {
 
 
 
-// import 'package:flutter/material.dart';
-// import 'package:planner/screens/home/home%20page/gratitude%20content/timeline/timeline_widget.dart';
-// import 'package:planner/widget/avatar_and_text_widget.dart';
-// import 'package:planner/widget/background_gradient.dart';
-// import 'package:planner/widget/main_text_widget.dart';
 
-// class GratitudePage extends StatelessWidget {
-//   const GratitudePage({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: [
-//         const BackgroundGradientWidget(),
-//         Scaffold(
-//           backgroundColor: Colors.transparent,
-//           body: ListView(
-//             children: [
-//               const SizedBox(
-//                 height: 20,
+//  Padding(
+//               padding: const EdgeInsets.all(16.0),
+//               child: ValueListenableBuilder<File?>(
+//                 valueListenable: widget.imageNotifier,
+//                 builder: (context, selectedImage, _) {
+//                   return Container(
+//                     decoration: BoxDecoration(
+//                       gradient: navyBlueGradient,
+//                       shape: BoxShape.circle,
+//                       boxShadow: [
+//                         greyShadow,
+//                       ],
+//                     ),
+//                     child: CircleAvatar(
+//                       backgroundColor: Colors.transparent,
+//                       radius: 30,
+//                       child: selectedImage != null
+//                           ? ClipOval(
+//                               child: Image.file(
+//                                 selectedImage,
+//                                 fit: BoxFit.cover,
+//                                 width: 60,
+//                                 height: 60,
+//                               ),
+//                             )
+//                           : const Icon(
+//                               Icons.add,
+//                               size: 30,
+//                               color: Colors.white,
+//                             ),
+//                     ),
+//                   );
+//                 },
 //               ),
-//               const AvatarAndText(
-//                   welcomeText: 'WELCOME, JUNGKOOK',
-//                   imageURL: 'images/jungkookie.jpg',
-//                   radius: 30),
-//               const SizedBox(
-//                 height: 16,
-//               ),
-              // const MainText(
-              //   mainText: 'Gratitude',
-              // ),
-//               const SizedBox(
-//                 height: 15,
-//               ),
-//               TimelineWidget(),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
+//             ),

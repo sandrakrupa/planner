@@ -73,7 +73,7 @@ class _UserPageState extends State<UserPage> {
                 if (_selectedIndex == 1) {
                   return GratitudePageContent(
                     imageNotifier: imageNotifier,
-                    userName: userName,
+                    
                   );
                 }
                 return ListView(
