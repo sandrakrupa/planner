@@ -5,6 +5,7 @@ import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/add%20gratitude/add_gratitude_page.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/cubit/gratitude_cubit.dart';
+import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/details/details_gratitude_page.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:planner/app/models/item_model.dart';
@@ -175,36 +176,45 @@ class _GratitudeItem extends StatelessWidget {
                 ),
               ),
             ),
-            endChild: Container(
-              constraints: const BoxConstraints(
-                minHeight: double.infinity,
-              ),
-              color: Colors.transparent,
-              child: Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        itemModel.title,
-                        style: textSMboldblue,
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Flexible(
-                        child: SingleChildScrollView(
-                          child: Text(
-                            itemModel.description,
-                            style: textSMregular,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                          ),
+            endChild: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DetailsGratitudePage(id: itemModel.id),
+                  ),
+                );
+              },
+              child: Container(
+                constraints: const BoxConstraints(
+                  minHeight: double.infinity,
+                ),
+                color: Colors.transparent,
+                child: Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          itemModel.title,
+                          style: textSMboldblue,
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Flexible(
+                          child: SingleChildScrollView(
+                            child: Text(
+                              itemModel.description,
+                              style: textSMregular,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -212,7 +222,7 @@ class _GratitudeItem extends StatelessWidget {
             startChild: Container(
               color: Colors.transparent,
               child: Text(
-                itemModel.date.toString.toString(),
+                itemModel.date.toString(),
                 style: textSMregulargrey400,
               ),
             ),
