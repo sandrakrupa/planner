@@ -3,12 +3,12 @@ part of 'task_cubit.dart';
 @immutable
 class TaskState {
   const TaskState({
-    this.tasks,
+    this.tasks = const [],
     this.loadingErrorOccured = false,
     this.removingErrorOccured = false,
  
   });
-  final QuerySnapshot<Map<String, dynamic>>? tasks;
+  final List<TaskModel> tasks;
   final bool loadingErrorOccured;
   final bool removingErrorOccured;
 

@@ -124,7 +124,7 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
                                   .read<GratitudeCubit>()
                                   .remove(documentID: itemModel.id);
                             },
-                            child: GratitudeItem(
+                            child: _GratitudeItem(
                               itemModel: itemModel,
                             ))
                     ],
@@ -139,8 +139,8 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
   }
 }
 
-class GratitudeItem extends StatelessWidget {
-  const GratitudeItem({
+class _GratitudeItem extends StatelessWidget {
+  const _GratitudeItem({
     Key? key,
     required this.itemModel,
   }) : super(key: key);

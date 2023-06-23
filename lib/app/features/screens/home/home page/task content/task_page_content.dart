@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/core/fonts_palette.dart';
@@ -8,6 +7,7 @@ import 'package:planner/app/features/screens/home/home%20page/task%20content/cub
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:planner/app/models/task_model.dart';
 
 class TaskPageContent extends StatefulWidget {
   const TaskPageContent({
@@ -98,15 +98,12 @@ class _TaskPageContentState extends State<TaskPageContent> {
               create: (context) => TaskCubit()..start(),
               child: BlocBuilder<TaskCubit, TaskState>(
                 builder: (context, state) {
-                  final docs = state.tasks?.docs;
-                  if (docs == null) {
-                    return const SizedBox.shrink();
-                  }
+                  final taskModels = state.tasks;
                   return Column(
                     children: [
-                      for (final doc in docs)
+                      for (final taskModel in taskModels)
                         Dismissible(
-                          key: ValueKey(doc.id),
+                          key: ValueKey(taskModel.id),
                           background: const DecoratedBox(
                             decoration: BoxDecoration(
                               color: Color.fromARGB(255, 148, 54, 54),
@@ -127,10 +124,10 @@ class _TaskPageContentState extends State<TaskPageContent> {
                           onDismissed: (direction) {
                             context
                                 .read<TaskCubit>()
-                                .remove(documentID: doc.id);
+                                .remove(documentID: taskModel.id);
                           },
                           child: _ColumnItem(
-                            document: doc,
+                            taskModel: taskModel,
                           ),
                         ),
                     ],
@@ -148,10 +145,10 @@ class _TaskPageContentState extends State<TaskPageContent> {
 class _ColumnItem extends StatelessWidget {
   const _ColumnItem({
     Key? key,
-    required this.document,
+    required this.taskModel,
   }) : super(key: key);
 
-  final QueryDocumentSnapshot<Map<String, dynamic>> document;
+  final TaskModel taskModel;
 
   @override
   Widget build(BuildContext context) {
@@ -193,16 +190,14 @@ class _ColumnItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                document['title'],
+                                taskModel.title,
                                 style: textSMboldblue,
                               ),
                               const SizedBox(
                                 height: 3,
                               ),
                               Text(
-                                (document['date'] as Timestamp)
-                                    .toDate()
-                                    .toString(),
+                                taskModel.date.toString(),
                                 style: textSMregulargrey400,
                               ),
                               const SizedBox(
@@ -211,7 +206,7 @@ class _ColumnItem extends StatelessWidget {
                               Flexible(
                                 child: SingleChildScrollView(
                                   child: Text(
-                                    document['description'],
+                                    taskModel.description,
                                     style: textSMregular,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 3,

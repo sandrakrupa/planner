@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:planner/app/models/task_model.dart';
 
 part 'task_state.dart';
 
@@ -18,7 +19,15 @@ class TaskCubit extends Cubit<TaskState> {
         .snapshots()
         .listen(
       (tasks) {
-        emit(TaskState(tasks: tasks));
+        final taskModels = tasks.docs.map((doc) {
+          return TaskModel(
+            id: doc.id,
+            title: doc['title'],
+            description: doc['description'],
+            date: (doc['date'] as Timestamp).toDate(),
+          );
+        }).toList();
+        emit(TaskState(tasks: taskModels));
       },
     )..onError(
         (error) {
