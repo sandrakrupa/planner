@@ -1,9 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:planner/app/models/task_model.dart';
 
 class TasksRepository {
   Stream<List<TaskModel>> getTasksStream() {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
     return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
         .collection('tasks')
         .orderBy('date')
         .snapshots()
@@ -19,13 +26,30 @@ class TasksRepository {
     });
   }
 
-  Future<void> delete({required String id}) async {
-    await FirebaseFirestore.instance.collection('tasks').doc(id).delete();
+  Future<void> delete({required String id}) {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .doc(id)
+        .delete();
   }
 
   Future<TaskModel> get({required String id}) async {
-    final doc =
-        await FirebaseFirestore.instance.collection('tasks').doc(id).get();
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .doc(id)
+        .get();
     return TaskModel(
       id: doc.id,
       title: doc['title'],
@@ -39,7 +63,15 @@ class TasksRepository {
     String description,
     DateTime date,
   ) async {
-    await FirebaseFirestore.instance.collection('tasks').add(
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .add(
       {
         'title': title,
         'description': description,
