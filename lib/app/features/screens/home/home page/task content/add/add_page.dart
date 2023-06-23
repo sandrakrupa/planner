@@ -25,7 +25,12 @@ class _AddPageState extends State<AddPage> {
       const BackgroundGradientWidget(),
       BlocProvider(
         create: (context) => AddCubit(),
-        child: BlocBuilder<AddCubit, AddState>(
+        child: BlocConsumer<AddCubit, AddState>(
+          listener: (context, state) {
+            if (state.saved) {
+              Navigator.of(context).pop();
+            }
+          },
           builder: (context, state) {
             return Scaffold(
               backgroundColor: Colors.transparent,

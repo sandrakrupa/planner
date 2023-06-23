@@ -26,7 +26,12 @@ class _AddGratitudePageState extends State<AddGratitudePage> {
         const BackgroundGradientWidget(),
         BlocProvider(
           create: (context) => AddGratitudeCubit(),
-          child: BlocBuilder<AddGratitudeCubit, AddGratitudeState>(
+          child: BlocConsumer<AddGratitudeCubit, AddGratitudeState>(
+            listener: (context, state) {
+              if (state.saved) {
+                Navigator.of(context).pop();
+              }
+            },
             builder: (context, state) {
               return Scaffold(
                 backgroundColor: Colors.transparent,
