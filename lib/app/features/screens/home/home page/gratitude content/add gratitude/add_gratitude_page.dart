@@ -31,6 +31,17 @@ class _AddGratitudePageState extends State<AddGratitudePage> {
               if (state.saved) {
                 Navigator.of(context).pop();
               }
+              if (state.errorMessage.isNotEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      state.errorMessage,
+                      style: textMDboldwhite,
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 148, 54, 54),
+                  ),
+                );
+              }
             },
             builder: (context, state) {
               return Scaffold(
