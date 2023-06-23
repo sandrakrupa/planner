@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:planner/app/models/item_model.dart';
+import 'package:planner/app/models/task_model.dart';
 
-class ItemsRepository {
-  Stream<List<ItemModel>> getItemsStream() {
+class TasksRepository {
+  Stream<List<TaskModel>> getTasksStream() {
     return FirebaseFirestore.instance
-        .collection('items')
+        .collection('tasks')
         .orderBy('date')
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
-        return ItemModel(
+        return TaskModel(
           id: doc.id,
           title: doc['title'],
           description: doc['description'],
@@ -19,16 +19,16 @@ class ItemsRepository {
     });
   }
 
-  Future<void> delete({required String id}) {
-    return FirebaseFirestore.instance.collection('items').doc(id).delete();
+  Future<void> delete({required String id}) async {
+    await FirebaseFirestore.instance.collection('tasks').doc(id).delete();
   }
 
-  Future<void> add(
+   Future<void> add(
     String title,
     String description,
     DateTime date,
   ) async {
-    await FirebaseFirestore.instance.collection('items').add(
+    await FirebaseFirestore.instance.collection('tasks').add(
       {
         'title': title,
         'description': description,

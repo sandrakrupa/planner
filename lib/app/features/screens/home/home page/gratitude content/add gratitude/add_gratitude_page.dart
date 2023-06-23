@@ -6,6 +6,7 @@ import 'package:planner/app/features/screens/home/home%20page/gratitude%20conten
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
+import 'package:planner/app/repositories/items_repository.dart';
 
 class AddGratitudePage extends StatefulWidget {
   const AddGratitudePage({super.key});
@@ -25,7 +26,7 @@ class _AddGratitudePageState extends State<AddGratitudePage> {
       children: [
         const BackgroundGradientWidget(),
         BlocProvider(
-          create: (context) => AddGratitudeCubit(),
+          create: (context) => AddGratitudeCubit(ItemsRepository()),
           child: BlocConsumer<AddGratitudeCubit, AddGratitudeState>(
             listener: (context, state) {
               if (state.saved) {

@@ -8,6 +8,7 @@ import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:planner/app/models/task_model.dart';
+import 'package:planner/app/repositories/tasks_repository.dart';
 
 class TaskPageContent extends StatefulWidget {
   const TaskPageContent({
@@ -95,7 +96,7 @@ class _TaskPageContentState extends State<TaskPageContent> {
         Expanded(
           child: SingleChildScrollView(
             child: BlocProvider(
-              create: (context) => TaskCubit()..start(),
+              create: (context) => TaskCubit(TasksRepository())..start(),
               child: BlocBuilder<TaskCubit, TaskState>(
                 builder: (context, state) {
                   final taskModels = state.tasks;
