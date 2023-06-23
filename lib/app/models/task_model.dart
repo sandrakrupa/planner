@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class TaskModel {
   TaskModel({
     required this.id,
@@ -11,4 +13,7 @@ class TaskModel {
   final String description;
   final DateTime date;
 
+  String dateFormated() {
+    return DateFormat.yMMMEd().format(date);
+  }
 }

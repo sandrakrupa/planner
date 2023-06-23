@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class ItemModel {
   ItemModel({
     required this.id,
@@ -10,4 +12,8 @@ class ItemModel {
   final String title;
   final String description;
   final DateTime date;
+
+  String dateFormated() {
+    return DateFormat.yMMMEd().format(date);
+  }
 }

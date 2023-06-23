@@ -193,7 +193,7 @@ class _ColumnItem extends StatelessWidget {
                                   height: 3,
                                 ),
                                 Text(
-                                  taskModel.date.toString(),
+                                  taskModel.dateFormated(),
                                   style: textSMregulargrey400,
                                 ),
                                 const SizedBox(
@@ -225,22 +225,6 @@ class _ColumnItem extends StatelessWidget {
     );
   }
 }
-
-// class Task {
-//   String title;
-//   String description;
-//   DateTime date;
-//   bool isSelected;
-//   bool isCrossedOut;
-
-//   Task({
-//     required this.title,
-//     required this.description,
-//     required this.date,
-//     this.isCrossedOut = true,
-//     this.isSelected = false,
-//   });
-// }
 
 
 
@@ -278,40 +262,3 @@ class _ColumnItem extends StatelessWidget {
 //               ),
 
 
-
-
- // Expanded(
-        //   child: ListView.builder(
-        //     itemCount: tasks.length,
-        //     itemBuilder: (context, index) {
-        //       return ListTile(
-        //         title: Text(
-        //           tasks[index].title,
-        //           style: textMDboldgrey700,
-        //         ),
-        //         subtitle: Text(
-        //           tasks[index].description,
-        //           style: textSMregulargrey400,
-        //         ),
-        //         trailing: Checkbox(
-        //           value: tasks[index].isSelected,
-        //           onChanged: (value) {
-        //             setState(() {
-        //               tasks[index].isSelected = value!;
-        //               if (value) {
-        //                 tasks[index].isCrossedOut = true;
-        //                 List<Task> newTasks = tasks
-        //                     .where((task) => task != tasks[index])
-        //                     .toList();
-        //                 newTasks.add(tasks[index]);
-        //                 tasks = newTasks;
-        //               } else {
-        //                 tasks[index].isCrossedOut = false;
-        //               }
-        //             });
-        //           },
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // ),

@@ -70,7 +70,7 @@ class _ListViewItem extends StatelessWidget {
           height: 10,
         ),
         Text(
-          taskModel.date.toString(),
+          taskModel.dateFormated(),
           style: textSMboldgrey400,
         ),
         const SizedBox(

@@ -83,7 +83,7 @@ class _AddPageState extends State<AddPage> {
                   });
                 },
                 selectedDateFormatted: _date != null
-                    ? DateFormat.MMMMEEEEd().format(_date!)
+                    ? DateFormat.yMMMMEEEEd().format(_date!)
                     : null,
               ),
             );

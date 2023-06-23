@@ -180,7 +180,9 @@ class _GratitudeItem extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => DetailsGratitudePage(id: itemModel.id),
+                    builder: (context) => DetailsGratitudePage(
+                      id: itemModel.id,
+                    ),
                   ),
                 );
               },
@@ -222,7 +224,7 @@ class _GratitudeItem extends StatelessWidget {
             startChild: Container(
               color: Colors.transparent,
               child: Text(
-                itemModel.date.toString(),
+                itemModel.dateFormated(),
                 style: textSMregulargrey400,
               ),
             ),
