@@ -1,12 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:planner/app/core/enums.dart';
+import 'package:planner/app/repositories/items_repository.dart';
 
 part 'add_state.dart';
 
 class AddCubit extends Cubit<AddState> {
-  AddCubit() : super(const AddState(status: Status.initial));
+  AddCubit(this._itemsRepository)
+      : super(const AddState(status: Status.initial));
+
+  final ItemsRepository _itemsRepository;
 
   Future<void> add(
     String title,
@@ -14,13 +17,7 @@ class AddCubit extends Cubit<AddState> {
     DateTime date,
   ) async {
     try {
-      await FirebaseFirestore.instance.collection('tasks').add(
-        {
-          'title': title,
-          'description': description,
-          'date': date,
-        },
-      );
+      await _itemsRepository.add(title, description, date);
 
       emit(
         const AddState(saved: true, status: Status.success),

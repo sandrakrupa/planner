@@ -6,6 +6,7 @@ import 'package:planner/app/features/screens/home/home%20page/task%20content/add
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
+import 'package:planner/app/repositories/items_repository.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({super.key});
@@ -24,7 +25,7 @@ class _AddPageState extends State<AddPage> {
     return Stack(children: [
       const BackgroundGradientWidget(),
       BlocProvider(
-        create: (context) => AddCubit(),
+        create: (context) => AddCubit(ItemsRepository()),
         child: BlocConsumer<AddCubit, AddState>(
           listener: (context, state) {
             if (state.saved) {

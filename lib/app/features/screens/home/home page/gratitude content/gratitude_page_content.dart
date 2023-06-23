@@ -8,6 +8,7 @@ import 'package:planner/app/features/screens/home/home%20page/gratitude%20conten
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:planner/app/models/item_model.dart';
+import 'package:planner/app/repositories/items_repository.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class GratitudePageContent extends StatefulWidget {
@@ -93,7 +94,7 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
         Expanded(
           child: SingleChildScrollView(
             child: BlocProvider(
-              create: (context) => GratitudeCubit()..start(),
+              create: (context) => GratitudeCubit(ItemsRepository())..start(),
               child: BlocBuilder<GratitudeCubit, GratitudeState>(
                 builder: (context, state) {
                   final itemModels = state.items;
@@ -163,8 +164,10 @@ class _GratitudeItem extends StatelessWidget {
               color: Color.fromARGB(255, 222, 224, 255),
             ),
             indicatorStyle: IndicatorStyle(
-              width: 30,
+              width: 50,
               indicator: Container(
+                width: double.infinity,
+                height: double.infinity,
                 decoration: BoxDecoration(
                   gradient: navyBlueGradient,
                   boxShadow: [greyShadow],

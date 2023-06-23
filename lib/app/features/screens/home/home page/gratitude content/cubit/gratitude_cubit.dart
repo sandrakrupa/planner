@@ -1,33 +1,23 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:planner/app/models/item_model.dart';
+import 'package:planner/app/repositories/items_repository.dart';
 
 part 'gratitude_state.dart';
 
 class GratitudeCubit extends Cubit<GratitudeState> {
-  GratitudeCubit() : super(const GratitudeState());
+  GratitudeCubit(this._itemsRepository) : super(const GratitudeState());
+
+  final ItemsRepository _itemsRepository;
 
   StreamSubscription? _streamSubscription;
 
   Future<void> start() async {
-    _streamSubscription = FirebaseFirestore.instance
-        .collection('items')
-        .orderBy('date')
-        .snapshots()
-        .listen(
+    _streamSubscription = _itemsRepository.getItemsStream().listen(
       (items) {
-        final itemModels = items.docs.map((doc) {
-          return ItemModel(
-            id: doc.id,
-            title: doc['title'],
-            description: doc['description'],
-            date: (doc['date'] as Timestamp).toDate(),
-          );
-        }).toList();
-        emit(GratitudeState(items: itemModels));
+        emit(GratitudeState(items: items));
       },
     )..onError(
         (error) {
@@ -38,10 +28,7 @@ class GratitudeCubit extends Cubit<GratitudeState> {
 
   Future<void> remove({required String documentID}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('items')
-          .doc(documentID)
-          .delete();
+      await _itemsRepository.delete(id: documentID);
     } catch (error) {
       emit(
         const GratitudeState(removingErrorOccured: true),
