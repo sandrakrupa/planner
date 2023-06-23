@@ -18,7 +18,7 @@ class _AddPageState extends State<AddPage> {
   String? _title;
   String? _description;
   DateTime? _date;
-  TimeOfDay? _time;
+  // TimeOfDay? _time;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _AddPageState extends State<AddPage> {
                                   _title!,
                                   _description!,
                                   _date!,
-                                  _time!,
+                                  // _time!,
                                 );
                           },
                     icon: const Icon(Icons.check),
@@ -52,32 +52,36 @@ class _AddPageState extends State<AddPage> {
                 ],
               ),
               body: _AddPageBody(
-                onTitleChanged: (newValue) {
-                  setState(() {
-                    _title = newValue;
-                  });
-                },
-                onDescriptionChanged: (newValue) {
-                  setState(() {
-                    _title = newValue;
-                  });
-                },
-                onDateChanged: (newValue) {
-                  setState(() {
-                    _date = newValue;
-                  });
-                },
-                selectedDateFormatted: _date == null
-                    ? null
-                    : DateFormat.yMMMMEEEEd().format(_date!),
-                onTimeChanged: (newValue) {
-                  setState(() {
-                    _time = newValue;
-                  });
-                },
-                selectedTimeFormatted:
-                    _time == null ? null : _time!.format(context),
-              ),
+                  onTitleChanged: (newValue) {
+                    setState(() {
+                      _title = newValue;
+                    });
+                  },
+                  onDescriptionChanged: (newValue) {
+                    setState(() {
+                      _description = newValue;
+                    });
+                  },
+                  onDateChanged: (newValue) {
+                    setState(() {
+                      _date = newValue;
+                    });
+                  },
+                  selectedDateFormatted: _date != null
+                      ? DateFormat.MMMMEEEEd().format(_date!)
+                      : null
+                  //_date?.toIso8601String(),
+                  // _date == null
+                  //     ? null
+                  //     : DateFormat.yMMMMEEEEd().format(_date!),
+                  // onTimeChanged: (newValue) {
+                  //   setState(() {
+                  //     _time = newValue;
+                  //   });
+                  // },
+                  // selectedTimeFormatted:
+                  //     _time == null ? null : _time!.format(context),
+                  ),
             );
           },
         ),
@@ -92,17 +96,17 @@ class _AddPageBody extends StatelessWidget {
     required this.onTitleChanged,
     required this.onDescriptionChanged,
     required this.onDateChanged,
-    required this.onTimeChanged,
+    // required this.onTimeChanged,
     this.selectedDateFormatted,
-    this.selectedTimeFormatted,
+    // this.selectedTimeFormatted,
   }) : super(key: key);
 
   final Function(String) onTitleChanged;
   final Function(String) onDescriptionChanged;
   final Function(DateTime?) onDateChanged;
-  final Function(TimeOfDay?) onTimeChanged;
+  // final Function(TimeOfDay?) onTimeChanged;
   final String? selectedDateFormatted;
-  final String? selectedTimeFormatted;
+  // final String? selectedTimeFormatted;
 
   @override
   Widget build(BuildContext context) {
@@ -177,26 +181,26 @@ class _AddPageBody extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        ContainerInputDecorationWidget(
-          child: ListTile(
-            title: Text(
-              'Select Time:',
-              style: textMDboldgrey300,
-            ),
-            subtitle: Text(
-              selectedTimeFormatted != null ? ' $selectedTimeFormatted' : '',
-              style: textMDregulargrey300,
-            ),
-            trailing: const Icon(Icons.access_time),
-            onTap: () async {
-              final selectedTime = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.now(),
-              );
-              onTimeChanged(selectedTime);
-            },
-          ),
-        ),
+        // ContainerInputDecorationWidget(
+        //   child: ListTile(
+        //     title: Text(
+        //       'Select Time:',
+        //       style: textMDboldgrey300,
+        //     ),
+        //     subtitle: Text(
+        //       selectedTimeFormatted != null ? ' $selectedTimeFormatted' : '',
+        //       style: textMDregulargrey300,
+        //     ),
+        //     trailing: const Icon(Icons.access_time),
+        //     onTap: () async {
+        //       final selectedTime = await showTimePicker(
+        //         context: context,
+        //         initialTime: TimeOfDay.now(),
+        //       );
+        //       onTimeChanged(selectedTime);
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

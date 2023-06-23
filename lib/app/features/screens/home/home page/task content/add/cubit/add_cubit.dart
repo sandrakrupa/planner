@@ -6,26 +6,30 @@ part 'add_state.dart';
 
 class AddCubit extends Cubit<AddState> {
   AddCubit() : super(const AddState());
+
   Future<void> add(
     String title,
     String description,
     DateTime date,
-    TimeOfDay time,
+    // TimeOfDay time,
   ) async {
     try {
-      final DateTime combinedDateTime = DateTime(
-        date.year,
-        date.month,
-        date.day,
-        time.hour,
-        time.minute,
-      );
+      // final DateTime combinedDateTime = DateTime(
+      //   date.year,
+      //   date.month,
+      //   date.day,
+      //   time.hour,
+      //   time.minute,
+      // );
 
-      await FirebaseFirestore.instance.collection('tasks').add({
-        'title': title,
-        'description': description,
-        'date': combinedDateTime,
-      });
+      await FirebaseFirestore.instance.collection('tasks').add(
+        {
+          'title': title,
+          'description': description,
+          'date': date
+          // combinedDateTime,
+        },
+      );
 
       emit(
         const AddState(saved: true),
