@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
+import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/add%20gratitude/add_gratitude_page.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/cubit/gratitude_cubit.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
@@ -78,13 +79,13 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
               buttonTextStyle: textMDboldwhite,
               buttonWidth: 100,
               buttonHeight: 30,
-              onPressed: () { 
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (_) => const AddGratitude(),
-                //   ),
-                // );
-                },
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const AddGratitudePage(),
+                  ),
+                );
+              },
             )
           ],
         ),

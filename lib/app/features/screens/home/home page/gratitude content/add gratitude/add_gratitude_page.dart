@@ -2,88 +2,90 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:planner/app/core/fonts_palette.dart';
-import 'package:planner/app/features/screens/home/home%20page/task%20content/add/cubit/add_cubit.dart';
+import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/add%20gratitude/cubit/add_gratitude_cubit.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({super.key});
+class AddGratitudePage extends StatefulWidget {
+  const AddGratitudePage({super.key});
 
   @override
-  State<AddPage> createState() => _AddPageState();
+  State<AddGratitudePage> createState() => _AddGratitudePageState();
 }
 
-class _AddPageState extends State<AddPage> {
+class _AddGratitudePageState extends State<AddGratitudePage> {
   String? _title;
   String? _description;
   DateTime? _date;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      const BackgroundGradientWidget(),
-      BlocProvider(
-        create: (context) => AddCubit(),
-        child: BlocBuilder<AddCubit, AddState>(
-          builder: (context, state) {
-            return Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                backgroundColor: const Color.fromARGB(255, 206, 232, 254),
-                iconTheme: const IconThemeData(
-                  color: Color.fromARGB(255, 5, 4, 19),
+    return Stack(
+      children: [
+        const BackgroundGradientWidget(),
+        BlocProvider(
+          create: (context) => AddGratitudeCubit(),
+          child: BlocBuilder<AddGratitudeCubit, AddGratitudeState>(
+            builder: (context, state) {
+              return Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                  backgroundColor: const Color.fromARGB(255, 206, 232, 254),
+                  iconTheme: const IconThemeData(
+                    color: Color.fromARGB(255, 5, 4, 19),
+                  ),
+                  actions: [
+                    IconButton(
+                      onPressed: _title == null || _date == null
+                          ? null
+                          : () {
+                              context.read<AddGratitudeCubit>().add(
+                                    _title!,
+                                    _description!,
+                                    _date!,
+                                  );
+                            },
+                      icon: const Icon(Icons.check),
+                    ),
+                  ],
                 ),
-                actions: [
-                  IconButton(
-                    onPressed: _title == null || _date == null
-                        ? null
-                        : () {
-                            context.read<AddCubit>().add(
-                                  _title!,
-                                  _description!,
-                                  _date!,
-                                );
-                          },
-                    icon: const Icon(Icons.check),
-                  )
-                ],
-              ),
-              body: _AddPageBody(
-                onTitleChanged: (newValue) {
-                  setState(() {
-                    _title = newValue;
-                  });
-                },
-                onDescriptionChanged: (newValue) {
-                  setState(() {
-                    _description = newValue;
-                  });
-                },
-                onDateChanged: (newValue) {
-                  setState(() {
-                    _date = newValue;
-                  });
-                },
-                selectedDateFormatted: _date != null
-                    ? DateFormat.MMMMEEEEd().format(_date!)
-                    : null,
-              ),
-            );
-          },
+                body: _AddGratitudePageBody(
+                  onTitleChanged: (newValue) {
+                    setState(() {
+                      _title = newValue;
+                    });
+                  },
+                  onDescriptionChanged: (newValue) {
+                    setState(() {
+                      _description = newValue;
+                    });
+                  },
+                  onDateChanged: (newValue) {
+                    setState(() {
+                      _date = newValue;
+                    });
+                  },
+                  selectedDateFormatted: _date != null
+                      ? DateFormat.MMMMEEEEd().format(_date!)
+                      : null,
+                ),
+              );
+            },
+          ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 }
 
-class _AddPageBody extends StatelessWidget {
-  const _AddPageBody({
-    Key? key,
+class _AddGratitudePageBody extends StatelessWidget {
+  const _AddGratitudePageBody({
     required this.onTitleChanged,
     required this.onDescriptionChanged,
     required this.onDateChanged,
     this.selectedDateFormatted,
+    Key? key,
   }) : super(key: key);
 
   final Function(String) onTitleChanged;
@@ -100,7 +102,7 @@ class _AddPageBody extends StatelessWidget {
           height: 30,
         ),
         const MainText(
-          mainText: 'Add Task',
+          mainText: 'What are you grateful for today?',
         ),
         const SizedBox(
           height: 40,
@@ -112,7 +114,7 @@ class _AddPageBody extends StatelessWidget {
               onChanged: onTitleChanged,
               decoration: InputDecoration(
                 hintText: 'Title',
-                hintStyle: textMDregulargrey300,
+                hintStyle: textMDboldgrey300,
                 border: InputBorder.none,
                 prefixIcon: const Icon(Icons.edit),
               ),
@@ -129,7 +131,7 @@ class _AddPageBody extends StatelessWidget {
               onChanged: onDescriptionChanged,
               decoration: InputDecoration(
                 hintText: 'Description',
-                hintStyle: textMDregulargrey300,
+                hintStyle: textMDboldgrey300,
                 border: InputBorder.none,
                 prefixIcon: const Icon(Icons.edit),
               ),

@@ -1,19 +1,18 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
 
-part 'add_state.dart';
+part 'add_gratitude_state.dart';
 
-class AddCubit extends Cubit<AddState> {
-  AddCubit() : super(const AddState());
-
+class AddGratitudeCubit extends Cubit<AddGratitudeState> {
+  AddGratitudeCubit() : super(const AddGratitudeState());
   Future<void> add(
     String title,
     String description,
     DateTime date,
   ) async {
     try {
-      await FirebaseFirestore.instance.collection('tasks').add(
+      await FirebaseFirestore.instance.collection('items').add(
         {
           'title': title,
           'description': description,
@@ -22,11 +21,11 @@ class AddCubit extends Cubit<AddState> {
       );
 
       emit(
-        const AddState(saved: true),
+        const AddGratitudeState(saved: true),
       );
     } catch (error) {
       emit(
-        AddState(
+        AddGratitudeState(
           errorMessage: error.toString(),
         ),
       );
