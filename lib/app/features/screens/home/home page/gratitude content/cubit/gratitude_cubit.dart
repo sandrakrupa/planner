@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:planner/app/models/item_model.dart';
 
 part 'gratitude_state.dart';
 
@@ -18,7 +19,15 @@ class GratitudeCubit extends Cubit<GratitudeState> {
         .snapshots()
         .listen(
       (items) {
-        emit(GratitudeState(items: items));
+        final itemModels = items.docs.map((doc) {
+          return ItemModel(
+            id: doc.id,
+            title: doc['title'],
+            description: doc['description'],
+            date: (doc['date'] as Timestamp).toDate(),
+          );
+        }).toList();
+        emit(GratitudeState(items: itemModels));
       },
     )..onError(
         (error) {

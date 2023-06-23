@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/core/fonts_palette.dart';
@@ -8,6 +7,7 @@ import 'package:planner/app/features/screens/home/home%20page/gratitude%20conten
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/cubit/gratitude_cubit.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
+import 'package:planner/app/models/item_model.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class GratitudePageContent extends StatefulWidget {
@@ -96,15 +96,12 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
               create: (context) => GratitudeCubit()..start(),
               child: BlocBuilder<GratitudeCubit, GratitudeState>(
                 builder: (context, state) {
-                  final docs = state.items?.docs;
-                  if (docs == null) {
-                    return const SizedBox.shrink();
-                  }
+                  final itemModels = state.items;
                   return Column(
                     children: [
-                      for (final doc in docs)
+                      for (final itemModel in itemModels)
                         Dismissible(
-                            key: ValueKey(doc.id),
+                            key: ValueKey(itemModel.id),
                             background: const DecoratedBox(
                               decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 148, 54, 54),
@@ -125,10 +122,10 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
                             onDismissed: (direction) {
                               context
                                   .read<GratitudeCubit>()
-                                  .remove(documentID: doc.id);
+                                  .remove(documentID: itemModel.id);
                             },
                             child: GratitudeItem(
-                              document: doc,
+                              itemModel: itemModel,
                             ))
                     ],
                   );
@@ -145,10 +142,10 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
 class GratitudeItem extends StatelessWidget {
   const GratitudeItem({
     Key? key,
-    required this.document,
+    required this.itemModel,
   }) : super(key: key);
 
-  final QueryDocumentSnapshot<Map<String, dynamic>> document;
+  final ItemModel itemModel;
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +185,7 @@ class GratitudeItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        document['title'],
+                        itemModel.title,
                         style: textSMboldblue,
                       ),
                       const SizedBox(
@@ -197,7 +194,7 @@ class GratitudeItem extends StatelessWidget {
                       Flexible(
                         child: SingleChildScrollView(
                           child: Text(
-                            document['description'],
+                            itemModel.description,
                             style: textSMregular,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
@@ -212,7 +209,7 @@ class GratitudeItem extends StatelessWidget {
             startChild: Container(
               color: Colors.transparent,
               child: Text(
-                (document['date'] as Timestamp).toDate().toString(),
+                itemModel.date.toString.toString(),
                 style: textSMregulargrey400,
               ),
             ),
