@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:planner/app/models/name_model.dart';
 import 'package:planner/app/repositories/names_repository.dart';
