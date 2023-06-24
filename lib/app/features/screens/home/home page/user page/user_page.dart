@@ -60,17 +60,6 @@ class _UserPageState extends State<UserPage> {
                               _UserPageBody(
                                 nameModel: nameModel,
                                 email: widget.user.email,
-                                onNameChanged: (name) {
-                                  context.read<UserCubit>().remove(
-                                        documentID: name,
-                                      );
-                                },
-                                // onNameEditingComplete: (name) {
-                                //   context.read<UserCubit>().update(
-                                //         documentID: name,
-                                //         title: name,
-                                //       );
-                                // },
                               ),
                           ],
                         ),
@@ -128,14 +117,11 @@ class _UserPageState extends State<UserPage> {
 class _UserPageBody extends StatelessWidget {
   const _UserPageBody({
     required this.email,
-    required this.onNameChanged,
-    // required this.onNameEditingComplete,
     required this.nameModel,
     Key? key,
   }) : super(key: key);
   final String? email;
-  final Function(String) onNameChanged;
-  // final Function(String) onNameEditingComplete;
+
   final NameModel nameModel;
 
   @override
@@ -204,8 +190,6 @@ class _UserPageBody extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: TextField(
-                  onChanged: onNameChanged,
-                  // onEditingComplete: () => onNameEditingComplete(nameModel.title),
                   enabled: false,
                   decoration: InputDecoration(
                     hintText: 'Enter your name',
