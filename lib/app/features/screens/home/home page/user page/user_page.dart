@@ -2,12 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:planner/app/cubit/auth_cubit.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/task%20content/task_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/user%20page/add%20name/add_name_page.dart';
+import 'package:planner/app/features/screens/home/home%20page/user%20page/cubit/cubit/image_cubit.dart';
 import 'package:planner/app/features/screens/home/home%20page/user%20page/cubit/cubit/user_cubit.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
@@ -16,6 +18,8 @@ import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.d
 import 'package:planner/app/features/widget/text_over_input_widget.dart';
 import 'package:planner/app/models/name_model.dart';
 import 'package:planner/app/repositories/names_repository.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class UserPage extends StatefulWidget {
   const UserPage({
@@ -127,43 +131,17 @@ class _UserPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 20,
+            height: 50,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  nameModel.title,
-                  style: textMDregulargrey700,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: navyBlueGradient,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      greyShadow,
-                    ],
-                  ),
-                  child: const CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 30,
-                    child: Icon(
-                      Icons.add,
-                      size: 30,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              nameModel.title,
+              style: textMDregulargrey700,
+            ),
           ),
           const SizedBox(
             height: 16,
@@ -239,139 +217,3 @@ class _UserPageBody extends StatelessWidget {
     );
   }
 }
-
-// Padding(
-//                           padding: const EdgeInsets.all(16.0),
-//                           child: InkWell(
-//                             onTap: () {
-//                               showDialog(
-//                                 context: context,
-//                                 builder: (BuildContext context) {
-//                                   return AlertDialog(
-//                                     title: Text(
-//                                       'Change Photo',
-//                                       style: displayXSbold,
-//                                     ),
-//                                     content: Column(
-//                                       mainAxisSize: MainAxisSize.min,
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.start,
-//                                       children: [
-//                                         Text(
-//                                           'Select a photo from:',
-//                                           style: textMDregulargrey700,
-//                                         ),
-//                                         const SizedBox(
-//                                           height: 30,
-//                                         ),
-//                                         Wrap(
-//                                           spacing: 13,
-//                                           runSpacing: 13,
-//                                           children: [
-//                                             TextButton(
-//                                               onPressed: () {
-//                                                 Navigator.of(context).pop();
-//                                                 pickImage(ImageSource.gallery);
-//                                               },
-//                                               child: Text(
-//                                                 'Gallery',
-//                                                 style: textSMboldblue,
-//                                               ),
-//                                             ),
-//                                             TextButton(
-//                                               onPressed: () {
-//                                                 Navigator.of(context).pop();
-//                                                 pickImage(ImageSource.camera);
-//                                               },
-//                                               child: Text(
-//                                                 'Camera',
-//                                                 style: textSMboldblue,
-//                                               ),
-//                                             ),
-//                                             TextButton(
-//                                               onPressed: () {
-//                                                 Navigator.of(context).pop();
-//                                                 deleteImage();
-//                                               },
-//                                               child: Text(
-//                                                 'Delete',
-//                                                 style: textSMboldred,
-//                                               ),
-//                                             ),
-//                                           ],
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   );
-//                                 },
-//                               );
-//                             },
-//                             child: Container(
-//                               decoration: BoxDecoration(
-//                                 gradient: navyBlueGradient,
-//                                 shape: BoxShape.circle,
-//                                 boxShadow: [
-//                                   greyShadow,
-//                                 ],
-//                               ),
-//                               child: ValueListenableBuilder<File?>(
-//                                 valueListenable: imageNotifier,
-//                                 builder: (BuildContext context, File? value,
-//                                     Widget? child) {
-//                                   return CircleAvatar(
-//                                     backgroundColor: Colors.transparent,
-//                                     radius: 30,
-//                                     child: imageFile != null
-//                                         ? ClipOval(
-//                                             child: Image.file(
-//                                               imageFile!,
-//                                               fit: BoxFit.cover,
-//                                               width: 60,
-//                                               height: 60,
-//                                             ),
-//                                           )
-//                                         : const Icon(
-//                                             Icons.add,
-//                                             size: 30,
-//                                             color: Colors.white,
-//                                           ),
-//                                   );
-//                                 },
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-
-
-
-
-
-
-  // String userName = '';
-  // TextEditingController nameController = TextEditingController();
-
-  // File? imageFile;
-
-  // ValueNotifier<File?> imageNotifier = ValueNotifier<File?>(null);
-
-  // Future<void> pickImage(ImageSource source) async {
-  //   final pickedImage = await ImagePicker().pickImage(source: source);
-  //   if (pickedImage != null) {
-  //     setState(() {
-  //       imageFile = File(pickedImage.path);
-  //       imageNotifier.value = imageFile;
-  //     });
-  //   }
-  // }
-
-  // void deleteImage() {
-  //   setState(() {
-  //     imageFile = null;
-  //     imageNotifier.value = null;
-  //   });
-  // }
-
-  //   @override
-  // void initState() {
-  //   super.initState();
-  // }

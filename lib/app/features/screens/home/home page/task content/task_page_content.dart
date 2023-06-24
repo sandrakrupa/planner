@@ -28,40 +28,14 @@ class _TaskPageContentState extends State<TaskPageContent> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(
-          height: 20,
+          height: 50,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'WELCOME, ',
-                style: textMDregulargrey700,
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: navyBlueGradient,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      greyShadow,
-                    ],
-                  ),
-                  child: const CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 30,
-                    child: Icon(
-                      Icons.add,
-                      size: 30,
-                      color: Colors.white,
-                    ),
-                  ),
-                )),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'WELCOME, ',
+            style: textMDregulargrey700,
+          ),
         ),
         const SizedBox(
           height: 16,
