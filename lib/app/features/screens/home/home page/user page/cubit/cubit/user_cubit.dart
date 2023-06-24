@@ -13,23 +13,6 @@ class UserCubit extends Cubit<UserState> {
 
   StreamSubscription? _streamSubscription;
 
-  Future<void> add(
-    String title,
-  ) async {
-    try {
-      await _namesRepository.add(title);
-
-      emit(
-        const UserState(saved: true),
-      );
-    } catch (error) {
-      emit(
-        UserState(
-          errorMessage: error.toString(),
-        ),
-      );
-    }
-  }
 
   Future<void> start() async {
     _streamSubscription = _namesRepository.getNamesSteram().listen(
