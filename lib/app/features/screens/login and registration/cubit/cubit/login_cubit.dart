@@ -30,23 +30,24 @@ class LoginCubit extends Cubit<LoginState> {
           status: Status.success,
         ),
       );
-    } on FirebaseAuthException catch (e) {
+    }
+    // emit(
+    //   LoginState(
+
+    //     status: Status.error,
+    //     errorMessage:
+    //         _authRepository.getExceptionMessage(e.toString(), email, password),
+    //   ),
+    // );
+
+    on FirebaseAuthException catch (e) {
       emit(
         LoginState(
           status: Status.error,
-          errorMessage:
-              _authRepository.handleFirebaseAuthException(e, email, password),
+          errorMessage: getErrorMessage(e, email, password),
         ),
       );
     }
-    // on FirebaseAuthException catch (e) {
-    //   emit(
-    //     LoginState(
-    //       status: Status.error,
-    //       errorMessage: getErrorMessage(e, email, password),
-    //     ),
-    //   );
-    // }
   }
 
   void togglePasswordVisibility() {
@@ -69,28 +70,28 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  // String getErrorMessage(
-  //   FirebaseAuthException exception,
-  //   String email,
-  //   String password,
-  // ) {
-  //   switch (exception.code) {
-  //     case 'invalid-email':
-  //       return 'Invalid email address.';
-  //     case 'user-disabled':
-  //       return 'Your account has been disabled.';
-  //     case 'user-not-found':
-  //       return 'User not found.';
-  //     case 'wrong-password':
-  //       return 'Invalid password.';
-  //     case 'weak-password':
-  //       return 'Password should be at least 7 characters long.';
-  //     default:
-  //       if (email.isEmpty || password.isEmpty) {
-  //         return 'Email and password cannot be empty.';
-  //       } else {
-  //         return 'An error occurred. Please try again.';
-  //       }
-  //   }
-  // }
+  String getErrorMessage(
+    FirebaseAuthException exception,
+    String email,
+    String password,
+  ) {
+    switch (exception.code) {
+      case 'invalid-email':
+        return 'Invalid email address.';
+      case 'user-disabled':
+        return 'Your account has been disabled.';
+      case 'user-not-found':
+        return 'User not found.';
+      case 'wrong-password':
+        return 'Invalid password.';
+      case 'weak-password':
+        return 'Password should be at least 7 characters long.';
+      default:
+        if (email.isEmpty || password.isEmpty) {
+          return 'Email and password cannot be empty.';
+        } else {
+          return 'An error occurred. Please try again.';
+        }
+    }
+  }
 }
