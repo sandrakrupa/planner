@@ -62,9 +62,10 @@ class _UserPageState extends State<UserPage> {
                                   context.read<UserCubit>().add(name);
                                 },
                                 onNameEditingComplete: (name) {
-                                  context
-                                      .read<UserCubit>()
-                                      .remove(documentID: name);
+                                  context.read<UserCubit>().update(
+                                        documentID: name,
+                                        title: name,
+                                      );
                                 },
                               ),
                           ],

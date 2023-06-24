@@ -43,14 +43,14 @@ class UserCubit extends Cubit<UserState> {
       );
   }
 
-  Future<void> remove({required String documentID}) async {
+  Future<void> update(
+      {required String documentID, required String title}) async {
     try {
-      await _namesRepository.delete(id: documentID);
+      await _namesRepository.update(id: documentID, title: title);
     } catch (error) {
       emit(
         const UserState(removingErrorOccured: true),
       );
-      start();
     }
   }
 

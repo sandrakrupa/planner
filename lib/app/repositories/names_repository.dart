@@ -23,7 +23,7 @@ class NamesRepository {
     });
   }
 
-  Future<void> delete({required String id}) {
+  Future<void> update({required String id, required String title}) {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -33,7 +33,11 @@ class NamesRepository {
         .doc(userID)
         .collection('names')
         .doc(id)
-        .delete();
+        .update(
+      {
+        'title': title,
+      },
+    );
   }
 
   Future<void> add(
