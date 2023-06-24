@@ -13,9 +13,9 @@ import 'package:planner/app/repositories/items_repository.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class GratitudePageContent extends StatefulWidget {
-  final ValueNotifier<File?> imageNotifier;
+
   const GratitudePageContent({
-    required this.imageNotifier,
+
     super.key,
   });
 
@@ -236,8 +236,8 @@ class _GratitudeItem extends StatelessWidget {
 }
 
 
-
-
+  // final ValueNotifier<File?> imageNotifier;
+//  required this.imageNotifier,
 
 
 //  Padding(
