@@ -13,7 +13,6 @@ class UserCubit extends Cubit<UserState> {
 
   StreamSubscription? _streamSubscription;
 
-
   Future<void> start() async {
     _streamSubscription = _namesRepository.getNamesSteram().listen(
       (names) {
@@ -26,10 +25,13 @@ class UserCubit extends Cubit<UserState> {
       );
   }
 
-  Future<void> update(
-      {required String documentID, required String title}) async {
+  Future<void> remove({
+    required String documentID,
+  }) async {
     try {
-      await _namesRepository.update(id: documentID, title: title);
+      await _namesRepository.delete(
+        id: documentID,
+      );
     } catch (error) {
       emit(
         const UserState(removingErrorOccured: true),

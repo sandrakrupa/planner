@@ -7,6 +7,8 @@ import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/task%20content/task_page_content.dart';
+import 'package:planner/app/features/screens/home/home%20page/user%20page/add%20name/add_name_page.dart';
+import 'package:planner/app/features/screens/home/home%20page/user%20page/add%20name/cubit/add_name_cubit.dart';
 import 'package:planner/app/features/screens/home/home%20page/user%20page/cubit/cubit/user_cubit.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
@@ -59,14 +61,16 @@ class _UserPageState extends State<UserPage> {
                                 nameModel: nameModel,
                                 email: widget.user.email,
                                 onNameChanged: (name) {
-                                  context.read<UserCubit>().add(name);
-                                },
-                                onNameEditingComplete: (name) {
-                                  context.read<UserCubit>().update(
+                                  context.read<UserCubit>().remove(
                                         documentID: name,
-                                        title: name,
                                       );
                                 },
+                                // onNameEditingComplete: (name) {
+                                //   context.read<UserCubit>().update(
+                                //         documentID: name,
+                                //         title: name,
+                                //       );
+                                // },
                               ),
                           ],
                         ),
@@ -125,13 +129,13 @@ class _UserPageBody extends StatelessWidget {
   const _UserPageBody({
     required this.email,
     required this.onNameChanged,
-    required this.onNameEditingComplete,
+    // required this.onNameEditingComplete,
     required this.nameModel,
     Key? key,
   }) : super(key: key);
   final String? email;
   final Function(String) onNameChanged;
-  final Function(String) onNameEditingComplete;
+  // final Function(String) onNameEditingComplete;
   final NameModel nameModel;
 
   @override
@@ -188,17 +192,27 @@ class _UserPageBody extends StatelessWidget {
           const TextOverInputWidget(
             inputString: 'Name',
           ),
-          ContainerInputDecorationWidget(
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: TextField(
-                onChanged: onNameChanged,
-                onEditingComplete: () => onNameEditingComplete(nameModel.title),
-                decoration: InputDecoration(
-                  hintText: 'Enter your name',
-                  hintStyle: textMDregulargrey300,
-                  border: InputBorder.none,
-                  prefixIcon: const Icon(Icons.person),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AddNamePage(),
+                ),
+              );
+            },
+            child: ContainerInputDecorationWidget(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: TextField(
+                  onChanged: onNameChanged,
+                  // onEditingComplete: () => onNameEditingComplete(nameModel.title),
+                  enabled: false,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your name',
+                    hintStyle: textMDregulargrey300,
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.person),
+                  ),
                 ),
               ),
             ),
