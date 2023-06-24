@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/user%20page/add%20name/cubit/add_name_cubit.dart';
-import 'package:planner/app/features/screens/home/home%20page/user%20page/cubit/cubit/user_cubit.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
