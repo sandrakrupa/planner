@@ -2,14 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:planner/app/cubit/auth_cubit.dart';
 import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/task%20content/task_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/user%20page/add%20name/add_name_page.dart';
-import 'package:planner/app/features/screens/home/home%20page/user%20page/cubit/cubit/image_cubit.dart';
 import 'package:planner/app/features/screens/home/home%20page/user%20page/cubit/cubit/user_cubit.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
@@ -18,8 +16,6 @@ import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.d
 import 'package:planner/app/features/widget/text_over_input_widget.dart';
 import 'package:planner/app/models/name_model.dart';
 import 'package:planner/app/repositories/names_repository.dart';
-import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class UserPage extends StatefulWidget {
   const UserPage({
