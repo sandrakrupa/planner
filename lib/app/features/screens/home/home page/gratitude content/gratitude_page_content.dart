@@ -24,7 +24,7 @@ class _GratitudePageContentState extends State<GratitudePageContent> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(
           height: 50,
@@ -157,36 +157,32 @@ class _GratitudeItem extends StatelessWidget {
                   ),
                 );
               },
-              child: Container(
-                constraints: const BoxConstraints(
-                  minHeight: double.infinity,
-                ),
-                color: Colors.transparent,
-                child: Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          itemModel.title,
-                          style: textSMboldblue,
-                        ),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        Flexible(
-                          child: SingleChildScrollView(
-                            child: Text(
-                              itemModel.description,
-                              style: textSMregular,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                            ),
+              child: Expanded(
+                child: Container(
+                  constraints: const BoxConstraints(
+                    minHeight: double.infinity,
+                  ),
+                  color: Colors.transparent,
+                  child: Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            itemModel.title,
+                            style: textSMboldblue,
                           ),
-                        )
-                      ],
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Text(
+                            itemModel.description,
+                            style: textSMregular,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

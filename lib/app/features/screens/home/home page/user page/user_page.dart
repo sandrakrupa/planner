@@ -7,14 +7,12 @@ import 'package:planner/app/core/fonts_palette.dart';
 import 'package:planner/app/core/gradient_palette.dart';
 import 'package:planner/app/features/screens/home/home%20page/gratitude%20content/gratitude_page_content.dart';
 import 'package:planner/app/features/screens/home/home%20page/task%20content/task_page_content.dart';
-import 'package:planner/app/features/screens/home/home%20page/user%20page/add%20name/add_name_page.dart';
 import 'package:planner/app/features/screens/home/home%20page/user%20page/cubit/cubit/user_cubit.dart';
 import 'package:planner/app/features/widget/background_gradient.dart';
 import 'package:planner/app/features/widget/container_input_decoration_widget.dart';
 import 'package:planner/app/features/widget/main_text_widget.dart';
 import 'package:planner/app/features/widget/navy_blue_elevated_button_1_widget.dart';
 import 'package:planner/app/features/widget/text_over_input_widget.dart';
-import 'package:planner/app/models/name_model.dart';
 import 'package:planner/app/repositories/names_repository.dart';
 
 class UserPage extends StatefulWidget {
@@ -47,23 +45,15 @@ class _UserPageState extends State<UserPage> {
                   return const GratitudePageContent();
                 }
                 return BlocProvider(
-                  create: (context) => UserCubit(NamesRepository())..start(),
-                  child: BlocBuilder<UserCubit, UserState>(
-                    builder: (context, state) {
-                      final nameModel = state.names;
-
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            for (final nameModel in nameModel)
-                              _UserPageBody(
-                                nameModel: nameModel,
-                                email: widget.user.email,
-                              ),
-                          ],
+                  create: (context) => UserCubit(NamesRepository()),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        _UserPageBody(
+                          email: widget.user.email,
                         ),
-                      );
-                    },
+                      ],
+                    ),
                   ),
                 );
               },
@@ -114,14 +104,13 @@ class _UserPageState extends State<UserPage> {
 }
 
 class _UserPageBody extends StatelessWidget {
-  const _UserPageBody({
+  _UserPageBody({
     required this.email,
-    required this.nameModel,
     Key? key,
   }) : super(key: key);
   final String? email;
 
-  final NameModel nameModel;
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -134,9 +123,13 @@ class _UserPageBody extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(
-              nameModel.title,
-              style: textMDregulargrey700,
+            child: BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                return Text(
+                  state.name.isEmpty ? 'Welcome!' : 'Welcome, ${state.name}!',
+                  style: textMDregulargrey700,
+                );
+              },
             ),
           ),
           const SizedBox(
@@ -151,24 +144,21 @@ class _UserPageBody extends StatelessWidget {
           const TextOverInputWidget(
             inputString: 'Name',
           ),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const AddNamePage(),
-                ),
-              );
-            },
-            child: ContainerInputDecorationWidget(
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: TextField(
-                  enabled: false,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your name',
-                    hintStyle: textMDregulargrey300,
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.person),
+          ContainerInputDecorationWidget(
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  hintText: 'Enter your name',
+                  hintStyle: textMDregulargrey300,
+                  border: InputBorder.none,
+                  prefixIcon: const Icon(Icons.person),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      context.read<UserCubit>().add(name: _nameController.text);
+                    },
+                    icon: const Icon(Icons.check),
                   ),
                 ),
               ),
@@ -201,6 +191,7 @@ class _UserPageBody extends StatelessWidget {
           NavyBlueElevatedButton1(
             onPressed: () {
               context.read<AuthCubit>().logout();
+              Navigator.of(context).pop();
             },
             buttonText: 'Log out',
             buttonGradientColor: navyBlueGradient,

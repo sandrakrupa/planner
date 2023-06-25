@@ -3,12 +3,14 @@ part of 'user_cubit.dart';
 @immutable
 class UserState {
   const UserState({
-    this.names = const [],
-    this.loadingErrorOccured = false,
-    this.removingErrorOccured = false,
+    required this.newName,
+   required this.name,
+    this.saved = false,
+    this.errorMessage = '',
   });
 
-  final List<NameModel> names;
-  final bool loadingErrorOccured;
-  final bool removingErrorOccured;
+  final String newName;
+  final String name;
+  final bool saved;
+  final String errorMessage;
 }

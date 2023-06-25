@@ -64,8 +64,8 @@ class RootPage extends StatelessWidget {
   }
 }
 
-
-//AuthState i AuthCubit po usunięciu importu dotyczącego firebase z cubita błąd
+//wyświetlanie imienia 
 //Przeniesienie logiki dotyczącej FirebaseAuthException z LoginCubit do AuthRepository 
-// DatePicker połączenie z wyświetlaną datą 
 // dlaczego zeby sie wylogowac trzeba odswiezyc aplikacje
+// DatePicker połączenie z wyświetlaną datą 
+//AuthState i AuthCubit po usunięciu importu dotyczącego firebase z cubita błąd

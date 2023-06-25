@@ -1,8 +1,8 @@
 class NameModel {
   NameModel({
     required this.id,
-    required this.title,
+    required this.name,
   });
   final String id;
-  final String title;
+  final String name;
 }
