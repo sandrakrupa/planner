@@ -67,4 +67,3 @@ class RootPage extends StatelessWidget {
 //wyświetlanie imienia - znika po zmianie strony 
 // dlaczego zeby sie wylogowac trzeba odswiezyc aplikacje
 // DatePicker połączenie z wyświetlaną datą 
-//AuthState i AuthCubit po usunięciu importu dotyczącego firebase z cubita błąd

@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:planner/app/repositories/names_repository.dart';
+import 'package:planner/app/repositories/users_repository.dart';
 
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit(this._namesRepository)
+  UserCubit(this._usersRepository)
       : super(const UserState(name: '', newName: ''));
 
-  final NamesRepository _namesRepository;
+  final UsersRepository _usersRepository;
 
   Future<void> update({required String newName}) async {
     try {
-      await _namesRepository.update(newName: newName);
+      await _usersRepository.update(newName: newName);
       emit(UserState(newName: newName, name: ''));
     } catch (error) {
       emit(
@@ -24,7 +24,7 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> add({required String name}) async {
     try {
-      await _namesRepository.add(name);
+      await _usersRepository.add(name);
 
       emit(
         UserState(name: name, newName: '', saved: true),

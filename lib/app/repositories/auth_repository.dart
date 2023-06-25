@@ -27,11 +27,13 @@ class AuthRepository {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw Exception(getExceptionMessage(
-        e,
-        email,
-        password,
-      ));
+      throw Exception(
+        getExceptionMessage(
+          e,
+          email,
+          password,
+        ),
+      );
     }
   }
 
