@@ -40,31 +40,35 @@ class AuthRepository {
   }
 
   String getExceptionMessage(
-    FirebaseAuthException exception,
+    Object exception,
     String email,
     String password,
   ) {
-    switch (exception.code) {
-      case 'invalid-email':
-        return 'Invalid email address.';
-      case 'user-disabled':
-        return 'Your account has been disabled.';
-      case 'user-not-found':
-        return 'User not found.';
-      case 'wrong-password':
-        return 'Invalid password.';
-      case 'weak-password':
-        return 'Password should be at least 7 characters long.';
-      case 'email-already-in-use':
-        return 'User with this email address already exists.';
-      case 'network-request-failed':
-        return 'No network connection ';
-      default:
-        if (email.isEmpty || password.isEmpty) {
-          return 'Email and password cannot be empty.';
-        } else {
+    if (exception is FirebaseAuthException) {
+      switch (exception.code) {
+        case 'invalid-email':
+          return 'Invalid email address.';
+        case 'user-disabled':
+          return 'Your account has been disabled.';
+        case 'user-not-found':
+          return 'User not found.';
+        case 'wrong-password':
+          return 'Invalid password.';
+        case 'weak-password':
+          return 'Password should be at least 7 characters long.';
+        case 'email-already-in-use':
+          return 'User with this email address already exists.';
+        case 'network-request-failed':
+          return 'No network connection ';
+        default:
           return 'An error occurred. Please try again.';
-        }
+      }
+    } else {
+      if (email.isEmpty || password.isEmpty) {
+        return 'Email and password cannot be empty.';
+      } else {
+        return 'An error occurred. Please try again.';
+      }
     }
   }
 }
