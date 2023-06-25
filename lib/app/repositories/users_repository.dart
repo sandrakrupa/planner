@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class UsersRepository {
   Future<void> update({
     required String newName,
-    // id,
   }) {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {

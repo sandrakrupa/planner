@@ -202,37 +202,3 @@ class _ColumnItem extends StatelessWidget {
 
 
 
-//  ValueListenableBuilder<File?>(
-//                 valueListenable: widget.imageNotifier,
-//                 builder: (context, selectedImage, _) {
-//                   return Container(
-//                     decoration: BoxDecoration(
-//                       gradient: navyBlueGradient,
-//                       shape: BoxShape.circle,
-//                       boxShadow: [
-//                         greyShadow,
-//                       ],
-//                     ),
-//                     child: CircleAvatar(
-//                       backgroundColor: Colors.transparent,
-//                       radius: 30,
-//                       child: selectedImage != null
-//                           ? ClipOval(
-//                               child: Image.file(
-//                                 selectedImage,
-//                                 fit: BoxFit.cover,
-//                                 width: 60,
-//                                 height: 60,
-//                               ),
-//                             )
-//                           : const Icon(
-//                               Icons.add,
-//                               size: 30,
-//                               color: Colors.white,
-//                             ),
-//                     ),
-//                   );
-//                 },
-//               ),
-
-
