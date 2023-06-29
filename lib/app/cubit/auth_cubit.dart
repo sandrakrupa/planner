@@ -18,20 +18,23 @@ class AuthCubit extends Cubit<AuthState> {
       : super(
           const AuthState(status: Status.initial),
         ) {
-    _streamSubscription = _authRepository.authChanges().listen((user) {
-      if (user != null) {
+    _streamSubscription = _authRepository.authChanges().listen(
+      (user) {
+        if (user != null) {
+          emit(
+            AuthState(status: Status.success, user: user),
+          );
+        }
+      },
+      onError: (error, stackTrace) {
         emit(
-          AuthState(status: Status.success, user: user),
+          AuthState(
+            status: Status.error,
+            errorMessage: error.toString(),
+          ),
         );
-      }
-    }, onError: (error, stackTrace) {
-      emit(
-        AuthState(
-          status: Status.error,
-          errorMessage: error.toString(),
-        ),
-      );
-    });
+      },
+    );
   }
 
   void logout() async {

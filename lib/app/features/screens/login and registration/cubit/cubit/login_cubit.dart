@@ -30,9 +30,11 @@ class LoginCubit extends Cubit<LoginState> {
         ),
       );
     } catch (e) {
-      LoginState(
-        status: Status.error,
-        errorMessage: _authRepository.getExceptionMessage(e, email, password),
+      emit(
+        LoginState(
+          status: Status.error,
+          errorMessage: _authRepository.getExceptionMessage(e, email, password),
+        ),
       );
     }
   }
